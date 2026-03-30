@@ -1,0 +1,2474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АБТ-памятка | Приказ №16 — ГКБ им. В.П. Демихова</title>
+<meta name="description" content="Интерактивная памятка по рациональной антибактериальной терапии. Приказ №16 от 09.01.2025, ГКБ им. В.П. Демихова.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap" rel="stylesheet">
+
+<style>
+/* === BASE.CSS — Design Tokens & Reset === */
+
+:root {
+  /* Primary palette */
+  --blue-50: #edf6fc;
+  --blue-100: #d0e8f7;
+  --blue-200: #a1d1ef;
+  --blue-300: #5db3e2;
+  --blue-400: #2a92cc;
+  --blue-500: #1a73a7;
+  --blue-600: #155d87;
+  --blue-700: #114a6c;
+  --blue-800: #0d3750;
+  --blue-900: #0a2539;
+
+  /* Severity */
+  --green-50: #eefbf3;
+  --green-100: #d4f5e0;
+  --green-500: #22a355;
+  --green-600: #1b8a47;
+  --green-700: #16713a;
+  --yellow-50: #fefce8;
+  --yellow-100: #fef3c7;
+  --yellow-500: #d4a017;
+  --yellow-600: #b38b14;
+  --yellow-700: #8c6d10;
+  --red-50: #fef2f2;
+  --red-100: #fde2e2;
+  --red-500: #dc2626;
+  --red-600: #b91c1c;
+  --red-700: #991b1b;
+  --orange-50: #fff8ed;
+  --orange-100: #ffeccc;
+  --orange-500: #e67e22;
+  --orange-600: #c96b1a;
+  --orange-700: #a85614;
+
+  /* Neutrals */
+  --gray-50: #f8f9fa;
+  --gray-100: #f1f3f5;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+
+  /* Semantic tokens */
+  --bg: #ffffff;
+  --bg-raised: var(--gray-50);
+  --bg-card: #ffffff;
+  --bg-card-hover: var(--gray-50);
+  --text: var(--gray-900);
+  --text-secondary: var(--gray-600);
+  --text-muted: var(--gray-500);
+  --border: var(--gray-200);
+  --border-strong: var(--gray-300);
+  --accent: var(--blue-500);
+  --accent-bg: var(--blue-50);
+  --accent-text: var(--blue-700);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.1);
+
+  /* Severity semantic */
+  --severity-green-bg: var(--green-50);
+  --severity-green-border: var(--green-500);
+  --severity-green-text: var(--green-700);
+  --severity-yellow-bg: var(--yellow-50);
+  --severity-yellow-border: var(--yellow-500);
+  --severity-yellow-text: var(--yellow-700);
+  --severity-red-bg: var(--red-50);
+  --severity-red-border: var(--red-500);
+  --severity-red-text: var(--red-700);
+  --severity-orange-bg: var(--orange-50);
+  --severity-orange-border: var(--orange-500);
+  --severity-orange-text: var(--orange-700);
+
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'General Sans', 'Inter', -apple-system, sans-serif;
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --lh-tight: 1.25;
+  --lh-normal: 1.5;
+
+  /* Spacing */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Layout */
+  --header-height: 130px;
+  --max-width: 960px;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --bg: #111827;
+  --bg-raised: #1a2233;
+  --bg-card: #1e293b;
+  --bg-card-hover: #263044;
+  --text: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --border: #2d3748;
+  --border-strong: #3d4a5e;
+  --accent: #4da6db;
+  --accent-bg: rgba(26,115,167,0.15);
+  --accent-text: #7ec8f0;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.4);
+
+  --severity-green-bg: rgba(34,163,85,0.12);
+  --severity-green-border: var(--green-500);
+  --severity-green-text: #6ee7a0;
+  --severity-yellow-bg: rgba(212,160,23,0.12);
+  --severity-yellow-border: var(--yellow-500);
+  --severity-yellow-text: #fde68a;
+  --severity-red-bg: rgba(220,38,38,0.12);
+  --severity-red-border: var(--red-500);
+  --severity-red-text: #fca5a5;
+  --severity-orange-bg: rgba(230,126,34,0.12);
+  --severity-orange-border: var(--orange-500);
+  --severity-orange-text: #fdba74;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--lh-normal);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: var(--lh-tight);
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input {
+  font: inherit;
+  border: none;
+  background: none;
+  color: inherit;
+  outline: none;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+ul, ol { list-style: none; }
+
+/* Utility */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+/* === STYLE.CSS — Component Styles === */
+
+/* ---- Header ---- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) var(--sp-4);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.header-logo {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.header-subtitle {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+}
+
+.search-toggle, .theme-toggle {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: background 0.15s, color 0.15s;
+}
+.search-toggle:hover, .theme-toggle:hover {
+  background: var(--bg-raised);
+  color: var(--text);
+}
+
+.theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+/* Search bar */
+.search-bar {
+  display: none;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.search-bar.open {
+  display: flex;
+}
+.search-bar svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+.search-bar input {
+  flex: 1;
+  padding: var(--sp-2) 0;
+  font-size: var(--text-base);
+}
+.search-bar input::placeholder {
+  color: var(--text-muted);
+}
+.search-clear {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+.search-clear:hover { background: var(--bg-raised); }
+
+/* Tab navigation */
+.tab-nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--sp-4);
+}
+
+.tab-scroll {
+  display: flex;
+  gap: var(--sp-1);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: var(--sp-2);
+  padding-top: var(--sp-2);
+}
+.tab-scroll::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex-shrink: 0;
+  padding: var(--sp-2) var(--sp-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.tab-btn:hover {
+  color: var(--text);
+  background: var(--bg-raised);
+}
+.tab-btn.active {
+  color: var(--accent);
+  background: var(--accent-bg);
+  font-weight: 600;
+}
+
+/* ---- Main ---- */
+.app-main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--sp-4);
+  min-height: calc(100vh - 200px);
+}
+
+/* ---- Cards ---- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-3);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-title {
+  font-size: var(--text-md);
+  font-weight: 600;
+  margin-bottom: var(--sp-3);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.card-section {
+  margin-bottom: var(--sp-3);
+}
+.card-section:last-child { margin-bottom: 0; }
+
+.card-section-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--sp-2);
+}
+
+/* Drug items */
+.drug-item {
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--text-base);
+  line-height: 1.55;
+}
+.drug-item:last-child { border-bottom: none; }
+
+.drug-name {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.drug-dose {
+  color: var(--accent-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.drug-route {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-raised);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: var(--sp-1);
+  vertical-align: middle;
+}
+
+.drug-or {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  padding: var(--sp-1) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ---- Badges ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.badge-green {
+  background: var(--severity-green-bg);
+  color: var(--severity-green-text);
+  border: 1px solid var(--severity-green-border);
+}
+.badge-yellow {
+  background: var(--severity-yellow-bg);
+  color: var(--severity-yellow-text);
+  border: 1px solid var(--severity-yellow-border);
+}
+.badge-red {
+  background: var(--severity-red-bg);
+  color: var(--severity-red-text);
+  border: 1px solid var(--severity-red-border);
+}
+.badge-orange {
+  background: var(--severity-orange-bg);
+  color: var(--severity-orange-text);
+  border: 1px solid var(--severity-orange-border);
+}
+.badge-blue {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  border: 1px solid var(--accent);
+}
+
+/* Severity left-border cards */
+.severity-card {
+  border-left: 4px solid;
+  padding-left: var(--sp-4);
+}
+.severity-green { border-left-color: var(--severity-green-border); }
+.severity-yellow { border-left-color: var(--severity-yellow-border); }
+.severity-red { border-left-color: var(--severity-red-border); }
+.severity-orange { border-left-color: var(--severity-orange-border); }
+
+/* ---- Callout boxes ---- */
+.callout {
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-4);
+  margin: var(--sp-3) 0;
+  font-size: var(--text-sm);
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+}
+
+.callout-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+}
+
+.callout-mrsa {
+  background: var(--severity-orange-bg);
+  border: 1px solid var(--severity-orange-border);
+  color: var(--severity-orange-text);
+}
+
+.callout-candida {
+  background: var(--severity-red-bg);
+  border: 1px solid var(--severity-red-border);
+  color: var(--severity-red-text);
+}
+
+.callout-info {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent);
+  color: var(--accent-text);
+}
+
+.callout .drug-name {
+  color: inherit;
+}
+
+/* ---- Stratification table ---- */
+.strat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--sp-3);
+}
+
+.strat-header {
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.strat-header:hover {
+  background: var(--bg-card-hover);
+}
+
+.strat-type {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.strat-name {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.strat-chevron {
+  width: 20px;
+  height: 20px;
+  color: var(--text-muted);
+  transform: rotate(0deg);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.strat-card.open .strat-chevron {
+  transform: rotate(180deg);
+}
+
+.strat-body {
+  display: none;
+  padding: 0 var(--sp-4) var(--sp-4);
+  border-top: 1px solid var(--border);
+}
+.strat-card.open .strat-body {
+  display: block;
+  padding-top: var(--sp-3);
+}
+
+.strat-row {
+  display: flex;
+  gap: var(--sp-2);
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--text-sm);
+}
+.strat-row:last-child { border-bottom: none; }
+
+.strat-label {
+  flex-shrink: 0;
+  width: 120px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding-top: 2px;
+}
+
+.strat-value {
+  flex: 1;
+  color: var(--text);
+}
+
+/* ---- Accordion (Surgical) ---- */
+.accordion {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--sp-3);
+  background: var(--bg-card);
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-md);
+  color: var(--text);
+  transition: background 0.15s;
+}
+.accordion-header:hover {
+  background: var(--bg-card-hover);
+}
+
+.accordion-chevron {
+  width: 20px;
+  height: 20px;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.accordion.open .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  display: none;
+  padding: 0 var(--sp-4) var(--sp-4);
+  border-top: 1px solid var(--border);
+}
+.accordion.open .accordion-body {
+  display: block;
+  padding-top: var(--sp-3);
+}
+
+.surg-item {
+  background: var(--bg-raised);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+.surg-item:last-child { margin-bottom: 0; }
+
+.surg-diagnosis {
+  font-weight: 700;
+  font-size: var(--text-base);
+  margin-bottom: var(--sp-2);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.surg-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-2);
+}
+
+@media (min-width: 640px) {
+  .surg-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.surg-col {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-2) var(--sp-3);
+}
+
+.surg-col-title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--sp-1);
+  padding-bottom: var(--sp-1);
+  border-bottom: 1px solid var(--border);
+}
+
+.surg-col .drug-item {
+  font-size: var(--text-sm);
+  padding: var(--sp-1) 0;
+}
+
+.op-type-badge {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.op-type-plan {
+  background: var(--severity-green-bg);
+  color: var(--severity-green-text);
+  border: 1px solid var(--severity-green-border);
+}
+.op-type-extr {
+  background: var(--severity-red-bg);
+  color: var(--severity-red-text);
+  border: 1px solid var(--severity-red-border);
+}
+.op-type-repeat {
+  background: var(--severity-yellow-bg);
+  color: var(--severity-yellow-text);
+  border: 1px solid var(--severity-yellow-border);
+}
+
+.surg-regime {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: var(--sp-2);
+  font-style: italic;
+}
+
+/* ---- Tab content ---- */
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tab intro */
+.tab-intro {
+  margin-bottom: var(--sp-4);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* ---- Search highlight ---- */
+mark {
+  background: var(--yellow-100);
+  color: var(--gray-900);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+[data-theme="dark"] mark {
+  background: rgba(212,160,23,0.3);
+  color: var(--text);
+}
+
+.no-results {
+  text-align: center;
+  padding: var(--sp-12) var(--sp-4);
+  color: var(--text-muted);
+}
+.no-results-icon {
+  font-size: 2rem;
+  margin-bottom: var(--sp-3);
+}
+
+/* ---- Footer ---- */
+.app-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--sp-6) var(--sp-4);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.footer-note {
+  margin-top: var(--sp-2);
+  font-style: italic;
+}
+.footer-pplx {
+  display: inline-block;
+  margin-top: var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-decoration: underline;
+}
+.footer-pplx:hover {
+  color: var(--text-secondary);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+  .header-top { padding: var(--sp-2) var(--sp-3); }
+  .tab-nav { padding: 0 var(--sp-3); }
+  .app-main { padding: var(--sp-3); }
+  .card { padding: var(--sp-3); }
+  .strat-label { width: 90px; }
+}
+
+/* Pneumonia sub-tabs */
+.pneumonia-subtabs {
+  display: flex;
+  gap: var(--sp-1);
+  margin-bottom: var(--sp-4);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: var(--sp-1);
+}
+.pneumonia-subtabs::-webkit-scrollbar { display: none; }
+
+.pneumonia-subtab {
+  flex-shrink: 0;
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.pneumonia-subtab:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+.pneumonia-subtab.active {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.pneumonia-section {
+  display: none;
+}
+.pneumonia-section.active {
+  display: block;
+}
+
+/* Hide all content in search mode, show matched */
+.search-active .card[data-match="false"],
+.search-active .strat-card[data-match="false"],
+.search-active .accordion[data-match="false"],
+.search-active .surg-item[data-match="false"] {
+  display: none;
+}
+
+.search-active .tab-content {
+  display: block !important;
+}
+.search-active .tab-content .tab-intro { display: none; }
+
+.search-tab-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: var(--sp-4) 0 var(--sp-2);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--border);
+}
+.search-tab-title:first-child { margin-top: 0; }
+
+/* Stratification type badges used as references */
+.type-ref {
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.type-ref:hover {
+  transform: scale(1.05);
+}
+.type-ref:active {
+  transform: scale(0.97);
+}
+</style>
+</head>
+<body>
+
+<header class="app-header" id="appHeader">
+  <div class="header-top">
+    <div class="header-brand">
+      <svg class="header-logo" viewBox="0 0 32 32" width="28" height="28" fill="none" aria-label="АБТ Памятка">
+        <rect x="2" y="2" width="28" height="28" rx="6" stroke="currentColor" stroke-width="2"/>
+        <path d="M9 22V10h3l4 7 4-7h3v12h-3v-7l-4 6-4-6v7z" fill="currentColor"/>
+      </svg>
+      <div>
+        <h1 class="header-title">АБТ-памятка</h1>
+        <p class="header-subtitle">Приказ №16 · ГКБ им. Демихова · 2025</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="search-toggle" id="searchToggle" aria-label="Поиск">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Тёмная тема">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="searchInput" placeholder="Поиск по препаратам, диагнозам…" autocomplete="off">
+    <button class="search-clear" id="searchClear" aria-label="Очистить">&times;</button>
+  </div>
+  <nav class="tab-nav" id="tabNav">
+    <div class="tab-scroll">
+      <button class="tab-btn active" data-tab="stratification">Стратификация</button>
+      <button class="tab-btn" data-tab="sepsis">Сепсис</button>
+      <button class="tab-btn" data-tab="abdominal">Абдоминальная</button>
+      <button class="tab-btn" data-tab="uti">МВП</button>
+      <button class="tab-btn" data-tab="pneumonia">Пневмония</button>
+      <button class="tab-btn" data-tab="skin">Кожа и мягкие ткани</button>
+      <button class="tab-btn" data-tab="endocarditis">Эндокардит</button>
+      <button class="tab-btn" data-tab="surgical">Хирургическая профилактика</button>
+    </div>
+  </nav>
+</header>
+
+<main class="app-main" id="appMain">
+  <!-- Content rendered by app.js -->
+</main>
+
+<footer class="app-footer">
+  <div class="footer-inner">
+    <p>Приказ №16 от 09.01.2025 | ГКБ им. В.П. Демихова | На 2025 год</p>
+    <p class="footer-note">Данная памятка носит справочный характер. Назначение терапии — по усмотрению лечащего врача.</p>
+  </div>
+</footer>
+
+<script>
+/* === APP.JS — АБТ Памятка === */
+
+// ---- Helpers ----
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const h = (str) => str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function drugHTML(name, dose, route) {
+  let s = `<span class="drug-name">${h(name)}</span>`;
+  if (dose) s += ` <span class="drug-dose">${h(dose)}</span>`;
+  if (route) s += ` <span class="drug-route">${h(route)}</span>`;
+  return s;
+}
+
+const chevronSVG = `<svg class="strat-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+const chevronAccSVG = `<svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+const warnSVG = `<svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+
+const mrsaCallout = `<div class="callout callout-mrsa">
+  ${warnSVG}
+  <div><strong>Анти-MRSA при наличии факторов риска:</strong><br>
+    ${drugHTML('Ванкомицин','1г 2р/сут','в/в')} или ${drugHTML('Линезолид','600мг 2р/сут','в/в')}
+  </div>
+</div>`;
+
+const candidaCallout = `<div class="callout callout-candida">
+  ${warnSVG}
+  <div><strong>Анти-Candida (стабильный пациент, без предш. азолов):</strong><br>
+    ${drugHTML('Флуконазол','400-800мг 1р/сут','в/в')}
+  </div>
+</div>`;
+
+function typeBadge(type, cls) {
+  return `<span class="badge ${cls} type-ref" data-type="${type}" title="Перейти к стратификации">${type}</span>`;
+}
+
+// ---- DATA ----
+
+// TAB 1: Stratification
+const stratData = [
+  {
+    type: 'Тип I', name: 'Внебольничная', color: 'green',
+    rows: [
+      ['Характер', 'Не было обращений за медпомощью в течение последних 3 месяцев'],
+      ['Патология', 'Без тяжёлой сопутствующей патологии'],
+      ['АБТ', 'Без АБТ в течение последних 90 дней'],
+      ['Возбудители', 'Нет полирезистентных'],
+      ['Факторы ПРВ', 'Нет'],
+    ]
+  },
+  {
+    type: 'Тип II', name: 'Внебольничная с факторами риска ПРВ', color: 'yellow',
+    rows: [
+      ['Характер', 'Обращение за медпомощью (амбулаторной/дневной)'],
+      ['Стационар', 'Госпитализация, поликлиника, гемодиализ, учреждения длительного ухода — в последние 3 мес'],
+      ['АБТ', 'Предшествующая АБТ (последние 90 дней)'],
+      ['Патология', 'ХБП, сахарный диабет, печень, сердечная недостаточность, алкогольная висцеропатия, наркомания, ВИЧ'],
+      ['Поездки', 'За границу в регион с высоким уровнем ПРВ'],
+      ['Возбудители', 'Энтеробактерии-продуценты БЛРС и/или чувствительные к ФХ или DRSP'],
+      ['Факторы ПРВ', 'Нет'],
+    ]
+  },
+  {
+    type: 'Тип IIIа', name: 'Нозокомиальная без факторов риска ПРВ', color: 'orange',
+    rows: [
+      ['Стационар', 'Длительность <7 дней (в ОРИТ <3 дней)'],
+      ['Операции', 'Отсутствие оперативных вмешательств'],
+      ['АБТ', 'Не получал АБТ или профилактику >24 часов'],
+      ['Пациенты', 'Любые'],
+      ['Возбудители', 'Энтеробактерии-продуценты БЛРС'],
+      ['Факторы ПРВ', 'Нет'],
+    ]
+  },
+  {
+    type: 'Тип IIIb', name: 'Нозокомиальная с факторами риска ПРВ', color: 'red',
+    rows: [
+      ['Стационар', 'Длительность >7 дней (в ОРИТ >3 дней)'],
+      ['АБТ', 'Предшествующая антибактериальная терапия'],
+      ['Операции', 'Оперативные вмешательства'],
+      ['Течение', 'Тяжёлое течение основного заболевания или тяжёлая коморбидность'],
+      ['Возбудители', 'Энтеробактерии-продуценты БЛРС и карбапенемаз, MRSA, НФГОБ'],
+      ['Факторы ПРВ', 'Факторы риска MRSA, НФГОБ'],
+    ]
+  },
+  {
+    type: 'Тип IV', name: 'Нозокомиальная с факторами риска ИК', color: 'red',
+    rows: [
+      ['Основа', 'Пациенты III типа + лихорадка >38°С >6 дней на фоне адекватной АБТ'],
+      ['Колонизация', 'Распространённая (≥2) колонизация Candida spp.'],
+      ['Факторы ИК', '• Внутривенный катетер\n• Полное парентеральное питание\n• ГКС или иммуносупрессанты\n• Лапаротомия'],
+    ]
+  }
+];
+
+// TAB 2: Sepsis
+const sepsisData = [
+  {
+    level: 'Тип I', badge: 'badge-green', severity: 'severity-green',
+    title: 'Внебольничная инфекция',
+    groups: [
+      {
+        name: 'Ингибиторозащищённый пенициллин',
+        drugs: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г 3-4р/сут', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5-3г 3-4р/сут', r: 'в/в' },
+        ]
+      },
+      {
+        name: 'Антипсевдомонасковый фторхинолон',
+        drugs: [{ n: 'Левофлоксацин', d: '500мг 2р/сут', r: 'в/в' }]
+      },
+    ]
+  },
+  {
+    level: 'Тип II', badge: 'badge-yellow', severity: 'severity-yellow',
+    title: 'Внебольничная с факторами риска ПРВ',
+    groups: [
+      {
+        name: 'Ингибиторозащищённый бета-лактам широкого спектра',
+        drugs: [
+          { n: 'Цефотаксим/сульбактам', d: '1,5-3г 3-4р/сут', r: 'в/в' },
+          { n: 'Цефтриаксон/сульбактам', d: '1,5-3г 1-2р/сут', r: 'в/в' },
+        ]
+      },
+      {
+        name: 'Цефалоспорины IV поколения',
+        drugs: [{ n: 'Цефепим', d: '2г 2р/сут', r: 'в/в' }]
+      },
+      {
+        name: 'Фторхинолоны + метронидазол',
+        drugs: [
+          { n: 'Левофлоксацин', d: '500мг 2р/сут', r: 'в/в' },
+          { n: 'Моксифлоксацин', d: '400мг 1р/сут', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг 3р/сут', r: 'в/в' },
+        ]
+      },
+    ]
+  },
+  {
+    level: 'Тип IIIа-b', badge: 'badge-orange', severity: 'severity-orange',
+    title: 'Нозокомиальная (с/без факторов риска ПРВ)',
+    groups: [
+      {
+        name: 'При риске Acinetobacter (группа А)',
+        drugs: [
+          { n: 'Цефоперазон/сульбактам', d: '4г 2р/сут', r: 'в/в' },
+          { n: 'Цефепим/сульбактам', d: '4г 2р/сут', r: 'в/в' },
+          { n: 'Левофлоксацин', d: '500мг 2р/сут', r: 'в/в' },
+        ]
+      },
+    ],
+    mrsa: true,
+  },
+  {
+    level: 'Тип IIIb-IV', badge: 'badge-red', severity: 'severity-red',
+    title: 'Нозокомиальная тяжёлая / риск ИК',
+    groups: [
+      {
+        name: 'Карбапенем II группы',
+        drugs: [
+          { n: 'Имипенем/циластатин', d: '1г 3-4р/сут', r: 'в/в' },
+          { n: 'Меропенем', d: '1-2г 3р/сут (3-час. инфузия)', r: 'в/в' },
+        ]
+      },
+      {
+        name: 'Ингибиторозащищённый бета-лактам широкого спектра',
+        drugs: [
+          { n: 'Цефепим/сульбактам', d: '2-4г 2р/сут', r: 'в/в' },
+          { n: 'Цефоперазон/сульбактам', d: '2-4г 2-3р/сут', r: 'в/в' },
+        ]
+      },
+    ],
+    mrsa: true, candida: true,
+  },
+];
+
+// TAB 3: Abdominal
+const abdominalData = [
+  {
+    level: 'Тип I', badge: 'badge-green', severity: 'severity-green',
+    title: 'Внебольничная',
+    groups: [
+      {
+        name: 'Ингибиторозащищённый пенициллин',
+        drugs: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г 3-4р/сут', r: 'в/в, в/м' },
+          { n: 'Ампициллин/сульбактам', d: '3г 3-4р/сут', r: 'в/в' },
+        ]
+      },
+    ]
+  },
+  {
+    level: 'Тип II', badge: 'badge-yellow', severity: 'severity-yellow',
+    title: 'С факторами риска ПРВ',
+    groups: [
+      {
+        name: 'Ингибиторозащищённый бета-лактам',
+        drugs: [
+          { n: 'Цефотаксим/сульбактам', d: '1,5-3г 3-4р/сут', r: 'в/в, в/м' },
+          { n: 'Цефтриаксон/сульбактам', d: '1,5-3г 1-2р/сут', r: 'в/в, в/м' },
+        ]
+      },
+      {
+        name: 'ФХ + метронидазол',
+        drugs: [
+          { n: 'Ципрофлоксацин', d: '400-600мг 2р/сут', r: 'в/в' },
+          { n: 'Моксифлоксацин', d: '400мг 1р/сут', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг 3р/сут', r: 'в/в' },
+        ]
+      },
+      {
+        name: 'Карбапенем I группы',
+        drugs: [
+          { n: 'Эртапенем', d: '1г 1р/сут', r: 'в/в' },
+        ]
+      },
+    ],
+    mrsa: true,
+  },
+  {
+    level: 'Тип IIIb-IV', badge: 'badge-red', severity: 'severity-red',
+    title: 'Нозокомиальная тяжёлая',
+    groups: [
+      {
+        name: 'Карбапенем II группы',
+        drugs: [
+          { n: 'Имипенем/циластатин', d: '1г 3-4р/сут', r: 'в/в' },
+          { n: 'Меропенем', d: '1-2г 3-4р/сут (3-час. инфузия)', r: 'в/в' },
+        ]
+      },
+      {
+        name: 'При риске Acinetobacter',
+        drugs: [
+          { n: 'Цефепим/сульбактам', d: '2-4г 2р/сут', r: 'в/в, в/м' },
+          { n: 'Цефоперазон/сульбактам', d: '2-4г 2-3р/сут', r: 'в/в' },
+        ]
+      },
+    ],
+    mrsa: true, candida: true,
+  },
+];
+
+// TAB 4: UTI
+const utiData = [
+  {
+    level: 'Тип I-II', badge: 'badge-green', severity: 'severity-green',
+    title: 'Верхние мочевые пути (пиелонефрит)',
+    groups: [
+      {
+        name: 'Ингибиторозащищённый пенициллин',
+        drugs: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г 3-4р/сут', r: 'в/в, в/м' },
+          { n: 'Ампициллин/сульбактам', d: '1,5-3г 3-4р/сут', r: 'в/в, в/м' },
+        ]
+      },
+      {
+        name: 'Фторхинолон II-III поколений',
+        drugs: [
+          { n: 'Левофлоксацин', d: '500мг 1-2р/сут', r: 'в/в' },
+          { n: 'Ципрофлоксацин', d: '500мг 2р/сут', r: 'в/в' },
+        ]
+      },
+    ]
+  },
+  {
+    level: 'Нижние МВП', badge: 'badge-yellow', severity: 'severity-yellow',
+    title: 'Цистит, уретрит',
+    groups: [
+      {
+        name: 'Основные',
+        drugs: [
+          { n: 'Фосфомицин', d: '3-4г 3р/сут', r: '' },
+          { n: 'Цефалоспорины III поколения', d: '', r: '' },
+          { n: 'Ципрофлоксацин', d: '600мг 2р/сут', r: 'в/в' },
+        ]
+      },
+    ]
+  },
+  {
+    level: 'Катетер-ассоц.', badge: 'badge-red', severity: 'severity-red',
+    title: 'Катетер-ассоциированная ИМП',
+    groups: [
+      {
+        name: 'Основные',
+        drugs: [
+          { n: 'Эртапенем', d: '1г 1р/сут', r: 'в/в' },
+          { n: 'Фосфомицин', d: '3-4г 3р/сут', r: '' },
+          { n: 'Амикацин', d: '15мг/кг 1р/сут', r: 'в/в' },
+        ]
+      },
+    ],
+    candida: true,
+  },
+];
+
+// TAB 6: Skin
+const skinData = [
+  {
+    title: 'Неосложнённая рожа', severity: 'severity-green',
+    groups: [{
+      name: 'Основные',
+      drugs: [
+        { n: 'Амоксициллин', d: '1г 4р/сут', r: 'в/в, в/м' },
+        { n: 'Клиндамицин', d: '600мг 3-4р/сут', r: 'в/в, в/м' },
+        { n: 'Линкомицин', d: '600мг 3-4р/сут', r: 'в/в, в/м' },
+      ]
+    }]
+  },
+  {
+    title: 'Осложнённая рожа', severity: 'severity-yellow',
+    groups: [{
+      name: 'Основные',
+      drugs: [
+        { n: 'Амоксициллин/клавуланат', d: '1,5-3г 4р/сут', r: 'в/в, в/м' },
+        { n: 'Клиндамицин или Линкомицин', d: '', r: '' },
+        { n: 'Цефазолин', d: '2г 3-4р/сут', r: 'в/в' },
+      ]
+    }]
+  },
+  {
+    title: 'Целлюлит, флегмона', severity: 'severity-yellow',
+    groups: [{
+      name: 'Основные',
+      drugs: [
+        { n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в' },
+        { n: 'Клиндамицин или Линкомицин', d: '600мг 3-4р/сут', r: 'в/в' },
+        { n: 'Цефуроксим', d: '1,5г 3р/сут', r: 'в/в' },
+      ]
+    }]
+  },
+  {
+    title: 'Некротические инфекции', severity: 'severity-red',
+    groups: [{
+      name: 'Основные',
+      drugs: [
+        { n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в' },
+        { n: 'Ампициллин/сульбактам', d: '1,5-3г 3-4р/сут', r: 'в/в' },
+        { n: 'Цефтриаксон/сульбактам', d: '3р/сут', r: 'в/в' },
+      ]
+    }]
+  },
+  {
+    title: 'Некротический фасциит, пиомиозит', severity: 'severity-red',
+    groups: [{
+      name: 'Основные',
+      drugs: [
+        { n: 'Клиндамицин или Линкомицин', d: '600мг 3-4р/сут', r: 'в/в' },
+        { n: 'Метронидазол', d: '500мг 3-4р/сут', r: 'в/в' },
+      ]
+    }]
+  },
+  {
+    title: 'Укушенные раны', severity: 'severity-yellow',
+    groups: [{
+      name: 'Основные',
+      drugs: [{ n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в' }]
+    }]
+  },
+];
+
+// TAB 7: Endocarditis
+const endocarditisData = {
+  basic: [
+    { n: 'Оксациллин', d: '2г 4-6р/сут', r: 'в/в' },
+    { n: 'Цефазолин', d: '2г 3-4р/сут', r: 'в/в' },
+    { n: 'Ванкомицин', d: '1г 2р/сут', r: 'в/в' },
+    { n: 'Цефтаролина фосамил', d: '600мг 2р/сут', r: 'в/в' },
+    { n: '± Рифампицин', d: '300-450мг 2р/сут', r: 'в/в' },
+  ],
+  severe: [
+    { n: 'Имипенем/циластатин', d: '1г 3-4р/сут', r: 'в/в' },
+    { n: 'Меропенем', d: '1-2г 3-4р/сут (3-час. инфузия)', r: 'в/в' },
+    { n: 'Полимиксин В', d: '1-1,25мг/кг 1р/сут', r: 'в/в' },
+  ],
+  notes: [
+    'Ванкомицин применять при СКФ > 30 мл/мин/1,73м²',
+    'Назначение Полимиксина В — только с подписью клинического фармаколога',
+    'Цефоперазон/сульбактам — только при риске Acinetobacter baumannii или в синергизме',
+  ]
+};
+
+// TAB 5: Pneumonia
+const pneumoniaData = {
+  vp_light: {
+    title: 'Нетяжёлая ВП без сопутствующих (вне ОРИТ)',
+    subtitle: 'CURB-65 0-2 балла · S.pneumoniae, M.pneumoniae, C.pneumoniae, H.influenzae',
+    main: [
+      { n: 'Ампициллин', d: '2г 4р/сут', r: 'в/в, в/м' },
+      { n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в' },
+      { n: 'Ампициллин/сульбактам', d: '1,5г 3-4р/сут', r: 'в/в, в/м' },
+      { n: 'Цефотаксим', d: '1-2г 3р/сут', r: 'в/в, в/м' },
+      { n: '± Азитромицин', d: '500мг 1р/сут', r: 'внутрь' },
+    ],
+    alt: [
+      { n: 'Цефотаксим/сульбактам', d: '1,5г 2р/сут', r: 'в/в' },
+      { n: 'Левофлоксацин', d: '750мг 1р/сут', r: 'в/в' },
+      { n: 'Моксифлоксацин', d: '400мг 1р/сут', r: 'в/в' },
+    ],
+    note: 'К β-лактамам добавляются макролиды при условии, что больные не принимали их в ближайшие 3 мес.',
+  },
+  vp_comorbid: {
+    title: 'Нетяжёлая ВП с сопутствующими / АБП за последние 3 мес',
+    subtitle: 'S.pneumoniae, H.influenzae, C.pneumoniae, S.aureus, Enterobacterales',
+    main: [
+      { n: 'Левофлоксацин', d: '750мг 1р/сут', r: 'в/в' },
+      { n: 'Цефтаролина фосамил', d: '600мг 2р/сут', r: 'в/в' },
+      { n: 'Эртапенем', d: '1г 1р/сут', r: 'в/в, в/м' },
+    ],
+    alt: [
+      { n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в' },
+      { n: 'Ампициллин/сульбактам', d: '1,5г 3-4р/сут', r: 'в/в, в/м' },
+      { n: 'Цефотаксим/сульбактам', d: '1,5г 2р/сут', r: 'в/в' },
+    ],
+  },
+  severe_norisk: {
+    title: 'Тяжёлая ВП без доп. факторов риска (ОРИТ)',
+    subtitle: 'CURB-65 ≥3 · S.pneumoniae, S.aureus, Enterobacterales, H.influenzae, Legionella',
+    main: [
+      { n: 'Цефотаксим/сульбактам', d: '3г 3р/сут', r: 'в/в' },
+      { n: '+ Амикацин', d: '500мг 2р/сут', r: 'ингал.' },
+      { n: 'Цефтаролина фосамил', d: '600мг 2р/сут', r: 'в/в' },
+    ],
+    alt: [
+      { n: 'Эртапенем', d: '1г 1р/сут', r: 'в/в' },
+      { n: '+ Амикацин', d: '500мг 2р/сут', r: 'ингал.' },
+      { n: 'Цефоперазон/сульбактам', d: '4г 2р/сут', r: 'в/в' },
+      { n: '+ Амикацин', d: '500мг 2р/сут или 1г', r: 'ингал./в/в' },
+    ],
+    extra: {
+      name: 'Антилегионеллёзная терапия',
+      drugs: [
+        { n: 'Левофлоксацин', d: '500мг 2р/сут', r: 'в/в' },
+        { n: '+ Рифампицин', d: '450мг 2р/сут', r: 'в/в' },
+        { n: 'или Азитромицин', d: '500мг 1р/сут', r: 'в/в' },
+        { n: '+ Рифампицин', d: '450мг 2р/сут', r: 'в/в' },
+      ]
+    }
+  },
+  severe_pseudo: {
+    title: 'С факторами риска P. aeruginosa',
+    main: [
+      { n: 'Цефепим', d: '2г 2-3р/сут', r: 'в/в' },
+      { n: '+ Ципрофлоксацин', d: '600мг 2р/сут', r: 'в/в' },
+      { n: 'или + Амикацин', d: '1г 1р/сут', r: 'в/в' },
+      { n: 'Цефтазидим', d: '2г 2-3р/сут', r: 'в/в' },
+      { n: '+ Амикацин', d: '1г 1р/сут', r: 'в/в' },
+      { n: 'Цефепим/сульбактам', d: '4г 2р/сут', r: 'в/в' },
+      { n: '+ Амикацин', d: '1г 1р/сут', r: 'в/в' },
+    ],
+  },
+  severe_acin: {
+    title: 'С факторами риска Acinetobacter baumannii',
+    main: [
+      { n: 'Цефоперазон/сульбактам', d: '4г 2р/сут', r: 'в/в' },
+    ],
+  },
+  severe_mrsa: {
+    title: '+ MRSA / Acinetobacter spp.',
+    alt: [
+      { n: 'Имипенем/циластатин', d: '500мг 3-4р/сут', r: 'в/в' },
+      { n: 'Меропенем', d: '1г 3р/сут', r: 'в/в' },
+      { n: 'Пиперациллин/тазобактам', d: '4,5г 3р/сут', r: 'в/в' },
+      { n: '± Амикацин', d: '1г 1р/сут', r: 'в/в' },
+      { n: 'или ± Ципрофлоксацин', d: '600мг 2р/сут', r: 'в/в' },
+    ],
+    mrsa: true,
+  },
+  noso_early: {
+    title: 'Ранняя НП (≤4 дней), без факторов ПРВ',
+    subtitle: 'S.pneumoniae, H.influenzae, S.aureus, Enterobacterales',
+    main: [
+      { n: 'Амоксициллин/клавуланат', d: '1-2г 4р/сут', r: 'в/в, в/м' },
+      { n: 'Ампициллин/сульбактам', d: '1,5г 4р/сут', r: 'в/в' },
+      { n: 'Цефотаксим', d: '1-2г 3р/сут', r: 'в/в, в/м' },
+    ],
+    alt: [
+      { n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в, в/м' },
+      { n: 'Карбапенемы', d: '(Меропенем, Имипенем, Эртапенем)', r: '' },
+    ],
+  },
+  noso_late: {
+    title: 'Поздняя НП (≥5 дней) / факторы риска ПРВ',
+    subtitle: 'Enterobacterales (БЛРС+), P.aeruginosa, Acinetobacter, MRSA',
+    main: [
+      { n: 'Амоксициллин/клавуланат', d: '', r: '' },
+      { n: 'Цефотаксим / Цефтриаксон / Цефтазидим', d: '', r: '' },
+      { n: 'Левофлоксацин / Ципрофлоксацин', d: '', r: '' },
+      { n: 'Имипенем / Меропенем / Дорипенем', d: '', r: '' },
+    ],
+    alt: [
+      { n: 'Цефепим/сульбактам', d: '', r: '' },
+      { n: 'Цефтазидим + Амикацин', d: '', r: '' },
+    ],
+    mrsa: true,
+  },
+  covid_preg: {
+    title: 'Пневмония у беременных с COVID',
+    main: [
+      { n: 'Ампициллин', d: '1-2г 4р/сут', r: 'в/в, в/м' },
+      { n: 'Ампициллин/сульбактам', d: '1,5г 4р/сут', r: 'в/в' },
+      { n: 'Цефотаксим', d: '1-2г 3р/сут', r: 'в/в, в/м' },
+      { n: '± Азитромицин / Линезолид', d: '', r: '' },
+    ],
+  },
+  covid_risk: {
+    title: 'Тяжёлая COVID-19 — группа риска (ОРИТ)',
+    subtitle: 'Недавние операции, госпитализации, катетер, диализ, дома престарелых',
+    main: [
+      { n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в' },
+      { n: '+ Азитромицин', d: '500мг 1р/сут', r: 'в/в' },
+      { n: 'Ампициллин/сульбактам', d: '1,5г 3р/сут', r: 'в/в' },
+      { n: 'Цефотаксим', d: '2г 3р/сут', r: 'в/в' },
+      { n: '+ Азитромицин', d: '500мг 1р/сут', r: 'в/в' },
+      { n: 'Цефтаролина фосамил', d: '600мг 2р/сут', r: 'в/в' },
+      { n: '+ Азитромицин', d: '500мг 1р/сут', r: 'в/в' },
+    ],
+    alt: [
+      { n: 'Левофлоксацин', d: '500мг-1г 1р/сут', r: 'в/в' },
+      { n: '+ Цефотаксим', d: '2г 2р/сут', r: 'в/в' },
+      { n: 'или + Цефтриаксон', d: '2г 3р/сут', r: 'в/в' },
+    ],
+  },
+  covid_pseudo: {
+    title: 'COVID-19 с риском P.aeruginosa (ОРИТ)',
+    subtitle: 'Длит. ГКС, хронические заболевания, муковисцидоз, бронхоэктазы',
+    main: [
+      { n: 'Меропенем', d: '1г 3р/сут', r: 'в/в' },
+      { n: '+ Ципрофлоксацин', d: '400-600мг 2р/сут', r: 'в/в' },
+      { n: 'или + Левофлоксацин', d: '500мг-1г', r: 'в/в' },
+      { n: 'Дорипенем', d: '500мг 3р/сут', r: 'в/в' },
+      { n: 'Имипенем', d: '500мг 3-4р/сут', r: 'в/в' },
+      { n: '+ Ципрофлоксацин', d: '400-600мг 2р/сут', r: 'в/в' },
+      { n: '+ Азитромицин', d: '', r: '' },
+    ],
+  },
+  fungal: {
+    title: 'При факторах риска грибковой инфекции',
+    subtitle: 'Нейтропения, системная ГКС, тяжёлый грипп, A/H1N1',
+    main: [
+      { n: 'Вориконазол', d: '6мг/кг 2р (1-е сут) → 4мг/кг 2р', r: 'в/в' },
+      { n: 'Каспофунгин', d: '70мг (1-е сут) → 50мг 1р/сут', r: 'в/в' },
+      { n: 'Анидулафунгин', d: '200мг (1-е сут) → 100мг 1р/сут', r: 'в/в' },
+    ],
+  },
+};
+
+// TAB 8: Surgical prophylaxis
+const surgicalData = [
+  {
+    section: 'Холецистэктомия',
+    items: [
+      {
+        diagnosis: 'Хронический холецистит', opType: 'План',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5-3г', r: 'в/в' },
+          { n: 'Амоксициллин/сульбактам', d: '1,5г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '400мг', r: 'в/в' },
+          { n: 'Клиндамицин', d: '0,9г', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Острый холецистит катаральный', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5-3г', r: 'в/в' },
+          { n: 'Амоксициллин/сульбактам', d: '1,5г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '400мг', r: 'в/в' },
+          { n: 'Клиндамицин', d: '0,9г', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Флегмонозный холецистит', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        altEmpirical: [
+          { n: 'Клиндамицин', d: '0,9г', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Гангренозно-перфоративный холецистит', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+      },
+    ]
+  },
+  {
+    section: 'Аппендэктомия',
+    items: [
+      {
+        diagnosis: 'Острый аппендицит катаральный', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '600мг', r: 'в/в' },
+          { n: 'Клиндамицин', d: '0,9г', r: 'в/в' },
+        ],
+        regime: '48-72ч',
+      },
+      {
+        diagnosis: 'Тяжёлые формы аппендицита', opType: 'Экстр',
+        empirical: [
+          { n: 'Эртапенем', d: '1г', r: 'в/в' },
+          { n: 'Амоксициллин/клавуланат', d: '1,2г 3-4р/сут', r: 'в/в' },
+          { n: 'Цефтриаксон/сульбактам', d: '3г 1р/сут', r: 'в/в' },
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг 2р/сут', r: 'в/в' },
+        ],
+        mrsaNote: 'При факторах риска MRSA / Enterococcus faecium: Ванкомицин 1г 2р/сут в/в (СКФ>30) или Линезолид 600мг 2р/сут в/в',
+        regime: '48-72ч',
+      },
+    ]
+  },
+  {
+    section: 'Грыжесечение',
+    items: [
+      {
+        diagnosis: 'С имплантацией сетки', opType: 'План',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Цефазолин', d: '2г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ванкомицин', d: '1г (при MRSA)', r: 'в/в' },
+          { n: 'Клиндамицин', d: '1,5г', r: 'в/в' },
+          { n: 'Линкомицин', d: '600мг', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Осложнённая грыжа', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Цефазолин', d: '2г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Эртапенем', d: '1г', r: 'в/в' },
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг 3р/сут', r: 'в/в' },
+          { n: 'Цефтриаксон/сульбактам', d: '3г 1р/сут', r: 'в/в' },
+        ],
+        altEmpirical: [
+          { n: 'Меропенем/Имипенем', d: '0,5-1г 3р/сут', r: 'в/в' },
+        ],
+      },
+    ]
+  },
+  {
+    section: 'Операции на желудке и 12-п.к.',
+    items: [
+      {
+        diagnosis: 'Перфоративная язва', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Опухоли желудка', opType: 'План',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '400-600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+      },
+    ]
+  },
+  {
+    section: 'Операции на брюшной полости',
+    items: [
+      {
+        diagnosis: 'Проникающие ранения с повреждением толстой кишки', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Эртапенем', d: '1г', r: 'в/в' },
+          { n: '± Амикацин', d: '1г 1р/сут', r: 'в/в' },
+        ],
+        regime: '24-48ч',
+      },
+      {
+        diagnosis: 'Тонкокишечная непроходимость', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        regime: '48-72ч',
+      },
+      {
+        diagnosis: 'Толстокишечная непроходимость, опухоли толстой кишки', opType: 'План',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        regime: '24ч',
+      },
+      {
+        diagnosis: 'Перитонит первичный', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+        ],
+        regime: '5-7 сут',
+      },
+      {
+        diagnosis: 'Послеоперационный перитонит', opType: 'Повтор',
+        empirical: [
+          { n: 'Меропенем', d: '', r: 'в/в' },
+          { n: 'Имипенем/циластатин', d: '', r: 'в/в' },
+          { n: '+ Ванкомицин / Линезолид', d: '', r: '' },
+        ],
+      },
+      {
+        diagnosis: 'Панкреонекроз', opType: 'Экстр',
+        note: 'Режим зависит от APACHE-2 (< или >13 баллов)',
+        empirical: [
+          { n: 'Карбапенемы (Меропенем/Имипенем)', d: '', r: 'в/в' },
+        ],
+      },
+    ]
+  },
+  {
+    section: 'Сосудистая хирургия',
+    items: [
+      {
+        diagnosis: 'Флебэктомия (варикозная болезнь)', opType: 'План',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Линкомицин', d: '600мг', r: 'в/в' },
+          { n: '+ Гентамицин', d: '160мг', r: 'в/м' },
+        ],
+      },
+      {
+        diagnosis: 'ХВН с трофическими язвами', opType: 'План',
+        empirical: [
+          { n: 'Линкомицин', d: '600мг 2р', r: 'в/в' },
+          { n: '+ Гентамицин', d: '160мг', r: 'в/м' },
+          { n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Диабетическая стопа Wagner 2-5 ст.', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '400-600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Ципрофлоксацин + Метронидазол', d: '', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '4р/сут', r: 'в/в' },
+          { n: 'Эртапенем', d: '1г', r: 'в/в' },
+        ],
+        mrsaNote: 'При риске MRSA: Цефтаролин 0,6г 2р/сут в/в (СКФ>15) или Ванкомицин/Линезолид/Даптомицин',
+      },
+      {
+        diagnosis: 'Ампутация конечности (гангрена)', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '400мг', r: 'в/в' },
+        ],
+      },
+    ]
+  },
+  {
+    section: 'Нейрохирургия',
+    items: [
+      {
+        diagnosis: 'Операции при проникновении через ТМО', opType: 'План',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г 3р/сут', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5г 3-4р/сут', r: 'в/в' },
+          { n: 'Эртапенем', d: '1г 1р/сут', r: 'в/в' },
+        ],
+        regime: '3-5 сут',
+      },
+      {
+        diagnosis: 'Пациенты, получавшие а/б в стационаре', opType: 'Экстр',
+        empirical: [
+          { n: 'Пиперациллин/тазобактам', d: '4,5г 3р/сут', r: 'в/в' },
+          { n: 'Ципрофлоксацин', d: '600мг 2р/сут', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг 3р/сут', r: 'в/в' },
+        ],
+        regime: '3-5 сут',
+      },
+    ]
+  },
+  {
+    section: 'Ортопедия и травматология',
+    items: [
+      {
+        diagnosis: 'Эндопротезирование суставов, операции на стопах и позвоночнике', opType: 'План',
+        prophylaxis: [
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+          { n: 'Цефазолин', d: '2г', r: 'в/в' },
+          { n: 'Цефтриаксон', d: '2г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ванкомицин', d: '1г', r: 'в/в' },
+          { n: 'Линезолид', d: '0,6г', r: 'в/в' },
+          { n: 'Левофлоксацин', d: '1г', r: 'в/в' },
+        ],
+        mrsaNote: 'При риске MRSA: Ванкомицин 1г в/в или Линезолид 600мг 2р/сут в/в или Цефтаролин 0,6г в/в',
+      },
+      {
+        diagnosis: 'Закрытый перелом', opType: 'План',
+        prophylaxis: [
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+          { n: 'Цефазолин', d: '2г', r: 'в/в' },
+          { n: 'Ампициллин/сульбактам', d: '1,5г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Клиндамицин', d: '0,9г', r: 'в/в' },
+          { n: 'Линкомицин', d: '600мг', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Открытый перелом', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Ванкомицин', d: '1г', r: 'в/в' },
+          { n: 'или Даптомицин', d: '500мг 1р/сут', r: 'в/в' },
+          { n: '+ Имипенем/циластатин', d: '0,5-1г 3р/сут', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Повторные операции', opType: 'Повтор',
+        prophylaxis: [
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+          { n: 'или Ванкомицин', d: '', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол + Ванкомицин', d: '', r: '' },
+          { n: 'Цефепим/сульбактам + Амикацин + Рифампицин + Ко-тримоксазол', d: '', r: '' },
+        ],
+        regime: '10-14 сут',
+      },
+    ]
+  },
+  {
+    section: 'Гинекология',
+    items: [
+      {
+        diagnosis: 'Гинекологические операции (экстренные)', opType: 'Экстр',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г 3р/сут', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг 3р/сут', r: 'в/в' },
+          { n: 'Ципрофлоксацин', d: '400мг 2-3р/сут', r: 'в/в' },
+          { n: '+ Метронидазол', d: '', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Цефуроксим', d: '1,5г 3р/сут', r: 'в/в' },
+          { n: '+ Доксициклин', d: '100мг 2р/сут', r: 'внутрь' },
+        ],
+        regime: '3-5 сут',
+      },
+      {
+        diagnosis: 'Аборт (2 триместр), плановые гинекологические операции', opType: 'План',
+        prophylaxis: [
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+          { n: 'Цефазолин', d: '2г', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '400мг 2р/сут', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Ципрофлоксацин', d: '400мг 2р/сут', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г 3р/сут', r: 'в/в' },
+          { n: '+ Доксициклин', d: '100мг', r: 'внутрь' },
+          { n: 'Цефепим/сульбактам', d: '2-4г 2р/сут', r: 'в/в' },
+        ],
+        regime: '48-72ч',
+      },
+      {
+        diagnosis: 'Повторные операции в гинекологии', opType: 'Повтор',
+        empirical: [
+          { n: 'Меропенем', d: '1г 3р/сут', r: 'в/в' },
+          { n: 'Левофлоксацин', d: '500мг 1р/сут', r: 'в/в' },
+          { n: 'Доксициклин', d: '0,2г', r: 'внутрь' },
+        ],
+        note: 'С учётом посева',
+      },
+    ]
+  },
+  {
+    section: 'Урология',
+    items: [
+      {
+        diagnosis: 'ТУР мочевого пузыря', opType: 'План',
+        prophylaxis: [
+          { n: 'Цефуроксим', d: '2г', r: 'в/в' },
+          { n: 'Цефотаксим', d: '1,5г', r: 'в/в' },
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг 2р/сут', r: 'в/в' },
+          { n: 'Цефотаксим', d: '2г 3р/сут', r: 'в/в' },
+        ],
+        mrsaNote: 'При факторах риска Enterococcus faecium — Ванкомицин 1г 2р/сут в/в',
+        regime: '3-5 сут',
+      },
+      {
+        diagnosis: 'ТУР простаты', opType: 'План',
+        prophylaxis: [
+          { n: 'Цефуроксим', d: '', r: 'в/в' },
+          { n: 'Цефотаксим', d: '', r: 'в/в' },
+          { n: 'Амоксициллин/клавуланат', d: '', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '', r: 'в/в' },
+          { n: 'Цефотаксим', d: '', r: 'в/в' },
+        ],
+        mrsaNote: 'При факторах риска Enterococcus faecium — Ванкомицин',
+        regime: '3-5 сут',
+      },
+      {
+        diagnosis: 'Трансректальная биопсия простаты', opType: 'План',
+        prophylaxis: [
+          { n: 'Ципрофлоксацин', d: '400мг', r: 'в/в' },
+          { n: 'Фосфомицина трометамол', d: '3г', r: 'per os' },
+        ],
+        regime: '3-5 сут',
+      },
+      {
+        diagnosis: 'Цистоскопия с вмешательствами', opType: 'План',
+        prophylaxis: [
+          { n: 'Ципрофлоксацин', d: '500мг за 2-3ч', r: 'внутрь' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '400мг', r: 'в/в' },
+          { n: 'Цефотаксим', d: '2г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '', r: 'в/в' },
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Перкутанная нефролитотрипсия', opType: 'План',
+        prophylaxis: [
+          { n: 'Цефотаксим', d: '2г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '', r: 'в/в' },
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг 2р/сут', r: 'в/в' },
+          { n: 'Цефотаксим', d: '2г 3р/сут', r: 'в/в' },
+        ],
+      },
+      {
+        diagnosis: 'Уретероскопия', opType: 'План',
+        prophylaxis: [
+          { n: 'Цефотаксим', d: '2г', r: 'в/в' },
+          { n: 'Цефуроксим', d: '1,5г', r: 'в/в' },
+          { n: 'Амоксициллин/клавуланат', d: '1,2г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг 2р/сут', r: 'в/в' },
+          { n: 'Цефотаксим', d: '2г 3р/сут', r: 'в/в' },
+        ],
+        empirical: [
+          { n: '± Амикацин', d: '1г 1р/сут', r: 'в/в' },
+        ],
+        regime: '3-5 сут',
+      },
+    ]
+  },
+  {
+    section: 'Повторные операции',
+    items: [
+      {
+        diagnosis: 'Послеоп. перитонит, абсцессы брюшной полости', opType: 'Повтор',
+        prophylaxis: [
+          { n: 'Имипенем/циластатин', d: '1г 3р/сут', r: 'в/в' },
+          { n: 'Меропенем', d: '0,5-1г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+          { n: 'Цефепим/сульбактам', d: '4г', r: 'в/в' },
+        ],
+        empirical: [
+          { n: 'Имипенем/циластатин', d: '1г 3р/сут', r: 'в/в' },
+          { n: '+ Ванкомицин/Линезолид', d: '', r: '' },
+          { n: 'Пиперациллин/тазобактам + Амикацин + Ванкомицин', d: '', r: '' },
+          { n: 'Цефепим/сульбактам + Амикацин + Ванкомицин', d: '', r: '' },
+        ],
+        regime: '7-10 сут',
+      },
+      {
+        diagnosis: 'Инфицированный панкреонекроз', opType: 'Повтор',
+        prophylaxis: [
+          { n: 'Флуконазол', d: '600мг', r: 'в/в' },
+          { n: 'Имипенем/циластатин', d: '0,5-1г', r: 'в/в' },
+          { n: 'Меропенем', d: '1г', r: 'в/в' },
+        ],
+        altProphylaxis: [
+          { n: 'Ципрофлоксацин', d: '600мг', r: 'в/в' },
+          { n: '+ Метронидазол', d: '500мг', r: 'в/в' },
+          { n: 'Цефепим/сульбактам', d: '4г', r: 'в/в' },
+        ],
+        regime: '10-14 сут',
+        note: 'Режим зависит от APACHE-2 (< или >13 баллов)',
+      },
+      {
+        diagnosis: 'Релапаротомия, повторная перфорация полого органа ЖКТ', opType: 'Повтор',
+        prophylaxis: [
+          { n: 'Флуконазол', d: '600мг', r: 'в/в' },
+          { n: 'Имипенем/циластатин', d: '', r: 'в/в' },
+          { n: 'Меропенем', d: '', r: 'в/в' },
+        ],
+        mrsaNote: 'При выделении MRSA — добавить Ванкомицин/Линезолид',
+        regime: '5-7 сут',
+      },
+    ]
+  },
+];
+
+// ---- RENDER FUNCTIONS ----
+
+function renderDrugList(drugs) {
+  return drugs.map(d => `<div class="drug-item">${drugHTML(d.n, d.d, d.r)}</div>`).join('');
+}
+
+function renderStratification() {
+  let html = '<div class="tab-intro">Таблица 1 (Приложение 1). Стратификация госпитализированных пациентов с инфекцией по типам I–IV.</div>';
+  stratData.forEach(s => {
+    const colorMap = { green: 'badge-green', yellow: 'badge-yellow', orange: 'badge-orange', red: 'badge-red' };
+    html += `<div class="strat-card" data-search-text="${searchText(JSON.stringify(s))}">
+      <div class="strat-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="badge ${colorMap[s.color]} strat-type">${h(s.type)}</span>
+        <span class="strat-name">${h(s.name)}</span>
+        ${chevronSVG}
+      </div>
+      <div class="strat-body">
+        ${s.rows.map(r => `<div class="strat-row">
+          <div class="strat-label">${h(r[0])}</div>
+          <div class="strat-value">${h(r[1]).replace(/\n/g,'<br>')}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  });
+  return html;
+}
+
+function renderRegimen(data, tabTitle) {
+  let html = `<div class="tab-intro">${tabTitle}</div>`;
+  data.forEach(item => {
+    html += `<div class="card severity-card ${item.severity}" data-search-text="${searchText(JSON.stringify(item))}">
+      <div class="card-title">
+        ${item.level ? `<span class="badge ${item.badge} type-ref" data-type="${item.level}" title="Стратификация">${h(item.level)}</span>` : ''}
+        ${h(item.title)}
+      </div>`;
+    item.groups.forEach(g => {
+      html += `<div class="card-section">
+        <div class="card-section-title">${h(g.name)}</div>
+        ${renderDrugList(g.drugs)}
+      </div>`;
+    });
+    if (item.mrsa) html += mrsaCallout;
+    if (item.candida) html += candidaCallout;
+    html += `</div>`;
+  });
+  return html;
+}
+
+function renderSkin() {
+  let html = '<div class="tab-intro">Таблица 6. Стартовый режим при инфекции кожи и мягких тканей (в т.ч. катетер-ассоциированной).</div>';
+  skinData.forEach(item => {
+    html += `<div class="card severity-card ${item.severity}" data-search-text="${searchText(JSON.stringify(item))}">
+      <div class="card-title">${h(item.title)}</div>`;
+    item.groups.forEach(g => {
+      html += `<div class="card-section">
+        <div class="card-section-title">${h(g.name)}</div>
+        ${renderDrugList(g.drugs)}
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  // MRSA callout
+  html += mrsaCallout;
+  // Severe
+  html += `<div class="card severity-card severity-red" data-search-text="карбапенем имипенем меропенем тяжёлая">
+    <div class="card-title"><span class="badge badge-red">Тяжёлое течение</span> Карбапенем II группы</div>
+    <div class="card-section">${renderDrugList([
+      { n: 'Имипенем/циластатин', d: '1г 3-4р/сут', r: 'в/в' },
+      { n: 'Меропенем', d: '1-2г 3-4р/сут (3-час. инфузия)', r: 'в/в' },
+    ])}</div>
+  </div>`;
+  html += candidaCallout;
+  return html;
+}
+
+function renderEndocarditis() {
+  const d = endocarditisData;
+  let html = '<div class="tab-intro">Таблица 7. Эмпирический выбор при инфекционном эндокардите.</div>';
+  html += `<div class="card severity-card severity-yellow" data-search-text="${searchText(JSON.stringify(d.basic))}">
+    <div class="card-title">Основной режим</div>
+    <div class="card-section">${renderDrugList(d.basic)}</div>
+  </div>`;
+  html += `<div class="card severity-card severity-red" data-search-text="${searchText(JSON.stringify(d.severe))}">
+    <div class="card-title"><span class="badge badge-red">Тяжёлое</span> Карбапенем II группы</div>
+    <div class="card-section">${renderDrugList(d.severe)}</div>
+  </div>`;
+  html += candidaCallout;
+  html += `<div class="callout callout-info">
+    ${warnSVG}
+    <div><strong>Примечания:</strong><br>${d.notes.map(n => `• ${h(n)}`).join('<br>')}</div>
+  </div>`;
+  return html;
+}
+
+function renderPneumonia() {
+  const pd = pneumoniaData;
+  const sections = [
+    { id: 'vp', label: 'Внебольничная', keys: ['vp_light', 'vp_comorbid'] },
+    { id: 'severe', label: 'Тяжёлая (ОРИТ)', keys: ['severe_norisk', 'severe_pseudo', 'severe_acin', 'severe_mrsa'] },
+    { id: 'noso', label: 'Нозокомиальная', keys: ['noso_early', 'noso_late'] },
+    { id: 'covid', label: 'COVID-19', keys: ['covid_preg', 'covid_risk', 'covid_pseudo'] },
+    { id: 'fungal', label: 'Грибковые', keys: ['fungal'] },
+  ];
+
+  let html = '<div class="tab-intro">Таблицы 5 + Приложение 2. Все режимы при пневмонии.</div>';
+  html += '<div class="pneumonia-subtabs">';
+  sections.forEach((s, i) => {
+    html += `<button class="pneumonia-subtab${i === 0 ? ' active' : ''}" data-psection="${s.id}">${s.label}</button>`;
+  });
+  html += '</div>';
+
+  sections.forEach((sec, si) => {
+    html += `<div class="pneumonia-section${si === 0 ? ' active' : ''}" data-psection="${sec.id}">`;
+    sec.keys.forEach(key => {
+      const item = pd[key];
+      if (!item) return;
+      const sev = key.includes('severe') || key.includes('noso_late') || key.includes('covid_pseudo') ? 'severity-red' :
+                   key.includes('comorbid') || key.includes('noso') || key.includes('covid') ? 'severity-yellow' : 'severity-green';
+      html += `<div class="card severity-card ${sev}" data-search-text="${searchText(JSON.stringify(item))}">
+        <div class="card-title">${h(item.title)}</div>`;
+      if (item.subtitle) html += `<p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:var(--sp-2)">${h(item.subtitle)}</p>`;
+      if (item.main) {
+        html += `<div class="card-section"><div class="card-section-title">Основные</div>${renderDrugList(item.main)}</div>`;
+      }
+      if (item.alt) {
+        html += `<div class="card-section"><div class="card-section-title">Альтернативные</div>${renderDrugList(item.alt)}</div>`;
+      }
+      if (item.extra) {
+        html += `<div class="card-section"><div class="card-section-title">${h(item.extra.name)}</div>${renderDrugList(item.extra.drugs)}</div>`;
+      }
+      if (item.note) {
+        html += `<div class="callout callout-info">${warnSVG}<div>${h(item.note)}</div></div>`;
+      }
+      if (item.mrsa) html += mrsaCallout;
+      html += `</div>`;
+    });
+    html += '</div>';
+  });
+
+  return html;
+}
+
+function renderSurgical() {
+  let html = '<div class="tab-intro">Приложение 3. Формуляр по антибиотикопрофилактике и эмпирической терапии в хирургических отделениях.</div>';
+  surgicalData.forEach(sec => {
+    html += `<div class="accordion" data-search-text="${searchText(JSON.stringify(sec))}">
+      <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+        ${h(sec.section)}
+        ${chevronAccSVG}
+      </div>
+      <div class="accordion-body">`;
+    sec.items.forEach(item => {
+      const opClass = item.opType === 'План' ? 'op-type-plan' :
+                       item.opType === 'Повтор' ? 'op-type-repeat' : 'op-type-extr';
+      html += `<div class="surg-item" data-search-text="${searchText(JSON.stringify(item))}">
+        <div class="surg-diagnosis">
+          ${h(item.diagnosis)}
+          <span class="op-type-badge ${opClass}">${h(item.opType)}</span>
+        </div>
+        <div class="surg-grid">`;
+
+      if (item.prophylaxis) {
+        html += `<div class="surg-col">
+          <div class="surg-col-title">Профилактика (основные)</div>
+          ${renderDrugList(item.prophylaxis)}
+        </div>`;
+      }
+      if (item.altProphylaxis) {
+        html += `<div class="surg-col">
+          <div class="surg-col-title">Альтернативные (аллергия на β-лактамы)</div>
+          ${renderDrugList(item.altProphylaxis)}
+        </div>`;
+      }
+      if (item.empirical) {
+        html += `<div class="surg-col">
+          <div class="surg-col-title">Эмпирическая терапия</div>
+          ${renderDrugList(item.empirical)}
+        </div>`;
+      }
+      if (item.altEmpirical) {
+        html += `<div class="surg-col">
+          <div class="surg-col-title">Эмпирическая (альтернативная)</div>
+          ${renderDrugList(item.altEmpirical)}
+        </div>`;
+      }
+
+      html += `</div>`;
+
+      if (item.mrsaNote) {
+        html += `<div class="callout callout-mrsa" style="margin-top:var(--sp-2)">
+          ${warnSVG}<div><strong>MRSA:</strong> ${h(item.mrsaNote)}</div>
+        </div>`;
+      }
+      if (item.note) {
+        html += `<div class="callout callout-info" style="margin-top:var(--sp-2)">
+          ${warnSVG}<div>${h(item.note)}</div>
+        </div>`;
+      }
+      if (item.regime) {
+        html += `<div class="surg-regime">Режим: ${h(item.regime)}</div>`;
+      }
+
+      html += `</div>`;
+    });
+    html += `</div></div>`;
+  });
+  return html;
+}
+
+function searchText(str) {
+  return str.toLowerCase().replace(/[{}"\\[\]:,]/g, ' ');
+}
+
+// ---- INIT ----
+const main = $('#appMain');
+const tabs = {
+  stratification: renderStratification,
+  sepsis: () => renderRegimen(sepsisData, 'Таблица 2. Стартовый эмпирический режим при сепсисе.'),
+  abdominal: () => renderRegimen(abdominalData, 'Таблица 3. Стартовый режим при абдоминальной инфекции (в т.ч. деструктивный панкреатит, инфекция малого таза).'),
+  uti: () => renderRegimen(utiData, 'Таблица 4. Стартовый режим при инфекции мочевыводящих путей.'),
+  pneumonia: renderPneumonia,
+  skin: renderSkin,
+  endocarditis: renderEndocarditis,
+  surgical: renderSurgical,
+};
+
+let currentTab = 'stratification';
+const tabContents = {};
+
+// Pre-render all tabs
+Object.keys(tabs).forEach(key => {
+  const div = document.createElement('div');
+  div.className = 'tab-content';
+  div.id = `tab-${key}`;
+  div.innerHTML = tabs[key]();
+  main.appendChild(div);
+  tabContents[key] = div;
+});
+
+function switchTab(tabId) {
+  currentTab = tabId;
+  $$('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+  Object.keys(tabContents).forEach(k => tabContents[k].classList.toggle('active', k === tabId));
+  // Scroll active tab button into view
+  const activeBtn = $(`.tab-btn[data-tab="${tabId}"]`);
+  if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+switchTab('stratification');
+
+// Tab click
+$$('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
+
+// Pneumonia subtabs
+document.addEventListener('click', e => {
+  const sub = e.target.closest('.pneumonia-subtab');
+  if (!sub) return;
+  const id = sub.dataset.psection;
+  $$('.pneumonia-subtab').forEach(b => b.classList.toggle('active', b.dataset.psection === id));
+  $$('.pneumonia-section').forEach(s => s.classList.toggle('active', s.dataset.psection === id));
+});
+
+// Stratification type ref clicks
+document.addEventListener('click', e => {
+  const ref = e.target.closest('.type-ref');
+  if (!ref) return;
+  switchTab('stratification');
+  setTimeout(() => {
+    const cards = $$('.strat-card');
+    const type = ref.dataset.type;
+    cards.forEach(c => {
+      const badge = c.querySelector('.strat-type');
+      if (badge && badge.textContent.includes(type.replace('Тип ',''))) {
+        c.classList.add('open');
+        c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        c.style.boxShadow = '0 0 0 2px var(--accent)';
+        setTimeout(() => c.style.boxShadow = '', 2000);
+      }
+    });
+  }, 100);
+});
+
+// ---- SEARCH ----
+const searchToggle = $('#searchToggle');
+const searchBar = $('#searchBar');
+const searchInput = $('#searchInput');
+const searchClear = $('#searchClear');
+
+searchToggle.addEventListener('click', () => {
+  searchBar.classList.toggle('open');
+  if (searchBar.classList.contains('open')) {
+    searchInput.focus();
+  } else {
+    searchInput.value = '';
+    clearSearch();
+  }
+});
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  clearSearch();
+});
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  if (q.length < 2) {
+    clearSearch();
+    return;
+  }
+  performSearch(q);
+});
+
+function clearSearch() {
+  main.classList.remove('search-active');
+  // Restore tab visibility
+  Object.keys(tabContents).forEach(k => tabContents[k].classList.toggle('active', k === currentTab));
+  // Remove all marks
+  $$('mark', main).forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+  // Reset match attrs
+  $$('[data-match]', main).forEach(el => el.removeAttribute('data-match'));
+  // Remove search tab titles
+  $$('.search-tab-title', main).forEach(el => el.remove());
+}
+
+function performSearch(query) {
+  clearSearch();
+  main.classList.add('search-active');
+
+  // Show all tabs
+  Object.values(tabContents).forEach(tc => tc.classList.add('active'));
+
+  const tabNames = {
+    stratification: 'Стратификация',
+    sepsis: 'Сепсис',
+    abdominal: 'Абдоминальная',
+    uti: 'МВП',
+    pneumonia: 'Пневмония',
+    skin: 'Кожа и мягкие ткани',
+    endocarditis: 'Эндокардит',
+    surgical: 'Хирургическая профилактика',
+  };
+
+  let anyMatch = false;
+
+  Object.keys(tabContents).forEach(tabKey => {
+    const tc = tabContents[tabKey];
+    let tabHasMatch = false;
+    const searchables = $$('[data-search-text]', tc);
+    searchables.forEach(el => {
+      const text = el.getAttribute('data-search-text') || '';
+      if (text.includes(query)) {
+        el.setAttribute('data-match', 'true');
+        tabHasMatch = true;
+        anyMatch = true;
+      } else {
+        el.setAttribute('data-match', 'false');
+      }
+    });
+
+    // For tabs without searchables (callouts etc.), check full text
+    if (!searchables.length) {
+      if (tc.textContent.toLowerCase().includes(query)) {
+        tabHasMatch = true;
+        anyMatch = true;
+      }
+    }
+
+    if (tabHasMatch) {
+      // Insert tab title before first match
+      const existing = tc.querySelector('.search-tab-title');
+      if (!existing) {
+        const title = document.createElement('div');
+        title.className = 'search-tab-title';
+        title.textContent = tabNames[tabKey];
+        tc.insertBefore(title, tc.firstChild);
+      }
+    }
+  });
+
+  // Open matched accordions and strat cards
+  $$('.accordion[data-match="true"]', main).forEach(a => a.classList.add('open'));
+  $$('.strat-card[data-match="true"]', main).forEach(a => a.classList.add('open'));
+
+  if (!anyMatch) {
+    // Show no results
+    const noRes = document.createElement('div');
+    noRes.className = 'no-results search-tab-title';
+    noRes.innerHTML = `<div class="no-results-icon">🔍</div>Ничего не найдено по запросу «${h(query)}»`;
+    main.insertBefore(noRes, main.firstChild);
+  }
+}
+
+// ---- DARK MODE ----
+const themeToggle = $('#themeToggle');
+let currentTheme = 'light';
+try {
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    currentTheme = 'dark';
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+} catch(e) {}
+
+themeToggle.addEventListener('click', () => {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+});
+
+// Open first strat card by default
+setTimeout(() => {
+  const first = $('.strat-card');
+  if (first) first.classList.add('open');
+}, 100);
+</script>
+</body>
+</html>
