@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Антикоагуляция — хирургический навигатор</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=clash-display@500,600&display=swap" rel="stylesheet">
+  <style>
+    :root,[data-theme="light"]{--bg:#f6f5f1;--panel:#fff;--panel2:#f1ede6;--text:#171717;--muted:#65625b;--line:#ddd7cd;--teal:#0c7b84;--tealSoft:#d6ecee;--red:#bd3b52;--redSoft:#f2d8df;--amber:#a76519;--amberSoft:#f0e0cc;--green:#417c30;--greenSoft:#dbe9d7;--blue:#2e66c4;--blueSoft:#dbe5fb;--r:24px;--shadow:0 18px 48px rgba(17,17,17,.08)}
+    [data-theme="dark"]{--bg:#141414;--panel:#1d1d1d;--panel2:#262626;--text:#f5f0e7;--muted:#b6b0a4;--line:#353535;--teal:#69bcc4;--tealSoft:#20383a;--red:#e48497;--redSoft:#412730;--amber:#e0af71;--amberSoft:#423427;--green:#9bc97b;--greenSoft:#273825;--blue:#7ba8ff;--blueSoft:#24324d;--shadow:0 18px 48px rgba(0,0,0,.35)}
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:'Satoshi',sans-serif;background:var(--bg);color:var(--text);line-height:1.35} button,input,select{font:inherit}
+    .wrap{width:min(1240px,calc(100% - 18px));margin:auto}
+    header{position:sticky;top:0;z-index:30;background:color-mix(in oklab,var(--bg) 88%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in oklab,var(--text) 8%, transparent)}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0}.brand{display:flex;align-items:center;gap:12px}.mark{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--teal),#28a8b5);display:grid;place-items:center;color:#fff;box-shadow:var(--shadow)}.mark svg{width:24px;height:24px}.title{font-family:'Clash Display',sans-serif;font-size:clamp(20px,3vw,30px);line-height:1}.sub{font-size:13px;color:var(--muted);margin-top:4px}.tools{display:flex;gap:8px}.btn{border:none;background:var(--panel);color:var(--text);padding:12px 16px;border-radius:999px;min-height:44px;border:1px solid color-mix(in oklab,var(--text) 8%, transparent);cursor:pointer}
+    main{padding:16px 0 40px}.hero{background:var(--panel);border:1px solid color-mix(in oklab,var(--text) 8%, transparent);border-radius:28px;box-shadow:var(--shadow);padding:20px;margin-bottom:12px}.eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:var(--tealSoft);color:var(--teal);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.hero h1{font-family:'Clash Display',sans-serif;font-size:clamp(22px,3.2vw,36px);line-height:1;max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:10px}.hero p{color:var(--muted);max-width:74ch;margin-top:12px}
+    .tabbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.tab{border:none;background:var(--panel);color:var(--text);padding:12px 14px;border-radius:999px;border:1px solid color-mix(in oklab,var(--text) 8%, transparent);cursor:pointer;font-size:14px;min-height:44px}.tab.active{background:var(--teal);color:white;border-color:transparent}.tab .surgery,.tab .therapy{display:inline-flex;align-items:center;justify-content:center;padding:1px 6px;border-radius:999px;color:#fff;font-size:9px;line-height:1;font-weight:700;margin-left:5px;vertical-align:middle}.tab .surgery{background:var(--red)}.tab .therapy{background:var(--blue)}
+    .tabpanel{display:none}.tabpanel.active{display:block}.grid2,.grid3,.flow{display:grid;gap:12px}.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}.flow{grid-template-columns:repeat(4,1fr)}
+    .box,.calc,.table,.step,.strip,.note{background:var(--panel);border:1px solid color-mix(in oklab,var(--text) 8%, transparent);border-radius:24px;box-shadow:var(--shadow)}.box,.calc,.step{padding:18px}.section-title{font-family:'Clash Display',sans-serif;font-size:clamp(24px,3vw,34px);line-height:.98;margin-bottom:10px}.tag{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}.teal{background:var(--tealSoft);color:var(--teal)}.red{background:var(--redSoft);color:var(--red)}.amber{background:var(--amberSoft);color:var(--amber)}.green{background:var(--greenSoft);color:var(--green)}.blue{background:var(--blueSoft);color:var(--blue)}
+    .list{display:grid;gap:8px;margin-top:12px}.item{padding:10px 12px;border-radius:14px;background:var(--panel2);font-size:14px}.item strong{color:var(--text)} .redtext{color:var(--red);font-weight:700}
+    .table{overflow:auto;padding:6px}.table table{width:100%;border-collapse:separate;border-spacing:6px;table-layout:fixed}.table th,.table td{padding:14px;text-align:left;vertical-align:top;word-break:break-word;background:var(--panel);border:1px solid var(--line);border-radius:14px}.table th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--panel2)}
+    .calc-head{display:flex;justify-content:flex-start;gap:12px;align-items:center;flex-wrap:nowrap;margin-bottom:14px}.calc-head > div:first-child{display:none}.calc-head > div:last-child{display:flex;gap:8px;align-items:center;flex-wrap:nowrap;justify-content:flex-start;margin-left:0;width:100%}.calc h3{font-family:'Clash Display',sans-serif;font-size:24px;line-height:1}.scorebox{min-width:128px;padding:12px 14px;border-radius:18px;background:var(--panel2);text-align:center;flex:0 0 auto}.scorebox strong{display:block;font-family:'Clash Display',sans-serif;font-size:34px;line-height:1}.scorebox span{font-size:12px;color:var(--muted)}
+    .fields{display:grid;gap:10px}.field{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--panel2)}.field label{font-size:14px}.field select,.field input{width:100%;min-height:42px;border-radius:12px;border:1px solid color-mix(in oklab,var(--text) 10%, transparent);background:var(--panel);color:var(--text);padding:8px 10px}
+    .hint{margin-top:12px;padding:10px 12px;border-radius:14px;font-size:13px}.hint.red{background:var(--redSoft);color:var(--red)}.hint.amber{background:var(--amberSoft);color:var(--amber)}.hint.green{background:var(--greenSoft);color:var(--green)}.hint.blue{background:var(--blueSoft);color:var(--blue)}
+    .strip{padding:18px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}.icon{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;font-size:22px;background:rgba(255,255,255,.55)}.strip h3{font-family:'Clash Display',sans-serif;font-size:26px;line-height:1}
+    .step .num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:#fff;font-size:13px;font-weight:700;margin-bottom:10px}.step h3{font-size:18px;line-height:1.05}.step p{font-size:14px;color:var(--muted);margin-top:8px}
+    .note{padding:16px;font-size:12px;color:var(--muted);margin-top:12px}
+    @media (max-width: 980px){.grid2,.grid3,.flow{grid-template-columns:1fr}}
+    @media (max-width: 700px){.top{flex-direction:column;align-items:flex-start}.tools{width:100%}.btn{flex:1}.strip,.calc-head,.field{grid-template-columns:1fr}.scorebox{min-width:auto}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap top">
+    <div class="brand">
+      <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18"/><path d="M3 12h18"/><path d="M7 7l10 10"/></svg></div>
+      <div>
+        <div class="title">Антикоагуляция</div>
+        <div class="sub">Хирургический навигатор: профилактика, лечение, периоперационная тактика</div>
+      </div>
+    </div>
+    <div class="tools">
+      <button class="btn" onclick="window.print()">Печать / PDF</button>
+      <button class="btn" data-theme-toggle>🌙</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="eyebrow">Вкладки</span>
+    <h1>Шкалы, препараты, диагнозы и операция</h1>
+  </section>
+
+  <nav class="tabbar" role="tablist">
+    <button class="tab active" data-tab="padua">Padua <span class="therapy">терапия</span></button>
+    <button class="tab" data-tab="caprini">Caprini <span class="surgery">хирургия</span></button>
+    <button class="tab" data-tab="hasbled">HAS-BLED</button>
+    <button class="tab" data-tab="rockall">Rockall</button>
+    <button class="tab" data-tab="nmg">НМГ</button>
+    <button class="tab" data-tab="nfg">НФГ</button>
+    <button class="tab" data-tab="poak">ПОАК</button>
+    <button class="tab" data-tab="gfr30">СКФ &lt;30</button>
+    <button class="tab" data-tab="tepa">ТЭЛА</button>
+    <button class="tab" data-tab="dvt">Тромбоз вен Н/К</button>
+    <button class="tab" data-tab="af">ФП</button>
+    <button class="tab" data-tab="operation">Операция</button>
+  </nav>
+
+  <section id="padua" class="tabpanel active">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px"><h2 class="section-title" style="margin-bottom:0">Padua</h2><span class="tag blue">Калькулятор</span></div>
+    <div class="grid2">
+      <div class="calc">
+        <div class="calc-head"><div></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;justify-content:flex-start;margin-left:0;width:100%"><div class="scorebox"><strong id="paduaScore">0</strong><span id="paduaRisk">Низкий риск</span></div><div class="hint" id="paduaProph" style="background:var(--panel2);color:var(--text);margin-top:0;display:flex;align-items:center;white-space:nowrap">Профилактика обычно не требуется.</div></div></div>
+        <div class="fields">
+          <div class="field"><label>Активный рак</label><select data-padua><option value="0">Нет</option><option value="3">Да</option></select></div>
+          <div class="field"><label>Предшествующий ВТЭО</label><select data-padua><option value="0">Нет</option><option value="3">Да</option></select></div>
+          <div class="field"><label>Снижение подвижности ≥3 суток</label><select data-padua><option value="0">Нет</option><option value="3">Да</option></select></div>
+          <div class="field"><label>Известная тромбофилия</label><select data-padua><option value="0">Нет</option><option value="3">Да</option></select></div>
+          <div class="field"><label>Недавняя травма / операция (&lt;1 мес)</label><select data-padua><option value="0">Нет</option><option value="2">Да</option></select></div>
+          <div class="field"><label>Возраст ≥70 лет</label><select data-padua><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Сердечная / дыхательная недостаточность</label><select data-padua><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Инфаркт миокарда / ишемический инсульт</label><select data-padua><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Острая инфекция / ревматологическое заболевание</label><select data-padua><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Ожирение (ИМТ ≥30)</label><select data-padua><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Гормональная терапия</label><select data-padua><option value="0">Нет</option><option value="1">Да</option></select></div>
+        </div>
+        <div class="hint blue" id="paduaHint">0–3 балла: низкий риск. ≥4 баллов: высокий риск ВТЭО.</div>
+      </div>
+      <div class="box"><span class="tag blue">Важно</span><div class="list"><div class="item">Padua применяется прежде всего для терапевтических пациентов</div><div class="item"><strong>≥4 баллов</strong> — высокий риск ВТЭО</div></div></div>
+    </div>
+  </section>
+
+  <section id="caprini" class="tabpanel">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px"><h2 class="section-title" style="margin-bottom:0">Caprini</h2><span class="tag teal">Калькулятор</span></div>
+    <div class="grid2">
+      <div class="calc">
+        <div class="calc-head"><div></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;justify-content:flex-start;margin-left:0;width:100%"><div class="scorebox"><strong id="capriniScore">0</strong><span id="capriniRisk">Очень низкий риск</span></div><div class="hint" id="capriniProph" style="background:var(--panel2);color:var(--text);margin-top:0;display:flex;align-items:center">Профилактика не нужна, достаточно ранней активизации.</div></div></div>
+        <div class="fields">
+          <div class="field"><label>Возраст 41–60 лет</label><select data-caprini-a1><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Возраст 61–74 лет</label><select data-caprini-a2><option value="0">Нет</option><option value="2">Да</option></select></div>
+          <div class="field"><label>Возраст ≥75 лет</label><select data-caprini-a3><option value="0">Нет</option><option value="3">Да</option></select></div>
+          <div class="field"><label>Большая операция &gt;45 мин</label><select data-caprini><option value="0">Нет</option><option value="2">Да</option></select></div>
+          <div class="field"><label>Лапароскопия &gt;45 мин</label><select data-caprini><option value="0">Нет</option><option value="2">Да</option></select></div>
+          <div class="field"><label>Иммобилизация / постельный режим</label><select data-caprini><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Варикозные вены / отёк Н/К</label><select data-caprini><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Ожирение ИМТ &gt;25</label><select data-caprini><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Сепсис / тяжёлая инфекция</label><select data-caprini><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>ХОБЛ / пневмония</label><select data-caprini><option value="0">Нет</option><option value="1">Да</option></select></div>
+          <div class="field"><label>Предшествующий ВТЭО</label><select data-caprini><option value="0">Нет</option><option value="3">Да</option></select></div>
+          <div class="field"><label>Тромбофилия</label><select data-caprini><option value="0">Нет</option><option value="3">Да</option></select></div>
+          <div class="field"><label>Онкология</label><select data-caprini><option value="0">Нет</option><option value="2">Да</option></select></div>
+          <div class="field"><label>Инсульт / множественная травма / перелом таза или бедра</label><select data-caprini><option value="0">Нет</option><option value="5">Да</option></select></div>
+        </div>
+        <div class="hint green" id="capriniHint">0: очень низкий риск; 1–2: низкий; 3–4: умеренный; ≥5: высокий.</div>
+      </div>
+      <div class="box"><span class="tag teal">Для хирургических больных</span><div class="list"><div class="item"><strong>0</strong> — очень низкий риск</div><div class="item"><strong>1–2</strong> — низкий риск</div><div class="item"><strong>3–4</strong> — умеренный риск</div><div class="item"><strong>≥5</strong> — высокий риск</div></div></div>
+    </div>
+  </section>
+
+  <section id="hasbled" class="tabpanel">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px"><h2 class="section-title" style="margin-bottom:0">HAS-BLED</h2><span class="tag red">Калькулятор</span></div>
+    <div class="calc">
+      <div class="calc-head"><div></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;justify-content:flex-start;margin-left:0;width:100%"><div class="scorebox"><strong id="hasbScore">0</strong><span id="hasbRisk">Низкий риск</span></div><div class="hint" id="hasbProph" style="background:var(--panel2);color:var(--text);margin-top:0;display:flex;align-items:center;font-size:12px;line-height:1.2">Снижение дозы антикоагулянтов не требуется.</div></div></div>
+      <div class="fields">
+        <div class="field"><label>Артериальная гипертензия</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div class="field"><label>Нарушение функции почек</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div class="field"><label>Нарушение функции печени</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div class="field"><label>Инсульт в анамнезе</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div class="field"><label>Кровотечение / предрасположенность</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div class="field"><label>Нестабильное МНО</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div class="field"><label>Возраст &gt;65 лет</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div class="field"><label>Препараты, повышающие риск кровотечения</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+        <div class="field"><label>Алкоголь</label><select data-hasb><option value="0">Нет</option><option value="1">Да</option></select></div>
+      </div>
+      <div class="hint red" id="hasbHint">0–2 балла: низкий / умеренный риск. ≥3 баллов: высокий риск кровотечения.</div>
+    </div>
+  </section>
+
+  <section id="rockall" class="tabpanel">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px"><h2 class="section-title" style="margin-bottom:0">Rockall</h2><span class="tag amber">Калькулятор</span></div>
+    <div class="calc">
+      <div class="calc-head"><div></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;justify-content:flex-start;margin-left:0;width:100%"><div class="scorebox"><strong id="rockallScore">0</strong><span id="rockallRisk">Низкий риск</span></div><div class="hint" id="rockallProph" style="background:var(--panel2);color:var(--text);margin-top:0;display:flex;align-items:center;font-size:12px;line-height:1.2">Снижение дозы антикоагулянтов не требуется.</div></div></div>
+      <div class="fields">
+        <div class="field"><label>Возраст</label><select data-rockall><option value="0">&lt;60 лет</option><option value="1">60–79 лет</option><option value="2">≥80 лет</option></select></div>
+        <div class="field"><label>Гемодинамика</label><select data-rockall><option value="0">Нет шока</option><option value="1">Тахикардия &gt;100</option><option value="2">Гипотензия / шок</option></select></div>
+        <div class="field"><label>Сопутствующие заболевания</label><select data-rockall><option value="0">Нет тяжёлых</option><option value="2">Сердечная недостаточность / ИБС / тяжёлое сопутствующее</option><option value="3">Почечная / печёночная недостаточность / онкология</option></select></div>
+        <div class="field"><label>Эндоскопический диагноз</label><select data-rockall><option value="0">Мэллори-Вейс / нет значимой патологии</option><option value="1">Остальные диагнозы</option><option value="2">Злокачественное новообразование ЖКТ</option></select></div>
+        <div class="field"><label>Признаки недавнего кровотечения</label><select data-rockall><option value="0">Нет / тёмное пятно</option><option value="2">Кровь, видимый сосуд, фиксированный сгусток</option></select></div>
+      </div>
+      <div class="hint amber" id="rockallHint">0–2 балла: низкий риск. 3–4: умеренный риск. ≥5: высокий риск повторного кровотечения и смерти.</div>
+    </div>
+  </section>
+
+  <section id="nmg" class="tabpanel">
+    <h2 class="section-title">НМГ</h2>
+    <div class="grid2">
+      <div class="box"><span class="tag green">Профилактика</span><div class="list"><div class="item"><strong class="redtext">СКФ &lt;30 мл/мин</strong> — справа ориентир: НФГ</div><div class="item"><strong>Эноксапарин / Эниксум:</strong> обычно 40 мг 1 раз/сут п/к</div><div class="item"><strong>Фондапаринукс (Арикстра):</strong> 2,5 мг 1 раз/сут; <strong>при PLT ниже 80</strong> рассматривать как вариант по клинической ситуации</div></div></div>
+      <div class="box"><span class="tag teal">Лечение</span><div class="list"><div class="item"><strong>Эноксапарин / Эниксум:</strong> 1 мг/кг 2 раза/сут п/к</div><div class="item"><strong>Или 1,5 мг/кг 1 раз/сут</strong> при высоком риске кровотечении</div><div class="item"><strong>Фондапаринукс (Арикстра):</strong> 5 мг 1 раз/сут при массе <50 кг, 7,5 мг 1 раз/сут при массе 50–100 кг, 10 мг 1 раз/сут при массе >100 кг, если СКФ сохранна</div></div></div>
+    </div>
+  </section>
+
+  <section id="nfg" class="tabpanel">
+    <h2 class="section-title">НФГ</h2>
+    <div class="grid2">
+      <div class="box"><span class="tag teal">Профилактика</span><div class="list"><div class="item"><strong>Caprini 3–4</strong> — НФГ 5 000 ЕД 2 раза/сут</div><div class="item"><strong>Caprini ≥5</strong> — НФГ 5 000 ЕД 3 раза/сут</div><div class="item"><strong class="redtext">СКФ &lt;30 мл/мин</strong></div></div></div>
+      <div class="box"><span class="tag blue">Лечение</span><div class="list"><div class="item"><strong>Старт:</strong> болюс 80 ЕД/кг, затем инфузия 18 ЕД/кг/ч</div><div class="item"><strong>Контроль:</strong> АЧТВ и антитромбин III</div><div class="item">При ТЭЛА, ТГВ и только при <strong class="redtext">СКФ &lt;30</strong> — непрерывное в/в введение под контролем АЧТВ</div></div></div>
+    </div>
+    <div class="table"><table><thead><tr><th>АЧТВ</th><th>Действие</th></tr></thead><tbody>
+      <tr><td><strong>&lt;35 сек</strong></td><td>Болюс 80 ЕД/кг, увеличить скорость на 4 ЕД/кг/ч</td></tr>
+      <tr><td><strong>35–45 сек</strong></td><td>Болюс 40 ЕД/кг, увеличить скорость на 2 ЕД/кг/ч</td></tr>
+      <tr><td><strong>46–70 сек</strong></td><td>Терапевтический диапазон — без изменений</td></tr>
+      <tr><td><strong>71–90 сек</strong></td><td>Снизить скорость на 2 ЕД/кг/ч</td></tr>
+      <tr><td><strong>91–120 сек</strong></td><td>Стоп на 30 мин, затем снизить скорость на 3 ЕД/кг/ч</td></tr>
+      <tr><td><strong>&gt;120 сек</strong></td><td>Стоп на 60 мин, затем снизить скорость на 4 ЕД/кг/ч; повторный контроль АЧТВ</td></tr>
+    </tbody></table></div>
+    <div class="grid2">
+      <div class="box"><span class="tag red">Антидот</span><div class="list"><div class="item"><strong>Протамина сульфат</strong></div><div class="item">Обычно 1 мг на 100 ЕД НФГ, полученных за последние 2–3 часа</div><div class="item">Максимум 50 мг</div><div class="item">Вводить медленно, не быстрее 5 мг/мин</div><div class="item">После введения — повторный контроль АЧТВ</div></div></div>
+      <div class="box"><span class="tag amber">Практика</span><div class="list"><div class="item">При большом кровотечении — стоп инфузии + протамин + контроль АЧТВ</div><div class="item">ТЭГ / ROTEM можно использовать как дополнительный инструмент, но базовый лабораторный контроль для НФГ — АЧТВ</div></div></div>
+    </div>
+  </section>
+
+  <section id="poak" class="tabpanel">
+    <h2 class="section-title">ПОАК</h2>
+    <div class="grid3">
+      <div class="box"><span class="tag blue">Ксарелто®</span><div class="list"><div class="item"><strong>Ривароксабан</strong></div><div class="item">ТЭЛА / ТГВ: 15 мг 2 раза/сут 21 день → 20 мг 1 раз/сут</div><div class="item">ФП: обычно 20 мг 1 раз/сут; при СКФ 15–49 мл/мин — 15 мг 1 раз/сут</div><div class="item">При <strong class="redtext">СКФ &lt;30</strong> — использовать очень осторожно; при тяжёлой ХПН не базовый вариант</div></div></div>
+      <div class="box"><span class="tag blue">Эликвис®</span><div class="list"><div class="item"><strong>Апиксабан</strong></div><div class="item">ТЭЛА / ТГВ: 10 мг 2 раза/сут 7 дней → 5 мг 2 раза/сут</div><div class="item">ФП: 5 мг 2 раза/сут</div><div class="item">2,5 мг 2 раза/сут, если есть 2 из 3: возраст ≥80 лет, масса ≤60 кг, креатинин ≥1,5 мг/дл</div><div class="item">При <strong class="redtext">СКФ &lt;30</strong> — индивидуально и с осторожностью</div></div></div>
+      <div class="box"><span class="tag amber">Варфарин</span><div class="list"><div class="item"><strong>Целевое МНО</strong> обычно 2,0–3,0</div><div class="item"><strong>Показан</strong> при отдельных клапанных и иных показаниях, а также когда ПОАК не подходят</div><div class="item"><strong>Старт</strong> обычно 5 мг/сут, у хрупких и пожилых — 2,5 мг/сут с дальнейшей коррекцией по МНО</div></div></div>
+    </div>
+  </section>
+
+  <section id="gfr30" class="tabpanel">
+    <h2 class="section-title"><span class="redtext">СКФ ниже 30</span></h2>
+    <div class="grid2">
+      <div class="box"><span class="tag red">Профилактика</span><div class="list"><div class="item"><strong>НФГ 5 000 ЕД 2 раза/сут</strong> — если умеренный риск ВТЭО / выше риск кровотечения</div><div class="item"><strong>НФГ 5 000 ЕД 3 раза/сут</strong> — если высокий риск ВТЭО</div><div class="item">ПОАК — не рутинно</div></div></div>
+      <div class="box"><span class="tag blue">Лечение</span><div class="list"><div class="item"><strong>НФГ в/в:</strong> болюс + инфузия с коррекцией по АЧТВ</div><div class="item"><strong>Титрация:</strong> по таблице АЧТВ из вкладки НФГ</div></div></div>
+    </div>
+  </section>
+
+  <section id="tepa" class="tabpanel">
+    <h2 class="section-title">ТЭЛА</h2>
+    <div class="grid2">
+      <div class="box"><span class="tag red">Когда думать о тромболизисе</span><div class="list"><div class="item"><strong>Высокий риск:</strong> гипотензия, шок, остановка кровообращения</div><div class="item"><strong>Только при верифицированной ТЭЛА</strong> допустима оценка по PESI / sPESI</div><div class="item"><strong>При PESI класс III и выше</strong> — взять proBNP и тропонин</div><div class="item">Если <strong>оба показателя выше нормы</strong> — консилиум о тромболизисе</div></div></div>
+      <div class="box"><span class="tag green">Антикоагуляция</span><div class="list"><div class="item">Нестабильный / <strong class="redtext">СКФ &lt;30</strong> — НФГ в/в</div><div class="item">Стабильный — НМГ или ПОАК по показаниям</div><div class="item">Лечение минимум 3 месяца, далее по риску рецидива и кровотечений</div></div></div>
+    </div>
+    <div class="box" style="margin-top:12px"><span class="tag red">Противопоказания к тромболизису</span><div class="list"><div class="item">Активное кровотечение</div><div class="item">Геморрагический инсульт или инсульт неясного типа в анамнезе</div><div class="item">Недавняя нейрохирургия / ЧМТ</div><div class="item">Подозрение на расслаивающую аневризму аорты</div><div class="item">Неконтролируемая тяжёлая артериальная гипертензия</div><div class="item">Недавнее большое хирургическое вмешательство — оценивать индивидуально</div></div></div>
+  </section>
+
+  <section id="dvt" class="tabpanel">
+    <h2 class="section-title">Тромбоз вен Н/К</h2>
+    <div class="grid2">
+      <div class="box"><span class="tag red">Старт</span><div class="list"><div class="item">Подтверждённый тромбоз — это лечение, не профилактика</div><div class="item">Стабильный, СКФ &gt;30 — НМГ или ПОАК</div><div class="item">СКФ &lt;30, нестабильность, ожидаемая операция — НФГ в/в</div></div></div>
+      <div class="box"><span class="tag blue">Схемы</span><div class="list"><div class="item">Апиксабан: <strong>10 мг 2 раза/сут 7 дней → 5 мг 2 раза/сут</strong></div><div class="item"><strong>При лечении ТГВ / ТЭЛА возраст и масса тела сами по себе дозу не уменьшают</strong></div><div class="item">Правило редукции <strong>2,5 мг 2 раза/сут по возрасту / весу / креатинину</strong> относится к <strong>ФП</strong>, а не к стартовому лечению ТГВ / ТЭЛА</div><div class="item">Для ФП считать так: <strong>2 из 3 критериев</strong> — возраст ≥80 лет, масса ≤60 кг, креатинин ≥1,5 мг/дл</div><div class="item">Ривароксабан: 15 мг 2 раза/сут 21 день → 20 мг 1 раз/сут</div><div class="item">НМГ: лечебные весовые дозы при СКФ &gt;30</div><div class="item">НФГ: болюс + инфузия по АЧТВ при ХПН / нестабильности</div></div></div>
+    </div>
+  </section>
+
+  <section id="af" class="tabpanel">
+    <h2 class="section-title">ФП</h2>
+    <div class="grid2">
+      <div class="box"><span class="tag blue">Что оценить сначала</span><div class="list"><div class="item"><strong>Калий и магний</strong> — скорректировать электролитные нарушения</div><div class="item"><strong>Давность эпизода</strong>: &lt;48 ч, &gt;48 ч или неизвестна</div><div class="item"><strong>Гемодинамика</strong>: есть ли нестабильность</div><div class="item">Если нестабильная гемодинамика и пароксизм менее 48 часов — рассмотреть ЭИТ совместно с кардиологами</div><div class="item">Для исключения тромба в ушке ЛП: КТ ушек при ЧСС ниже 80, в идеале ЧП ЭХО</div><div class="item">Если постоянная форма — контроль ЧСС и антикоагуляция по риску инсульта</div></div></div>
+      <div class="box"><span class="tag green">Антикоагуляция</span><div class="list"><div class="item">Апиксабан: 5 мг 2 раза/сут; 2,5 мг 2 раза/сут, если есть 2 из 3 критериев редукции: возраст ≥80 лет, масса ≤60 кг, креатинин ≥1,5 мг/дл</div><div class="item">Ривароксабан: обычно 20 мг 1 раз/сут; при сниженной функции почек возможно 15 мг 1 раз/сут</div><div class="item"><strong>Эноксапарин / Эниксум:</strong> 1 мг/кг 2 раза/сут п/к как лечебная доза, если нужен временный парентеральный этап или мост</div><div class="item"><strong>НФГ в/в:</strong> болюс 70–80 ЕД/кг, затем инфузия 15–18 ЕД/кг/ч с коррекцией по АЧТВ</div><div class="item"><strong>Варфарин:</strong> обычно старт 5 мг/сут, у пожилых / хрупких 2,5 мг/сут; целевое МНО 2,0–3,0</div><div class="item">Если ФП длится &gt;48 ч или давность неизвестна — вопрос кардиоверсии решают после адекватной антикоагуляции / ЧПЭхоКГ‑подхода</div></div></div>
+    </div>
+  </section>
+
+  <section id="operation" class="tabpanel">
+    <h2 class="section-title">Операция</h2>
+    <div class="table"><table><thead><tr><th>Препарат</th><th>Когда отменить до операции</th><th>Когда можно вернуть после операции</th><th>Что контролировать</th></tr></thead><tbody>
+      <tr><td><strong>Эликвис®</strong></td><td>Низкий риск кровотечения: обычно за 24 ч; высокий риск: за 48 ч; при сниженной СКФ пауза может быть длиннее</td><td>Обычно через 24 ч при малом риске кровотечения и через 48–72 ч при высоком риске кровотечения</td><td>Клиника, гемостаз; стандартного МНО-контроля нет</td></tr>
+      <tr><td><strong>Ксарелто®</strong></td><td>Низкий риск кровотечения: обычно за 24 ч; высокий риск: за 48 ч; при сниженной СКФ пауза может быть длиннее</td><td>Обычно через 24 ч при малом риске кровотечения и через 48–72 ч при высоком риске кровотечения</td><td>Клиника, гемостаз; стандартного МНО-контроля нет</td></tr>
+      <tr><td><strong>Гепарин в/в</strong></td><td>Обычно за 4–6 ч</td><td>После достижения хирургического гемостаза, нередко через 12–24 ч</td><td>АЧТВ, при необходимости ТЭГ</td></tr>
+      <tr><td><strong>Эноксапарин / Эниксум</strong></td><td>Лечебная доза обычно за 24 ч; профилактическая — как правило ближе к операции по локальному протоколу</td><td>Малые вмешательства: через 24 ч; большие: через 48–72 ч</td><td>Клиника, кровотечение; рутинного МНО нет</td></tr>
+      <tr><td><strong>Арикстра®</strong></td><td>Обычно за 36–48 ч, при почечной дисфункции дольше</td><td>После надёжного гемостаза, часто не раньше 24–48 ч</td><td>Клиника, кровотечение</td></tr>
+      <tr><td><strong>Варфарин</strong></td><td>Обычно за 5 дней</td><td>Обычно вечером или на следующие сутки при надёжном гемостазе</td><td><strong>МНО</strong>; мост-терапия по тромботическому риску</td></tr>
+      <tr><td><strong>Аспирин</strong></td><td>Часто за 5–7 дней, если кардиориск позволяет</td><td>После гемостаза, по решению хирурга / кардиолога</td><td>Клиника, кровотечение; МНО не информативно</td></tr>
+      <tr><td><strong>Клопидогрел</strong></td><td>Обычно за 5 дней</td><td>После гемостаза, по решению хирурга / кардиолога</td><td>Клиника, кровотечение; МНО не информативно</td></tr>
+    </tbody></table></div>
+    <div class="grid2" style="margin-top:12px">
+      <div class="box"><span class="tag amber">Мост-терапия варфарина</span><div class="list"><div class="item">Нужна не всем</div><div class="item">Рассматривать при высоком тромботическом риске</div><div class="item">Обычно используют НМГ или НФГ до операции и после операции до выхода МНО в целевой диапазон</div></div></div>
+      <div class="box"><span class="tag red">Контроль</span><div class="list"><div class="item"><strong>Варфарин</strong> — МНО</div><div class="item"><strong>Гепарин в/в</strong> — АЧТВ</div><div class="item"><strong>ТЭГ / ROTEM</strong> — как дополнительный инструмент по ситуации</div></div></div>
+    </div>
+  </section>
+
+  
+</main>
+
+<script>
+(()=>{
+  const themeBtn=document.querySelector('[data-theme-toggle]');const root=document.documentElement;let theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';root.setAttribute('data-theme',theme);const paint=()=>themeBtn.textContent=theme==='dark'?'☀️':'🌙';paint();themeBtn.onclick=()=>{theme=theme==='dark'?'light':'dark';root.setAttribute('data-theme',theme);paint();};
+  document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}));
+  function calcPadua(){const score=[...document.querySelectorAll('[data-padua]')].reduce((s,e)=>s+Number(e.value),0);document.getElementById('paduaScore').textContent=score;const risk=score>=4?'Высокий риск':'Низкий риск';document.getElementById('paduaRisk').textContent=risk;document.getElementById('paduaHint').textContent=score>=4?'≥4 баллов: высокий риск ВТЭО.':'0–3 балла: низкий риск.';const p=document.getElementById('paduaProph');if(score>=4){p.textContent='Показана профилактика ВТЭО.';p.style.background='var(--redSoft)';p.style.color='var(--red)';}else{p.textContent='Профилактика обычно не требуется.';p.style.background='var(--panel2)';p.style.color='var(--text)';}}
+  function calcCaprini(){const age=Math.max(...['[data-caprini-a1]','[data-caprini-a2]','[data-caprini-a3]'].map(sel=>Number(document.querySelector(sel).value)));const rest=[...document.querySelectorAll('[data-caprini]')].reduce((s,e)=>s+Number(e.value),0);const score=age+rest;document.getElementById('capriniScore').textContent=score;let risk='Очень низкий риск';if(score>=5) risk='Высокий риск'; else if(score>=3) risk='Умеренный риск'; else if(score>=1) risk='Низкий риск';document.getElementById('capriniRisk').textContent=risk;document.getElementById('capriniHint').textContent='0: очень низкий риск; 1–2: низкий; 3–4: умеренный; ≥5: высокий.';const p=document.getElementById('capriniProph');if(score>=5){p.textContent='Показана фармакопрофилактика; часто НФГ 5 000 ЕД 3 раза/сут или НМГ при СКФ >30.';p.style.background='var(--redSoft)';p.style.color='var(--red)';}else if(score>=3){p.textContent='Показана профилактика; часто НФГ 5 000 ЕД 2 раза/сут или НМГ при СКФ >30.';p.style.background='var(--amberSoft)';p.style.color='var(--amber)';}else{p.textContent='Профилактика не нужна, достаточно ранней активизации.';p.style.background='var(--panel2)';p.style.color='var(--text)';}}
+  function calcHasBled(){const score=[...document.querySelectorAll('[data-hasb]')].reduce((s,e)=>s+Number(e.value),0);document.getElementById('hasbScore').textContent=score;const risk=score>=3?'Высокий риск':score>=2?'Умеренный риск':'Низкий риск';document.getElementById('hasbRisk').textContent=risk;document.getElementById('hasbHint').textContent=score>=3?'≥3 баллов: высокий риск кровотечения.':'0–2 балла: низкий / умеренный риск.';const p=document.getElementById('hasbProph');if(score>=3){p.textContent='Необходимо снизить дозу антикоагулянтов.';p.style.background='var(--redSoft)';p.style.color='var(--red)';}else{p.textContent='Снижение дозы антикоагулянтов не требуется.';p.style.background='var(--panel2)';p.style.color='var(--text)';}}
+  function calcRockall(){const score=[...document.querySelectorAll('[data-rockall]')].reduce((s,e)=>s+Number(e.value),0);document.getElementById('rockallScore').textContent=score;const risk=score>=5?'Высокий риск':score>=3?'Умеренный риск':'Низкий риск';document.getElementById('rockallRisk').textContent=risk;document.getElementById('rockallHint').textContent=score>=5?'≥5 баллов: высокий риск повторного кровотечения и смерти.':score>=3?'3–4 балла: умеренный риск.':'0–2 балла: низкий риск.';const p=document.getElementById('rockallProph');if(score>=5){p.textContent='Необходимо снизить дозу антикоагулянтов.';p.style.background='var(--redSoft)';p.style.color='var(--red)';}else{p.textContent='Снижение дозы антикоагулянтов не требуется.';p.style.background='var(--panel2)';p.style.color='var(--text)';}}
+  document.querySelectorAll('[data-padua],[data-caprini],[data-caprini-a1],[data-caprini-a2],[data-caprini-a3],[data-hasb],[data-rockall]').forEach(e=>e.addEventListener('change',()=>{calcPadua();calcCaprini();calcHasBled();calcRockall();}));calcPadua();calcCaprini();calcHasBled();calcRockall();
+})();
+</script>
+</body>
+</html>
