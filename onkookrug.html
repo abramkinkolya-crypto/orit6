@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Онко‑памятка: округа и маршрутизация</title>
+  <style>
+    :root {
+      --bg:#f7f7f7;
+      --surface:#ffffff;
+      --border:#dddddd;
+      --text:#222222;
+      --text-muted:#666666;
+      --primary:#01696f;
+      --primary-soft:#e0f0f1;
+      --radius:10px;
+      --radius-pill:999px;
+      --shadow:0 2px 10px rgba(0,0,0,.05);
+      --space-2:0.5rem;
+      --space-3:0.75rem;
+      --space-4:1rem;
+      --space-5:1.25rem;
+      --space-6:1.5rem;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:var(--space-6) var(--space-4);
+    }
+    h2{
+      margin:0 0 var(--space-3);
+      font-size:1.2rem;
+    }
+    .section-note{
+      margin:0 0 var(--space-4);
+      color:var(--text-muted);
+      font-size:0.9rem;
+    }
+    .toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:var(--space-2);
+      margin-bottom:var(--space-4);
+    }
+    .chip{
+      border-radius:var(--radius-pill);
+      border:1px solid var(--border);
+      background:var(--surface);
+      padding:var(--space-2) var(--space-4);
+      font-size:0.9rem;
+      cursor:pointer;
+    }
+    .chip.active{
+      background:var(--primary);
+      color:#fff;
+      border-color:var(--primary);
+    }
+    .table-wrap{
+      background:var(--surface);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid var(--border);
+      overflow:auto;
+    }
+    table{
+      border-collapse:collapse;
+      width:100%;
+      min-width:900px;
+      font-size:0.9rem;
+    }
+    th,td{
+      padding:var(--space-3);
+      border-bottom:1px solid #eeeeee;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{
+      background:#fafafa;
+      font-weight:600;
+      color:var(--text-muted);
+      position:sticky;
+      top:0;
+    }
+    td strong{
+      display:block;
+      margin-bottom:0.15rem;
+    }
+    .tag{
+      display:inline-block;
+      padding:2px 6px;
+      border-radius:999px;
+      font-size:0.7rem;
+      background:var(--primary-soft);
+      color:var(--primary);
+      font-weight:600;
+    }
+    .tag.warn{
+      background:#fbe4d8;
+      color:#a04a1a;
+    }
+    .empty{
+      padding:var(--space-4);
+      text-align:center;
+      color:var(--text-muted);
+      font-size:0.9rem;
+    }
+    @media (max-width:700px){
+      main{padding:var(--space-4) var(--space-3);}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section>
+      <h2>Выбор округа</h2>
+      <p class="section-note">
+        Нажмите на нужный округ, чтобы в таблице ниже остались только его строки.
+        «Все» возвращает полный список, «Спец. маршруты» — только голова/шея и нейроонкология.
+      </p>
+      <div class="toolbar">
+        <button class="chip active" data-area="all" type="button">Все</button>
+        <button class="chip" data-area="CAO" type="button">ЦАО</button>
+        <button class="chip" data-area="VAO" type="button">ВАО</button>
+        <button class="chip" data-area="UVAO" type="button">ЮВАО</button>
+        <button class="chip" data-area="ZelAO" type="button">ЗелАО</button>
+        <button class="chip" data-area="special" type="button">Спец. маршруты</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Тип</th>
+              <th>Округ / зона</th>
+              <th>Куда консультировать (ЦАОП)</th>
+              <th>Стационар I порядка</th>
+              <th>Профиль</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr data-type="basic">
+              <td><span class="tag">Окружной</span></td>
+              <td><strong>ЦАО</strong>Центральный административный округ</td>
+              <td><strong>ЦАОП ЦАО</strong>Онкоцентр №1, ГКБ им. С.С. Юдина</td>
+              <td>Филиал «Онкологический центр №1» ГКБ им. С.С. Юдина</td>
+              <td>Общая онкология, онкомаммология, онкогинекология, онкоурология</td>
+            </tr>
+            <tr data-type="basic">
+              <td><span class="tag">Окружной</span></td>
+              <td><strong>ВАО</strong>Восточный административный округ</td>
+              <td><strong>ЦАОП</strong>филиал МКНЦ им. А.С. Логинова</td>
+              <td>МКНЦ им. А.С. Логинова</td>
+              <td>Общая онкология, онкомаммология, онкогинекология, онкоурология</td>
+            </tr>
+            <tr data-type="basic">
+              <td><span class="tag">Окружной</span></td>
+              <td><strong>ЮВАО</strong>Юго‑Восточный административный округ</td>
+              <td><strong>ЦАОП</strong>филиал МКНЦ им. А.С. Логинова</td>
+              <td>МКНЦ им. А.С. Логинова</td>
+              <td>Общая онкология, онкомаммология, онкогинекология, онкоурология</td>
+            </tr>
+            <tr data-type="basic">
+              <td><span class="tag">Окружной</span></td>
+              <td><strong>ЗелАО</strong>Зеленоградский административный округ</td>
+              <td><strong>ЦАОП 2</strong>МГОБ №62, Зеленоград, корп. 1638</td>
+              <td>МГОБ №62</td>
+              <td>Общая онкология, онкомаммология, онкогинекология, онкоурология</td>
+            </tr>
+            <tr data-type="special">
+              <td><span class="tag warn">Спец.</span></td>
+              <td><strong>САО + СЗАО + ЗелАО</strong></td>
+              <td><strong>ЦАОП МГОБ №62</strong>Старопетровский пр-д, д. 6, стр. 2</td>
+              <td>МГОБ №62</td>
+              <td>Опухоли головы и шеи</td>
+            </tr>
+            <tr data-type="special">
+              <td><span class="tag warn">Спец.</span></td>
+              <td><strong>ЦАО + ВАО + СВАО + ЗАО + ЮАО + ЮЗАО + НАО + ТАО</strong></td>
+              <td><strong>ЦАОП ЦАО</strong>Онкоцентр №1, ГКБ им. С.С. Юдина</td>
+              <td>Онкоцентр №1, ГКБ им. С.С. Юдина</td>
+              <td>Опухоли головы и шеи</td>
+            </tr>
+            <tr data-type="special">
+              <td><span class="tag warn">Спец.</span></td>
+              <td><strong>ЮВАО</strong></td>
+              <td><strong>ЦАОП</strong>филиал МКНЦ им. А.С. Логинова</td>
+              <td>МКНЦ им. А.С. Логинова</td>
+              <td>Опухоли головы и шеи</td>
+            </tr>
+            <tr data-type="special">
+              <td><span class="tag warn">Спец.</span></td>
+              <td><strong>Все округа</strong></td>
+              <td><strong>ЦАОП ГКБ им. С.П. Боткина</strong></td>
+              <td>ГКБ им. С.П. Боткина</td>
+              <td>Нейроонкология: первичные опухоли ЦНС и ПНС</td>
+            </tr>
+            <tr data-type="special">
+              <td><span class="tag warn">Спец.</span></td>
+              <td><strong>Все округа</strong></td>
+              <td><strong>Через свой ЦАОП I порядка</strong></td>
+              <td>НИИ СП им. Н.В. Склифосовского</td>
+              <td>Нейроонкология по отдельным показаниям (маршрутизация через ЦАОП)</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="empty" id="emptyState" hidden>Ничего не найдено.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const areaChips = Array.from(document.querySelectorAll('.chip'));
+      const rows = Array.from(document.querySelectorAll('#tbody tr'));
+      const empty = document.getElementById('emptyState');
+      let currentArea = 'all';
+
+      function applyArea(){
+        let visible = 0;
+        rows.forEach(row => {
+          const text = row.innerText.toLowerCase();
+          const isSpecial = row.dataset.type === 'special';
+          const isCAO = text.includes('цао');
+          const isVAO = text.includes('вао');
+          const isUVAO = text.includes('ювао');
+          const isZelAO = text.includes('зелао') || text.includes('зеленоград');
+
+          let show = false;
+          if (currentArea === 'all') show = true;
+          else if (currentArea === 'special') show = isSpecial;
+          else if (currentArea === 'CAO') show = isCAO && !isSpecial;
+          else if (currentArea === 'VAO') show = isVAO && !isSpecial;
+          else if (currentArea === 'UVAO') show = isUVAO && !isSpecial;
+          else if (currentArea === 'ZelAO') show = isZelAO && !isSpecial;
+
+          row.hidden = !show;
+          if (show) visible++;
+        });
+        empty.hidden = visible !== 0;
+      }
+
+      areaChips.forEach(chip => chip.addEventListener('click', () => {
+        areaChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentArea = chip.dataset.area;
+        applyArea();
+      }));
+      applyArea();
+    })();
+  </script>
+</body>
+</html>
