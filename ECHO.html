@@ -14,52 +14,53 @@
       --bg:#161513;--card:#1d1b18;--soft:#26231f;--border:#3a3630;--text:#ece6dc;--muted:#b1a99c;
       --primary:#67aeb6;--ok:#84c56f;--warn:#f0b35d;--bad:#ef8e97;--shadow:0 10px 24px rgba(0,0,0,.28);
     }
-    *{box-sizing:border-box} body{margin:0;font-family:'Satoshi',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Satoshi',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
     .wrap{max-width:980px;margin:0 auto;padding:16px}
     .top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
-    h1{font-size:26px;margin:0} .sub{color:var(--muted);font-size:14px;margin-top:4px}
-    .btn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 14px;border-radius:999px;cursor:pointer;min-height:44px}
-    .hero,.box{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)}
-    .hero{padding:16px;margin-bottom:14px}
-    .hero p{margin:0;font-size:15px}
-    .patient{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
-    .field{display:flex;flex-direction:column;gap:4px}
-    label{font-size:13px;font-weight:700}
-    input,textarea,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit}
-    textarea{min-height:72px;resize:vertical}
-    .section-title{margin:18px 0 8px;font-size:20px}
+    h1{font-size:26px;margin:0}
+    .sub{color:var(--muted);font-size:14px;margin-top:4px}
+    .btn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 16px;border-radius:999px;cursor:pointer;min-height:40px;font-size:14px}
+    .btn:hover{border-color:var(--primary)}
+    .box{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)}
+    .section-title{margin:12px 0 8px;font-size:20px}
     table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
     th,td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
     th{font-size:13px;background:var(--soft)}
     td{font-size:14px}
     tr:last-child td{border-bottom:none}
     .mini{font-size:12px;color:var(--muted)}
-    .yes{color:var(--ok);font-weight:700}.maybe{color:var(--warn);font-weight:700}.no{color:var(--bad);font-weight:700}
-    .result{margin-top:14px;padding:14px}.result h2{font-size:18px;margin:0 0 8px}.result textarea{background:var(--soft)}
-    @media (max-width:760px){.patient{grid-template-columns:1fr 1fr}.top{flex-direction:column;align-items:flex-start}}
-    @media (max-width:560px){.patient{grid-template-columns:1fr} table{display:block;overflow-x:auto;white-space:nowrap}}
+    .result{margin-top:14px;padding:14px}
+    .result h2{font-size:18px;margin:0 0 8px}
+    .result-row{display:flex;align-items:center;gap:8px;margin-top:8px;margin-bottom:8px;flex-wrap:wrap}
+    textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;min-height:120px;resize:none;overflow:hidden}
+    input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit}
+    label{font-size:13px;font-weight:700}
+    .field{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+    @media (max-width:560px){
+      table{display:block;overflow-x:auto;white-space:nowrap}
+      .top{flex-direction:column;align-items:flex-start}
+    }
   </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
     <div>
-      <h1>Памятка ЭхоКГ — просто и коротко</h1>
-      <div class="sub">Смысл: врач сразу видит, нужно ли этот показатель заполнять и зачем он вообще нужен</div>
+      <h1>Памятка ЭхоКГ — автозаключение</h1>
+      <div class="sub">Вставьте протокол сверху или введите ключевые числа ниже. Внизу будет готовое заключение, патологии и план.</div>
     </div>
     <button class="btn" id="themeBtn" type="button">🌙 Тема</button>
   </div>
 
-  <div class="hero">
-    <p><strong>Как пользоваться:</strong> если показатель в вашем протоколе есть — вписываете значение. Если его не измеряли или не видно — оставляете пустым. В правом столбце уже написано, о чем этот показатель говорит и когда отклонение становится клинически значимым.</p>
-    <div class="patient">
-      <div class="field"><label>ФИО / ID</label><input placeholder="Пациент"></div>
-      <div class="field"><label>Дата</label><input placeholder="дд.мм.гггг"></div>
-      <div class="field"><label>Рост</label><input placeholder="см"></div>
-      <div class="field"><label>Вес</label><input placeholder="кг"></div>
-      <div class="field"><label>площадь поверхности тела</label><input placeholder="м²"></div>
-      <div class="field"><label>Качество визуализации</label><input placeholder="удовлетворит. / снижена / фрагментарна"></div>
-      <div class="field" style="grid-column:span 2"><label>Особые условия</label><input placeholder="повязка, дренажи, ИВЛ, неудобное окно и т.д."></div>
+  <h2 class="section-title">Вставьте протокол</h2>
+  <div class="box" style="padding:12px 14px;">
+    <div class="field">
+      <label for="rawText">Текст ЭхоКГ (как из протокола/ИС)</label>
+      <textarea id="rawText" placeholder="Вставьте сюда весь текст протокола..."></textarea>
+    </div>
+    <div class="result-row">
+      <button class="btn" type="button" onclick="parseProtocol()">Разобрать протокол</button>
     </div>
   </div>
 
@@ -68,141 +69,146 @@
     <thead>
       <tr>
         <th>Показатель</th>
-        <th>Поле</th>
-        <th>Норма / ориентир</th>
-        <th>Нужно ли заполнять</th>
+        <th>Значение</th>
+        <th>Норма (ориентировочно)</th>
         <th>Что значит</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Левое предсердие, индекс объема</strong><div class="mini">главный показатель для левого предсердия</div></td>
-        <td><input placeholder="мл/м²"></td>
-        <td>&lt; 34</td>
-        <td><span class="yes">Да, желательно</span></td>
-        <td>Показывает хроническую перегрузку левого предсердия; если повышен — думать о диастолической дисфункции, митральной регургитации, фибрилляции предсердий</td>
+        <td><strong>Левое предсердие, индекс объема</strong><div class="mini">если есть в протоколе</div></td>
+        <td><input id="la_index" placeholder="мл/м²"></td>
+        <td>&lt; 34 мл/м²</td>
+        <td>Хроническая перегрузка левого предсердия при диастолической дисфункции, митральной регургитации, фибрилляции предсердий</td>
       </tr>
+
       <tr>
         <td><strong>КДР левого желудочка</strong></td>
-        <td><input placeholder="см"></td>
-        <td>по полу и размеру тела, ориентир до ~5,6</td>
-        <td><span class="yes">Да</span></td>
-        <td>Нужен для понимания, есть ли дилатация левого желудочка</td>
+        <td><input id="lv_kdr" placeholder="см"></td>
+        <td>до ~5,6 см</td>
+        <td>Увеличение отражает дилатацию левого желудочка</td>
       </tr>
+
       <tr>
         <td><strong>КСР левого желудочка</strong></td>
-        <td><input placeholder="см"></td>
-        <td>ориентир до ~4,0</td>
-        <td><span class="yes">Да</span></td>
-        <td>Чем выше, тем хуже опорожнение левого желудочка; помогает увидеть ремоделирование</td>
+        <td><input id="lv_ksr" placeholder="см"></td>
+        <td>до ~4,0 см</td>
+        <td>Высокий КСР — плохое опорожнение и ремоделирование</td>
       </tr>
+
       <tr>
-        <td><strong>КДО / КСО</strong><div class="mini">если считались</div></td>
-        <td><input placeholder="КДО мл / КСО мл"></td>
-        <td>зависят от площади поверхности тела</td>
-        <td><span class="maybe">Если есть</span></td>
-        <td>Полезны для более точной оценки дилатации и систолической функции</td>
+        <td><strong>КДО</strong><div class="mini">конечный диастолический объем</div></td>
+        <td><input id="lv_kdo" placeholder="мл"></td>
+        <td>примерно до 145 мл</td>
+        <td>Рост КДО = дилатация и перегрузка объемом левого желудочка</td>
       </tr>
+
+      <tr>
+        <td><strong>КСО</strong><div class="mini">конечный систолический объем</div></td>
+        <td><input id="lv_kso" placeholder="мл"></td>
+        <td>примерно до 66 мл</td>
+        <td>Высокий КСО = неполное опорожнение и выраженная систолическая дисфункция</td>
+      </tr>
+
       <tr>
         <td><strong>ФВ Simpson</strong></td>
-        <td><input placeholder="%"></td>
-        <td>&gt; 52% м, &gt; 54% ж</td>
-        <td><span class="yes">Обязательно</span></td>
-        <td>Главный показатель глобальной систолической функции левого желудочка; ≤40% — думать о сердечной недостаточности с низкой фракцией выброса</td>
+        <td><input id="ef" placeholder="%"></td>
+        <td>&gt; 52–54 %</td>
+        <td>Глобальная систолическая функция левого желудочка</td>
       </tr>
+
       <tr>
         <td><strong>Локальная сократимость</strong></td>
-        <td><input placeholder="нет / гипокинез / акинез ..."></td>
+        <td><input id="wall_motion" placeholder="нет / гипокинез / акинез ..."></td>
         <td>без нарушений</td>
-        <td><span class="yes">Да</span></td>
-        <td>Если есть гипо-/акинез — думать об ишемии, перенесенном инфаркте миокарда, рубце</td>
+        <td>Нарушения сократимости соответствуют зонам ишемии или рубца</td>
       </tr>
+
       <tr>
         <td><strong>E/A</strong></td>
-        <td><input placeholder="число"></td>
-        <td>сам по себе не трактуется отдельно</td>
-        <td><span class="maybe">Если оцениваете диастолу</span></td>
-        <td>Нужен вместе с E/e′ и левым предсердием для оценки диастолической функции</td>
+        <td><input id="ea" placeholder="число"></td>
+        <td>≈ 0,8–1,5</td>
+        <td>&lt; 0,8 — нарушение релаксации; &gt; 2 — рестриктивный тип наполнения</td>
       </tr>
+
       <tr>
         <td><strong>E/e′</strong></td>
-        <td><input placeholder="число"></td>
+        <td><input id="e_over_e" placeholder="число"></td>
         <td>&lt; 14</td>
-        <td><span class="yes">Желательно</span></td>
-        <td>Если повышен — думать о высоких давлениях наполнения левого желудочка</td>
+        <td>&gt; 14 — высокое давление наполнения левого желудочка</td>
       </tr>
+
       <tr>
         <td><strong>Площадь правого предсердия</strong></td>
-        <td><input placeholder="см²"></td>
-        <td>&lt; 18</td>
-        <td><span class="maybe">Если правые отделы изменены</span></td>
-        <td>Нужна для оценки перегрузки правых отделов</td>
+        <td><input id="ra_area" placeholder="см²"></td>
+        <td>&lt; 18 см²</td>
+        <td>Увеличение = хроническая перегрузка правых отделов</td>
       </tr>
+
       <tr>
         <td><strong>Размер правого желудочка</strong></td>
-        <td><input placeholder="см"></td>
-        <td>базальный &lt; 4,1</td>
-        <td><span class="yes">Да, если есть легочная гипертензия/трикуспидальная регургитация</span></td>
-        <td>Увеличение правого желудочка — думать о перегрузке давлением или объемом</td>
+        <td><input id="rv_size" placeholder="см"></td>
+        <td>базальный &lt; 4,1 см</td>
+        <td>Перегрузка правого желудочка давлением или объемом</td>
       </tr>
+
       <tr>
         <td><strong>TAPSE</strong></td>
-        <td><input placeholder="см"></td>
-        <td>≥ 1,7</td>
-        <td><span class="yes">Очень полезно</span></td>
-        <td>Снижение — думать о систолической дисфункции правого желудочка</td>
+        <td><input id="tapse" placeholder="см"></td>
+        <td>≥ 1,7 см</td>
+        <td>Продольная систолическая функция правого желудочка</td>
       </tr>
+
       <tr>
         <td><strong>Митральная регургитация</strong></td>
-        <td><input placeholder="0–4 ст"></td>
-        <td>0–1 ст</td>
-        <td><span class="yes">Да</span></td>
-        <td>Если 2+ и выше — может объяснять дилатацию левого предсердия и сердечную недостаточность</td>
+        <td><input id="mr" placeholder="0–4 ст"></td>
+        <td>0–1 ст — незначимая</td>
+        <td>2–4 ст — значимая митральная недостаточность, перегрузка левого предсердия</td>
       </tr>
-      <tr>
-        <td><strong>Аортальный клапан</strong></td>
-        <td><input placeholder="площадь / Vmax / градиент"></td>
-        <td>площадь &gt; 1,5 см²</td>
-        <td><span class="maybe">Если есть кальциноз/подозрение на стеноз</span></td>
-        <td>Если площадь ≤1,5 — думать об аортальном стенозе; &lt;1,0 — тяжелый</td>
-      </tr>
+
       <tr>
         <td><strong>Трикуспидальная регургитация</strong></td>
-        <td><input placeholder="0–4 ст"></td>
-        <td>0–1 ст</td>
-        <td><span class="yes">Да, если есть правый желудочек, TAPSE</span></td>
-        <td>Помогает понять, есть ли перегрузка правых камер и функциональная трикуспидальная регургитация</td>
+        <td><input id="tr" placeholder="0–4 ст"></td>
+        <td>0–1 ст — незначимая</td>
+        <td>2–4 ст — функциональная недостаточность на фоне перегрузки правых отделов</td>
       </tr>
+
       <tr>
         <td><strong>PASP / СДЛА</strong></td>
-        <td><input placeholder="мм рт. ст."></td>
-        <td>&lt; 35</td>
-        <td><span class="yes">Очень желательно</span></td>
-        <td>Если повышено — думать о легочной гипертензии; при патологии левых отделов чаще вторичной</td>
+        <td><input id="pasp" placeholder="мм рт. ст."></td>
+        <td>&lt; 35 мм рт. ст.</td>
+        <td>35–49 — умеренная, ≥50 — выраженная легочная гипертензия</td>
       </tr>
+
       <tr>
-        <td><strong>нижняя полая вена</strong></td>
-        <td><input placeholder="диаметр + коллапс"></td>
-        <td>≤2,1 см и коллапс &gt;50%</td>
-        <td><span class="maybe">Если нужен RAP</span></td>
-        <td>Помогает оценить давление в правом предсердии и системный венозный застой</td>
+        <td><strong>Нижняя полая вена</strong></td>
+        <td><input id="ivc" placeholder="диаметр + коллапс"></td>
+        <td>≤ 2,1 см и коллапс &gt; 50 %</td>
+        <td>Расширение и плохой коллапс = повышенное давление в правом предсердии</td>
       </tr>
+
       <tr>
         <td><strong>Плевральная жидкость / выпот</strong></td>
-        <td><input placeholder="слева / справа"></td>
+        <td><input id="pleura" placeholder="слева / справа / нет"></td>
         <td>нет</td>
-        <td><span class="maybe">Если видна</span></td>
-        <td>Может поддерживать картину декомпенсации сердечной недостаточности</td>
+        <td>Выпот может сопровождать декомпенсированную сердечную недостаточность</td>
       </tr>
     </tbody>
   </table>
 
   <div class="box result">
-    <h2>Короткое правило для врача</h2>
-    <p style="margin:0 0 10px">Если совсем упрощать, то для практического понимания пациента чаще всего достаточно в первую очередь заполнить: <strong>левое предсердие, КДР/КСР левого желудочка, фракцию выброса Simpson, локальную сократимость, E/e′, правый желудочек, TAPSE, митральную и трикуспидальную регургитацию, PASP</strong>. Остальное — по ситуации.</p>
+    <h2>Единый текст: заключение + патологии + план</h2>
+    <p style="margin:0 0 6px">
+      Нажмите «Сформировать» — текст соберётся из чисел (из протокола и/или таблицы). Его удобно читать и целиком копировать.
+    </p>
+    <div class="result-row">
+      <button class="btn" type="button" onclick="buildAll()">Сформировать</button>
+      <button class="btn" type="button" onclick="copyAll()">Скопировать текст</button>
+    </div>
+
     <div class="field">
-      <label>Итоговое заключение</label>
-      <textarea placeholder="Например: дилатация левого предсердия. Левый желудочек умеренно дилатирован. ФВ снижена. Диффузный гипокинез. Диастолическая дисфункция с повышением давлений наполнения. Функция правого желудочка снижена по TAPSE. Умеренная/тяжелая трикуспидальная регургитация. Признаки легочной гипертензии..."></textarea>
+      <label for="allText">Текст для вставки в историю болезни</label>
+      <textarea id="allText" placeholder="Здесь появится единый блок текста: заключение, возможные патологии и план дальнейшей диагностики."></textarea>
     </div>
   </div>
 </div>
@@ -211,6 +217,303 @@
   const dark=window.matchMedia('(prefers-color-scheme: dark)').matches;root.setAttribute('data-theme',dark?'dark':'light');
   function syncBtn(){btn.textContent=root.getAttribute('data-theme')==='dark'?'☀️ Тема':'🌙 Тема'} syncBtn();
   btn.addEventListener('click',()=>{root.setAttribute('data-theme',root.getAttribute('data-theme')==='dark'?'light':'dark');syncBtn()});
+
+  function num(val){
+    if(!val) return null;
+    val = val.replace(',', '.');
+    const n = parseFloat(val);
+    return isNaN(n) ? null : n;
+  }
+
+  const allTextEl = document.getElementById('allText');
+  function autoResize(){
+    allTextEl.style.height = 'auto';
+    allTextEl.style.height = allTextEl.scrollHeight + 'px';
+  }
+  allTextEl.addEventListener('input', autoResize);
+
+  function parseProtocol(){
+    const text = document.getElementById('rawText').value;
+    if(!text) return;
+
+    const getNum = (re) => {
+      const m = text.match(re);
+      if(!m) return null;
+      return num(m[1]);
+    };
+
+    const getStr = (re) => {
+      const m = text.match(re);
+      if(!m) return '';
+      return m[1].trim();
+    };
+
+    // КДО/КСО/ФВ (форматы "КДО: 78 мл;" или "КДО — 151мл")
+    const kdo = getNum(/КДО[^0-9]*([\d.,]+)\s*мл/iu);
+    const kso = getNum(/КСО[^0-9]*([\d.,]+)\s*мл/iu);
+    const ef  = getNum(/ФВ[:\s-]*([\d.,]+)\s*%/iu);
+
+    if(kdo !== null) document.getElementById('lv_kdo').value = kdo;
+    if(kso !== null) document.getElementById('lv_kso').value = kso;
+    if(ef  !== null) document.getElementById('ef').value = ef;
+
+    // Индекс объёма ЛП
+    const laIndex = getNum(/индекс объема ЛП[^0-9]*([\d.,]+)\s*мл\/м2/iu)
+                 || getNum(/Индекс к площади повехности тела.*?:\s*([\d.,]+)/iu);
+    if(laIndex !== null) document.getElementById('la_index').value = laIndex;
+
+    // КДР / КСР (форматы "КДР – 5,8 см" и "КСР --- 5,1 см")
+    const kdr = getNum(/КДР[^0-9]*([\d.,]+)\s*см/iu);
+    const ksr = getNum(/КСР[^0-9]*([\d.,]+)\s*см/iu);
+    if(kdr !== null) document.getElementById('lv_kdr').value = kdr;
+    if(ksr !== null) document.getElementById('lv_ksr').value = ksr;
+
+    // E/A и E/е
+    const ea = getNum(/E\/A[-–:]?\s*([\d.,]+)/iu);
+    const eoe = getNum(/E\/e[^-\d]*[-–]?\s*([\d.,]+)/iu);
+    if(ea  !== null) document.getElementById('ea').value = ea;
+    if(eoe !== null) document.getElementById('e_over_e').value = eoe;
+
+    // Локальная сократимость (просто забрать фразу после "Зоны нарушения локальной сократимости")
+    let wall = getStr(/Зоны нарушения локальной сократимости[:\-]?\s*([^.\n;]+)/iu);
+    if(!wall){
+      wall = getStr(/Зона\s+гипокинезии[^.]*?:(.*)/iu);
+    }
+    if(wall) document.getElementById('wall_motion').value = wall;
+
+    // Площадь правого предсердия
+    const raArea = getNum(/ПРАВОЕ ПРЕДСЕРДИЕ: площадь[-–:]?\s*([\d.,]+)\s*см2/iu);
+    if(raArea !== null) document.getElementById('ra_area').value = raArea;
+
+    // Размер правого желудочка (базальный)
+    const rvSize = getNum(/Базальный диаметр ПЖ[-–:]?\s*([\d.,]+)\s*см/iu);
+    if(rvSize !== null) document.getElementById('rv_size').value = rvSize;
+
+    // TAPSE
+    const tapse = getNum(/TAPSE\s*[-–:]?\s*([\d.,]+)\s*см/iu);
+    if(tapse !== null) document.getElementById('tapse').value = tapse;
+
+    // Давление в ЛА / PASP
+    const pasp = getNum(/давление в лёгочной артерии\s*([\d.,]+)\s*мм/iu)
+              || getNum(/систолическое давление в легочной артерии[-–:]?\s*([\d.,]+)\s*мм/iu);
+    if(pasp !== null) document.getElementById('pasp').value = pasp;
+
+    // Митральная регургитация (степень)
+    const mr = getStr(/митральная регургитация[-–:]?\s*([0-4]\s*ст)/iu);
+    if(mr) document.getElementById('mr').value = mr.replace(/\s+/g,' ');
+
+    // Трикуспидальная регургитация
+    const tr = getStr(/трикуспидальная регургитация[-–:]?\s*([0-4]\s*ст)/iu);
+    if(tr) document.getElementById('tr').value = tr.replace(/\s+/g,' ');
+
+    // Плевральный выпот (грубо)
+    let pleura = '';
+    if(/в плевральных полостях жидкость[^.]*не определяется/iu.test(text) ||
+       /Жидкость в плевральных синусах не визуализируется/iu.test(text)){
+      pleura = 'нет';
+    } else if(/В плевральных полостях жидкость[^.]*слева-([\d.,]+)/iu.test(text)){
+      pleura = 'слева есть выпот';
+    }
+    if(pleura) document.getElementById('pleura').value = pleura;
+
+    autoResize();
+  }
+
+  function buildAll(){
+    const concl = [];
+    const dx = [];
+    const plan = [];
+
+    const laIndex = num(document.getElementById('la_index').value);
+    if(laIndex !== null){
+      if(laIndex <= 34) concl.push('Левое предсердие по объему не увеличено');
+      else if(laIndex <= 39){
+        concl.push('Левое предсердие несколько увеличено');
+        dx.push('возможна начальная диастолическая дисфункция левого желудочка или умеренная митральная перегрузка');
+      } else {
+        concl.push('Левое предсердие значительно увеличено');
+        dx.push('хронически повышенное давление наполнения левого желудочка, возможная диастолическая сердечная недостаточность и длительно существующая митральная регургитация или артериальная гипертензия');
+      }
+    }
+
+    const kdr = num(document.getElementById('lv_kdr').value);
+    const ksr = num(document.getElementById('lv_ksr').value);
+    if(kdr !== null || ksr !== null){
+      if((kdr && kdr > 5.6) || (ksr && ksr > 4.0)){
+        concl.push('Левый желудочек дилатирован');
+        dx.push('возможная дилатационная или ишемическая кардиомиопатия, хроническая перегрузка объемом');
+      } else {
+        concl.push('Размеры левого желудочка в пределах нормы');
+      }
+    }
+
+    const kdo = num(document.getElementById('lv_kdo').value);
+    const kso = num(document.getElementById('lv_kso').value);
+    if(kdo !== null || kso !== null){
+      if(kdo && kdo > 145) dx.push('дилатация левого желудочка по увеличенному КДО');
+      if(kso && kso > 66) dx.push('выраженная систолическая дисфункция по увеличенному КСО');
+    }
+
+    const ef = num(document.getElementById('ef').value);
+    if(ef !== null){
+      if(ef >= 50){
+        concl.push('Систолическая функция левого желудочка сохранена');
+      } else if(ef >= 41){
+        concl.push('Систолическая функция левого желудочка умеренно снижена');
+        dx.push('сердечная недостаточность с умеренным снижением фракции выброса; уточнить ишемическую этиологию и уровень артериального давления');
+      } else {
+        concl.push('Систолическая функция левого желудочка выраженно снижена');
+        dx.push('сердечная недостаточность с низкой фракцией выброса, возможная ишемическая или дилатационная кардиомиопатия');
+        plan.push('уточнение ишемической болезни сердца (ЭКГ, тропонин при необходимости, коронарография или КТ-коронарография по показаниям)');
+        plan.push('оценка натрийуретических пептидов, функции почек и электролитов для подбора терапии сердечной недостаточности');
+      }
+    }
+
+    const wall = document.getElementById('wall_motion').value.trim().toLowerCase();
+    if(wall){
+      if(wall.includes('гипокинез') || wall.includes('акинез') || wall.includes('дискинез')){
+        concl.push('Имеются локальные нарушения сократимости миокарда');
+        dx.push('вероятная ишемическая болезнь сердца, перенесенный инфаркт миокарда или постинфарктный кардиосклероз');
+        plan.push('расширенная оценка ишемии (ЭКГ, тропонин по показаниям, нагрузочные тесты или визуализация коронарных артерий)');
+      } else if(wall.includes('нет') || wall.includes('без')){
+        concl.push('Локальных нарушений сократимости не выявлено');
+      }
+    }
+
+    const ea = num(document.getElementById('ea').value);
+    if(ea !== null){
+      if(ea >= 0.8 && ea <= 1.5){
+        concl.push('Отношение E/A в пределах условной нормы');
+      } else if(ea < 0.8){
+        concl.push('Отношение E/A снижено, типично для нарушения релаксации левого желудочка');
+        dx.push('диастолическая дисфункция первого типа (нарушение релаксации)');
+      } else if(ea > 2.0){
+        concl.push('Отношение E/A высокое, возможно рестриктивный тип наполнения');
+        dx.push('рестриктивный тип диастолической дисфункции при повышенных давлениях наполнения');
+      }
+    }
+
+    const eae = num(document.getElementById('e_over_e').value);
+    if(eae !== null){
+      if(eae <= 14){
+        concl.push('Признаков выраженного повышения давлений наполнения левого желудочка по E/e′ нет');
+      } else {
+        concl.push('По данным E/e′ имеются признаки повышенных давлений наполнения левого желудочка');
+        dx.push('диастолическая дисфункция с повышением конечнедиастолического давления в левом желудочке');
+        plan.push('контроль артериального давления, оценка объёмного статуса, оптимизация диуретической и разгружающей терапии при сердечной недостаточности');
+      }
+    }
+
+    const rv = num(document.getElementById('rv_size').value);
+    const tapse = num(document.getElementById('tapse').value);
+    if(rv !== null || tapse !== null){
+      if((rv && rv > 4.1) || (tapse && tapse < 1.7)){
+        concl.push('Есть признаки перегрузки и/или систолической дисфункции правого желудочка');
+        dx.push('правожелудочковая недостаточность на фоне легочной гипертензии, хронических заболеваний легких или клапанной патологии правых отделов');
+      } else {
+        concl.push('Размер и сократимость правого желудочка по основным показателям не страдают');
+      }
+    }
+
+    const mrVal = document.getElementById('mr').value.trim();
+    if(mrVal){
+      if(mrVal.startsWith('0') || mrVal.startsWith('1')){
+        concl.push('Митральная регургитация незначимая');
+      } else if(mrVal.startsWith('2')){
+        concl.push('Митральная регургитация умеренной степени');
+        dx.push('значимая митральная недостаточность, требующая динамического наблюдения и оценки симптоматики');
+        plan.push('повторное ЭхоКГ в динамике и консультация кардиолога при появлении или усилении симптомов сердечной недостаточности');
+      } else {
+        concl.push('Митральная регургитация выраженная');
+        dx.push('тяжелая митральная недостаточность с риском прогрессирования сердечной недостаточности и легочной гипертензии');
+        plan.push('консультация кардиохирурга или специализированного кардиологического центра для решения вопроса о коррекции митральной недостаточности');
+      }
+    }
+
+    const trVal = document.getElementById('tr').value.trim();
+    if(trVal){
+      if(trVal.startsWith('0') || trVal.startsWith('1')){
+        concl.push('Трикуспидальная регургитация незначимая');
+      } else if(trVal.startsWith('2')){
+        concl.push('Трикуспидальная регургитация умеренная');
+        dx.push('функциональная трикуспидальная недостаточность на фоне перегрузки правых отделов');
+      } else {
+        concl.push('Трикуспидальная регургитация выраженная');
+        dx.push('тяжелая трикуспидальная недостаточность с риском выраженной правожелудочковой недостаточности и венозного застоя');
+        plan.push('оценка признаков застойной правожелудочковой недостаточности; рассмотрение вопроса о хирургической или интервенционной коррекции трикуспидальной недостаточности');
+      }
+    }
+
+    const pasp = num(document.getElementById('pasp').value);
+    if(pasp !== null){
+      if(pasp < 35){
+        concl.push('Данных за легочную гипертензию по расчетному давлению в легочной артерии нет');
+      } else if(pasp < 50){
+        concl.push('Признаки умеренного повышения давления в легочной артерии');
+        dx.push('умеренная легочная гипертензия, чаще вторичная к патологии левых отделов сердца или заболеваниям легких');
+        plan.push('оценка заболеваний легких (спирометрия, рентгенография или КТ грудной клетки), уточнение степени сердечной недостаточности и клапанной патологии');
+      } else {
+        concl.push('Признаки выраженной легочной гипертензии');
+        dx.push('выраженная легочная гипертензия; требуется уточнение группы легочной гипертензии (левожелудочковая, легочная, тромбоэмболическая и др.)');
+        plan.push('рассмотреть проведение КТ‑ангиографии или вентиляционно‑перфузионного сканирования для исключения хронической тромбоэмболической легочной гипертензии');
+        plan.push('рассмотреть направление на катетеризацию правых отделов сердца для подтверждения диагноза легочной гипертензии и оценки гемодинамики');
+      }
+    }
+
+    const pleura = document.getElementById('pleura').value.trim().toLowerCase();
+    if(pleura){
+      if(pleura.includes('нет') || pleura === '-'){
+        concl.push('Плевральной жидкости по данным исследования нет');
+      } else {
+        concl.push('Определяется плевральная жидкость');
+        dx.push('возможная декомпенсация сердечной недостаточности или другая причина плеврального выпота');
+        plan.push('рентгенография или КТ органов грудной клетки; при сомнениях — плевральная пункция с анализом выпота');
+      }
+    }
+
+    if(concl.length === 0){
+      concl.push('Данных для автоматического формирования заключения недостаточно');
+    }
+
+    const dxUnique = [...new Set(dx)];
+    const planUnique = [...new Set(plan)];
+
+    let text = '';
+    text += 'Заключение: ' + concl.join('. ') + '.\n\n';
+    text += 'Возможные патологии:\n';
+    text += dxUnique.length
+      ? dxUnique.map(s => '— ' + s).join('\n')
+      : '— По введенным данным специфических патологий не выделено или информации недостаточно.';
+    text += '\n\nПлан дальнейшей диагностики:\n';
+    text += planUnique.length
+      ? planUnique.map(s => '— ' + s).join('\n')
+      : '— Клиническая корреляция, стандартное кардиологическое обследование (ЭКГ, лаборатория, контроль артериального давления) по показаниям.';
+
+    allTextEl.value = text;
+    autoResize();
+  }
+
+  function copyAll(){
+    const text = allTextEl.value;
+    if(!text) return;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).catch(()=>fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+
+  function fallbackCopy(text){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
 </script>
 </body>
 </html>
