@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Реестр гидробаланса — сутки</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: 0.72rem;
+      --text-sm: 0.84rem;
+      --text-base: 0.94rem;
+      --text-lg: 1.02rem;
+
+      --color-bg: #f7f6f2;
+      --color-surface: #f9f8f5;
+      --color-surface-2: #fbfbf9;
+      --color-surface-offset: #f3f0ec;
+      --color-divider: #dcd9d5;
+
+      --color-text: #28251d;
+      --color-text-muted: #72706a;
+      --color-text-faint: #9d9b96;
+      --color-text-inverse: #f9f8f4;
+
+      --color-primary: #01696f;
+      --color-primary-hover: #0c4e54;
+      --color-primary-highlight: #cedcd8;
+
+      --color-danger: #c62828;
+      --color-danger-soft: #fdecec;
+      --color-success: #1b7b2c;
+
+      --radius-xl: 0.9rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px rgba(40,37,29,.05);
+      --shadow-md: 0 5px 12px rgba(40,37,29,.06);
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --font-body: 'Satoshi', 'Inter', sans-serif;
+      --content-wide: 1820px;
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #141414;
+      --color-surface: #191919;
+      --color-surface-2: #1f1f1f;
+      --color-surface-offset: #232323;
+      --color-divider: #313131;
+
+      --color-text: #e8e8e8;
+      --color-text-muted: #a0a0a0;
+      --color-text-faint: #7e7e7e;
+      --color-text-inverse: #111111;
+
+      --color-primary: #e0e0e0;
+      --color-primary-hover: #ffffff;
+      --color-primary-highlight: #2a2a2a;
+
+      --color-danger: #ff7373;
+      --color-danger-soft: #3b2222;
+      --color-success: #b7e3c4;
+
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.5);
+      --shadow-md: 0 8px 18px rgba(0,0,0,.65);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      background: linear-gradient(
+        180deg,
+        var(--color-bg) 0%,
+        color-mix(in srgb, var(--color-bg) 75%, #ffffff 25%) 100%
+      );
+      color: var(--color-text);
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select { font: inherit; }
+
+    .app { max-width: var(--content-wide); margin: 0 auto; padding: 0.8rem; }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.65rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .brand { display: flex; align-items: center; gap: 0.6rem; }
+    .logo {
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      display: grid; place-items: center;
+      color: var(--color-primary);
+      background: linear-gradient(135deg, var(--color-primary-highlight), var(--color-surface));
+      box-shadow: var(--shadow-sm);
+    }
+    .brand h1 { margin: 0; font-size: var(--text-lg); line-height: 1.05; }
+    .brand p { margin: 0; color: var(--color-text-muted); font-size: var(--text-sm); }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .search, .action {
+      height: 34px;
+      border-radius: var(--radius-full);
+      border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+      background: color-mix(in srgb, var(--color-surface) 82%, white 18%);
+      color: var(--color-text);
+      transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
+        background var(--transition),
+        transform var(--transition);
+    }
+    .search { min-width: 210px; padding: 0 0.8rem; }
+    .action {
+      padding: 0 0.82rem;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: var(--text-sm);
+    }
+    .action.primary {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      border: none;
+    }
+    .action:hover { transform: translateY(-1px); }
+    .action.primary:hover { background: var(--color-primary-hover); }
+
+    .search:focus,
+    .line input:focus,
+    .extra-type:focus,
+    .extra-value:focus {
+      outline: none;
+      border-color: color-mix(in srgb, var(--color-primary) 55%, white 45%);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 12%, transparent);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: var(--radius-xl);
+      background: color-mix(in srgb, var(--color-surface) 88%, white 12%);
+      box-shadow: var(--shadow-sm);
+    }
+    .toolbar-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+    .ward-pills { display: flex; flex-wrap: wrap; gap: 0.28rem; }
+    .pill {
+      border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+      background: transparent;
+      color: var(--color-text-muted);
+      border-radius: var(--radius-full);
+      padding: 0.34rem 0.58rem;
+      cursor: pointer;
+      min-height: 30px;
+      font-size: var(--text-sm);
+    }
+    .pill.active {
+      background: var(--color-primary-highlight);
+      color: var(--color-primary);
+      border-color: transparent;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+      gap: 0.55rem;
+    }
+    .card {
+      background: color-mix(in srgb, var(--color-surface) 90%, white 10%);
+      border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+      border-radius: 15px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-head {
+      padding: 0.6rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.45rem;
+      align-items: center;
+      border-bottom: 1px solid var(--color-divider);
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-surface-offset) 72%, white 28%),
+        transparent
+      );
+    }
+    .bed {
+      min-width: 44px;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--color-primary-highlight) 80%, white 20%);
+      color: var(--color-primary);
+      text-align: center;
+      font-weight: 700;
+      line-height: 1;
+      font-size: var(--text-sm);
+      border: none;
+      cursor: pointer;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .bed:hover {
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 25%, transparent);
+      transform: translateY(-1px);
+    }
+
+    .patient { min-width: 0; display: grid; gap: 0.2rem; }
+    .name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.35rem;
+      min-width: 0;
+    }
+    .patient-name {
+      font-weight: 700;
+      font-size: 0.94rem;
+      line-height: 1.05;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .tags-row {
+      margin-top: 0.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.28rem;
+      flex-wrap: wrap;
+    }
+
+    .mini-icon {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-surface) 65%, white 35%),
+        var(--color-surface-offset)
+      );
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid color-mix(in srgb, var(--color-primary) 10%, transparent);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .mini-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+    .mini-icon.text-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #075e33;
+    }
+    [data-theme="dark"] .mini-icon.text-badge,
+    [data-theme="dark"] .tag-preview.text {
+      color: #e7ffef;
+      background: #274231;
+      border-color: #3a5a45;
+    }
+
+    .mini-icon.infection {
+      background: radial-gradient(
+        circle at 30% 20%,
+        #ffd5d5 0,
+        #ffa0a0 45%,
+        #ff5a5a 100%
+      );
+      border-color: #b71c1c;
+      color: #000000;
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+
+    .mini-icon.ulcer {
+      background: radial-gradient(circle at 30% 20%, #ffeadd 0, #ffb08d 45%, #e25a3c 100%);
+      border-color: #b53a24;
+      color: #3a1208;
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    .mini-icon:hover::after {
+      content: attr(data-title);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: calc(100% + 6px);
+      background: #28251d;
+      color: #fff;
+      font-size: 0.68rem;
+      line-height: 1.2;
+      white-space: nowrap;
+      padding: 0.32rem 0.45rem;
+      border-radius: 8px;
+      pointer-events: none;
+      z-index: 15;
+      max-width: 160px;
+    }
+
+    .card-body { padding: 0.6rem; display: grid; gap: 0.45rem; }
+
+    .sheet, .extra-sheet { display: grid; gap: 0.12rem; }
+
+    .line, .extra-line {
+      display: grid;
+      grid-template-columns: 1.5fr minmax(62px, 78px);
+      gap: 0.34rem;
+      align-items: center;
+      padding: 0.05rem 0 0.18rem;
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .line:last-child, .extra-line:last-child { border-bottom: none; }
+
+    .line label, .extra-line label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+    .line.label-strong label { font-weight: 700; }
+
+    .line input,
+    .extra-line input,
+    .extra-type,
+    .extra-value {
+      width: 100%;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+      background: color-mix(in srgb, var(--color-surface-2) 85%, white 15%);
+      padding: 0 0.45rem;
+      color: var(--color-text);
+      font-size: var(--text-sm);
+    }
+    .line input, .extra-value { text-align: center; }
+
+    .line.total label { font-weight: 700; }
+    .line.total input {
+      font-weight: 700;
+      background: color-mix(in srgb, var(--color-surface-offset) 86%, white 14%);
+    }
+
+    .out-of-range {
+      color: var(--color-danger);
+      border-color: color-mix(in srgb, var(--color-danger) 55%, white 45%) !important;
+      background: color-mix(in srgb, var(--color-danger-soft) 70%, white 30%) !important;
+    }
+
+    .extra-block {
+      margin-top: 0.05rem;
+      padding-top: 0.25rem;
+      border-top: 1px dashed color-mix(in srgb, var(--color-text) 12%, transparent);
+      display: grid;
+      gap: 0.24rem;
+    }
+    .extra-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+    .extra-head span { font-size: 0.68rem; color: var(--color-text-muted); }
+    .plus-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .extra-line {
+      grid-template-columns: 1.5fr minmax(62px, 78px);
+    }
+    .extra-type { font-size: 0.72rem; text-align: left; }
+    .extra-value { font-size: 0.72rem; }
+
+    .remove-btn { display: none; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.28);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: min(460px, 100%);
+      background: var(--color-surface);
+      color: var(--color-text);
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: var(--shadow-md);
+    }
+    .modal h3 { margin: 0 0 0.8rem; font-size: 1rem; }
+    .tag-picker {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.45rem;
+    }
+    .tag-option {
+      border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+      border-radius: 12px;
+      background: var(--color-surface-2);
+      padding: 0.55rem 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .tag-option input { margin: 0; }
+    .tag-preview {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: var(--color-primary);
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-surface) 60%, white 40%),
+        var(--color-surface-offset)
+      );
+      border: 1px solid color-mix(in srgb, var(--color-primary) 10%, transparent);
+    }
+    .tag-preview.text { font-size: 0.72rem; font-weight: 700; color: #075e33; }
+    .tag-preview.infection {
+      background: radial-gradient(
+        circle at 30% 20%,
+        #ffd5d5 0,
+        #ffa0a0 45%,
+        #ff5a5a 100%
+      );
+      color: #000;
+      border-color: #b71c1c;
+      font-weight: 900;
+    }
+    .tag-preview.ulcer {
+      background: radial-gradient(circle at 30% 20%, #ffeadd 0, #ffb08d 45%, #e25a3c 100%);
+      color: #3a1208;
+      border-color: #b53a24;
+      font-weight: 900;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.45rem;
+      margin-top: 0.8rem;
+    }
+
+    @media (max-width: 920px) {
+      .topbar, .toolbar { grid-template-columns: 1fr; }
+      .controls { justify-content: flex-start; }
+    }
+    @media (max-width: 720px) {
+      .app { padding: 0.55rem; }
+      .search { min-width: 100%; }
+      .grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+      .extra-line {
+        grid-template-columns: 1fr;
+        gap: 0.28rem;
+        padding-bottom: 0.3rem;
+      }
+      .tag-picker { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3C9.5 7 6 10 6 14a6 6 0 0 0 12 0c0-4-3.5-7-6-11Z"></path>
+            <path d="M9.5 15.5a2.8 2.8 0 0 0 5 1"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>Гидробаланс — сутки</h1>
+          <p>Компактная форма для поста медицинской сестры</p>
+        </div>
+      </div>
+      <div></div>
+      <div class="controls">
+        <input class="search" id="searchInput" type="search"
+               placeholder="Поиск: фамилия, койка, палата"
+               aria-label="Поиск пациента">
+        <button class="action" id="themeToggle" type="button"
+                aria-label="Переключить тему">Тема</button>
+        <button class="action" id="printBtn" type="button">Печать</button>
+        <button class="action primary" type="button" id="fillDemo">Демо</button>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="Панель фильтрации">
+      <div class="toolbar-meta">
+        <span id="todayDate"></span>
+        <span>Заполнение формы до 18:00 и 6:00</span>
+        <span id="patientCount"></span>
+      </div>
+      <div class="ward-pills" id="wardFilters"></div>
+    </section>
+
+    <main>
+      <section class="grid" id="patientGrid" aria-label="Карточки пациентов"></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="tagModal">
+    <div class="modal">
+      <h3>Метки пациента</h3>
+      <div class="tag-picker" id="tagPicker"></div>
+      <div class="modal-actions">
+        <button class="action" type="button" id="closeModal">Закрыть</button>
+        <button class="action primary" type="button" id="saveTags">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <template id="extraRowTemplate">
+    <div class="extra-line">
+      <input class="extra-type" type="text" placeholder="Нефростома / дренаж" />
+      <input class="extra-value" type="number" inputmode="numeric"
+             min="0" step="1" placeholder="мл" />
+    </div>
+  </template>
+
+  <script>
+    const iconSvg = {
+      blind: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12s3.5-5 9-5 9 5 9 5-3.5 5-9 5-9-5-9-5Z"></path><path d="M9 12a3 3 0 1 0 6 0"></path><path d="M4 20 20 4"></path></svg>',
+      ear: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 3-2 4.2-3.6 5.3-1.5 1-2.4 1.8-2.4 3.7"></path><path d="M12 20a2.5 2.5 0 0 1-2.5-2.5"></path><path d="M4 4 20 20"></path></svg>',
+      teeth: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3c1.2 0 2.1.7 4 .7S14.8 3 16 3c2.7 0 4 2.5 4 5 0 4.2-2.4 10-4.7 10-1.1 0-1.4-1.9-1.8-3.5-.4-1.4-.8-2.5-1.5-2.5s-1.1 1.1-1.5 2.5C10.1 16.1 9.8 18 8.7 18 6.4 18 4 12.2 4 8c0-2.5 1.3-5 4-5Z"></path></svg>',
+      brain: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a3 3 0 0 0-3 3v.5A2.5 2.5 0 0 0 4 10a2.5 2.5 0 0 0 1.5 2.3A3 3 0 0 0 8 17h2V4H9Zm6 0a3 3 0 0 1 3 3v.5A2.5 2.5 0 0 1 20 10a2.5 2.5 0 0 1-1.5 2.3A3 3 0 0 1 16 17h-2V4h1Z"></path><path d="M10 7H8m2 4H7m7-4h2m-2 4h3m-7 6v3m4-3v3"></path></svg>'
+    };
+
+    const tagCatalog = [
+      { key: 'dm',        label: 'Сахарный диабет',   short: 'СД', type: 'text' },
+      { key: 'infection', label: 'Инфекция',          short: '!',  type: 'infection' },
+      { key: 'ulcer',     label: 'Пролежень',         short: '●',  type: 'ulcer' },
+      { key: 'vision',    label: 'Плохо видит',       short: iconSvg.blind,  type: 'icon' },
+      { key: 'hearing',   label: 'Плохо слышит',      short: iconSvg.ear,    type: 'icon' },
+      { key: 'teeth',     label: 'Зубные протезы',    short: iconSvg.teeth,  type: 'icon' },
+      { key: 'delirium',  label: 'Делирий',           short: iconSvg.brain,  type: 'icon' }
+    ];
+
+    const patients = [];
+    const namePool = [
+      'Иванов И.И.','Петрова А.С.','Сидоров П.Н.','Кузнецова Е.В.','Смирнов Д.А.',
+      'Орлова М.И.','Волков С.Р.','Фёдорова Н.В.','Лебедев А.К.','Зайцева Т.О.',
+      'Морозов Е.П.','Павлова И.Г.','Никитин Д.В.','Соколова Л.М.','Егоров В.А.',
+      'Крылова Ю.С.','Попов Р.И.','Тихонова В.М.','Громов А.А.','Беляева О.П.'
+    ];
+    let idCounter = 1;
+    function addPatients(wardNumber, count) {
+      for (let i = 1; i <= count; i++) {
+        const name = namePool[(idCounter - 1) % namePool.length];
+        patients.push({
+          id: idCounter,
+          ward: `Палата ${wardNumber}`,
+          bedLabel: `${wardNumber}/${i}`,
+          name
+        });
+        idCounter++;
+      }
+    }
+    addPatients(1,5);
+    addPatients(2,5);
+    addPatients(3,2);
+    addPatients(4,2);
+    addPatients(5,5);
+
+    const rows = [
+      { key: 'glucose', label: 'Глюкоза утро' },
+      { key: 'iv',      label: 'В/в, мл' },
+      { key: 'enteral', label: 'Энтер., мл' },
+      { key: 'urine',   label: 'Диурез, мл' },
+      { key: 'drains',  label: 'Дренажи, мл' },
+      { key: 'stool',   label: 'Кал, мл' },
+      { key: 'ng',      label: 'НГЗ/рвота' },
+      { key: 'cum',     label: 'За сутки', readonly: true }
+    ];
+
+    const patientData = new Map();
+    patients.forEach(p => patientData.set(p.id, {
+      glucose:'', iv:'', enteral:'', urine:'', drains:'', stool:'', ng:'', cum:'',
+      extra: [], tags: []
+    }));
+
+    const grid        = document.getElementById('patientGrid');
+    const filtersWrap = document.getElementById('wardFilters');
+    const searchInput = document.getElementById('searchInput');
+    const patientCount= document.getElementById('patientCount');
+    const todayDate   = document.getElementById('todayDate');
+    const themeToggle = document.getElementById('themeToggle');
+    const fillDemo    = document.getElementById('fillDemo');
+    const printBtn    = document.getElementById('printBtn');
+    const extraRowTemplate = document.getElementById('extraRowTemplate');
+    const tagModal    = document.getElementById('tagModal');
+    const tagPicker   = document.getElementById('tagPicker');
+    const closeModal  = document.getElementById('closeModal');
+    const saveTags    = document.getElementById('saveTags');
+
+    let activeWard = 'Все';
+    let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    let editingPatientId = null;
+
+    document.documentElement.setAttribute('data-theme', theme);
+    const wards = ['Все','Палата 1','Палата 2','Палата 3','Палата 4','Палата 5'];
+
+    function formatToday() {
+      const dt = new Date();
+      const weekday = new Intl.DateTimeFormat('ru-RU', { weekday: 'long' }).format(dt);
+      const date    = new Intl.DateTimeFormat('ru-RU', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      }).format(dt);
+      return `Сегодня: ${weekday}, ${date}`;
+    }
+
+    function sanitize(v) {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function applyFiltersToExistingCards() {
+      const query = searchInput.value.trim().toLowerCase();
+      const cards = grid.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        const id = Number(card.dataset.patientId);
+        const patient = patients.find(p => p.id === id);
+        if (!patient) return;
+
+        const wardMatch = activeWard === 'Все' || patient.ward === activeWard;
+        const searchText = `${patient.ward} ${patient.bedLabel} ${patient.name}`.toLowerCase();
+        const searchMatch = !query || searchText.includes(query);
+
+        const visible = wardMatch && searchMatch;
+        card.style.display = visible ? '' : 'none';
+      });
+
+      const visibleCount = Array.from(cards).filter(c => c.style.display !== 'none').length;
+      patientCount.textContent = `Пациентов на экране: ${visibleCount}`;
+    }
+
+    function buildFilters() {
+      filtersWrap.innerHTML = '';
+      wards.forEach(ward => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pill' + (ward === activeWard ? ' active' : '');
+        btn.textContent = ward;
+        btn.addEventListener('click', () => {
+          activeWard = ward;
+          buildFilters();
+          applyFiltersToExistingCards();
+        });
+        filtersWrap.appendChild(btn);
+      });
+    }
+
+    function renderTags(tags) {
+      return tags.map(key => {
+        const item = tagCatalog.find(t => t.key === key);
+        if (!item) return '';
+        let baseClass =
+          item.type === 'text'
+            ? 'mini-icon text-badge'
+            : item.type === 'infection'
+            ? 'mini-icon infection'
+            : item.type === 'ulcer'
+            ? 'mini-icon ulcer'
+            : 'mini-icon';
+        const content = item.short;
+        return `<span class="${baseClass}" data-title="${item.label}" title="${item.label}">${content}</span>`;
+      }).join('');
+    }
+
+    function syncCardValues(card, patientId) {
+      const state = patientData.get(patientId);
+      rows.forEach(row => {
+        const input = card.querySelector(`[data-row-key="${row.key}"]`);
+        if (input) input.value = state[row.key] ?? '';
+      });
+      const extraWrap = card.querySelector('[data-extra-sheet]');
+      extraWrap.innerHTML = '';
+      state.extra.forEach(item => {
+        const row = extraRowTemplate.content.firstElementChild.cloneNode(true);
+        row.querySelector('.extra-type').value = item.label || '';
+        row.querySelector('.extra-value').value = item.value || '';
+        wireExtraRow(card, row, patientId);
+        extraWrap.appendChild(row);
+      });
+      card.querySelector('[data-tags-row]').innerHTML = renderTags(state.tags || []);
+      applyHighlighting(card);
+    }
+
+    function saveBaseFields(card, patientId) {
+      const state = patientData.get(patientId);
+      rows.forEach(row => {
+        const input = card.querySelector(`[data-row-key="${row.key}"]`);
+        if (input) state[row.key] = input.value;
+      });
+    }
+
+    function saveExtraRows(card, patientId) {
+      const state = patientData.get(patientId);
+      state.extra = Array.from(card.querySelectorAll('.extra-line')).map(row => ({
+        label: row.querySelector('.extra-type').value,
+        value: row.querySelector('.extra-value').value,
+        kind: 'in'
+      }));
+    }
+
+    function wireExtraRow(card, row, patientId) {
+      row.querySelector('.extra-type')
+        .addEventListener('input', () => saveExtraRows(card, patientId));
+      row.querySelector('.extra-value')
+        .addEventListener('input', () => {
+          saveExtraRows(card, patientId);
+          recalcCard(card, patientId);
+        });
+    }
+
+    function addExtraRow(card, patientId, preset = {}) {
+      const row = extraRowTemplate.content.firstElementChild.cloneNode(true);
+      if (preset.label) row.querySelector('.extra-type').value = preset.label;
+      if (preset.value != null) row.querySelector('.extra-value').value = preset.value;
+      wireExtraRow(card, row, patientId);
+      card.querySelector('[data-extra-sheet]').appendChild(row);
+      saveExtraRows(card, patientId);
+      recalcCard(card, patientId);
+    }
+
+    function applyHighlighting(card) {
+      const glucoseInput = card.querySelector('[data-row-key="glucose"]');
+      if (glucoseInput) {
+        const g = sanitize(glucoseInput.value);
+        if (g && (g < 3.3 || g > 5.5)) glucoseInput.classList.add('out-of-range');
+        else glucoseInput.classList.remove('out-of-range');
+      }
+      const urineInput = card.querySelector('[data-row-key="urine"]');
+      if (urineInput) {
+        const u = sanitize(urineInput.value);
+        if (u && u < 1000) urineInput.classList.add('out-of-range');
+        else urineInput.classList.remove('out-of-range');
+      }
+    }
+
+    function cardTemplate(patient, index) {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.dataset.patientId = patient.id;
+      card.innerHTML = `
+        <div class="card-head">
+          <button class="bed bed-tags" type="button"
+                  aria-label="Метки пациента ${patient.name}"
+                  title="Метки пациента">
+            ${patient.bedLabel}
+          </button>
+          <div class="patient">
+            <div class="name-row">
+              <div class="patient-name">${patient.name}</div>
+            </div>
+            <div class="tags-row" data-tags-row></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="sheet">
+            ${rows.map(row => `
+              <div class="line ${row.readonly ? 'total label-strong' : ''}">
+                <label for="${row.key}-${index}">${row.label}</label>
+                <input id="${row.key}-${index}"
+                       ${row.readonly
+                          ? 'readonly tabindex="-1"'
+                          : 'type="number" inputmode="decimal" min="0" step="0.1"'}
+                       data-row-key="${row.key}">
+              </div>
+            `).join('')}
+          </div>
+          <div class="extra-block">
+            <div class="extra-head">
+              <span>Доп. строки</span>
+              <button class="plus-btn" type="button"
+                      aria-label="Добавить дополнительную строку">+</button>
+            </div>
+            <div class="extra-sheet" data-extra-sheet></div>
+          </div>
+        </div>
+      `;
+      card.querySelectorAll('input[type="number"]')
+        .forEach(input => input.addEventListener('input', () => {
+          const id = patient.id;
+          saveBaseFields(card, id);
+          recalcCard(card, id);
+        }));
+
+      card.querySelector('.plus-btn')
+        .addEventListener('click', () => addExtraRow(card, patient.id));
+
+      card.querySelector('.bed-tags')
+        .addEventListener('click', () => openTagModal(patient.id));
+
+      syncCardValues(card, patient.id);
+      return card;
+    }
+
+    function recalcCard(card, patientId) {
+      const state = patientData.get(patientId);
+      const get = key => sanitize(card.querySelector(`[data-row-key="${key}"]`).value);
+      let totalIn  = get('iv') + get('enteral');
+      let totalOut = get('urine') + get('drains') + get('stool') + get('ng');
+
+      card.querySelectorAll('.extra-line').forEach(row => {
+        const value = sanitize(row.querySelector('.extra-value').value);
+        totalIn += value;
+      });
+
+      const balance = totalIn - totalOut;
+      const cumInput = card.querySelector('[data-row-key="cum"]');
+      if (cumInput) cumInput.value = balance || '';
+      state.cum = cumInput ? cumInput.value : '';
+
+      saveBaseFields(card, patientId);
+      saveExtraRows(card, patientId);
+      applyHighlighting(card);
+    }
+
+    function renderCardsOnce() {
+      grid.innerHTML = '';
+      patients.forEach((patient, index) =>
+        grid.appendChild(cardTemplate(patient, index))
+      );
+      applyFiltersToExistingCards();
+    }
+
+    function openTagModal(patientId) {
+      editingPatientId = patientId;
+      const state = patientData.get(patientId);
+      tagPicker.innerHTML = tagCatalog.map(tag => `
+        <label class="tag-option">
+          <input type="checkbox" value="${tag.key}"
+                 ${state.tags.includes(tag.key) ? 'checked' : ''}>
+          <span class="tag-preview
+                        ${tag.type === 'text' ? 'text' : ''}
+                        ${tag.type === 'infection' ? 'infection' : ''}
+                        ${tag.type === 'ulcer' ? 'ulcer' : ''}">
+            ${tag.type === 'icon' ? tag.short : tag.short}
+          </span>
+          <span>${tag.label}</span>
+        </label>
+      `).join('');
+      tagModal.classList.add('open');
+    }
+
+    function closeTagModal() {
+      editingPatientId = null;
+      tagModal.classList.remove('open');
+    }
+
+    function saveTagSelection() {
+      if (!editingPatientId) return;
+      const chosen = Array.from(
+        tagPicker.querySelectorAll('input:checked')
+      ).map(i => i.value);
+      const state = patientData.get(editingPatientId);
+      state.tags = chosen;
+      renderCardsOnce();
+      closeTagModal();
+    }
+
+    function buildPrintHtml() {
+      const cards = grid.querySelectorAll('.card');
+      const visiblePatients = [];
+      cards.forEach(card => {
+        if (card.style.display === 'none') return;
+        const id = Number(card.dataset.patientId);
+        const p = patients.find(x => x.id === id);
+        if (p) visiblePatients.push(p);
+      });
+      const grouped = {};
+      visiblePatients.forEach(p => {
+        grouped[p.ward] = grouped[p.ward] || [];
+        grouped[p.ward].push(p);
+      });
+
+      const wardBlocks = Object.keys(grouped).sort().map(ward => {
+        const rowsHtml = grouped[ward].map(patient => {
+          const state = patientData.get(patient.id);
+          const tags = (state.tags || [])
+            .map(key => tagCatalog.find(t => t.key === key)?.label || '')
+            .join(', ');
+          const extra = (state.extra || [])
+            .map(item => `${item.label || ''} ${item.value || ''}`.trim())
+            .join('; ');
+          return `
+            <tr>
+              <td>${patient.bedLabel}</td>
+              <td>${patient.name}</td>
+              <td>${tags}</td>
+              <td>${state.glucose || ''}</td>
+              <td>${state.iv || ''}</td>
+              <td>${state.enteral || ''}</td>
+              <td>${state.urine || ''}</td>
+              <td>${state.drains || ''}</td>
+              <td>${state.stool || ''}</td>
+              <td>${state.ng || ''}</td>
+              <td>${extra}</td>
+              <td>${state.cum || ''}</td>
+            </tr>`;
+        }).join('');
+        return `
+          <section style="margin-bottom:18px;page-break-inside:avoid;">
+            <h3 style="margin:8px 0 4px;font-size:14px;">${ward}</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:11px;">
+              <thead>
+                <tr>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;text-align:left;">Койка</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;text-align:left;">ФИО</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;text-align:left;">Метки</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">Глюкоза</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">В/в</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">Энтер.</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">Диурез</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">Дренажи</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">Кал</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">НГЗ/рвота</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">Доп. строки</th>
+                  <th style="border:1px solid #bdb8af;padding:4px 6px;">За сутки</th>
+                </tr>
+              </thead>
+              <tbody>${rowsHtml}</tbody>
+            </table>
+          </section>`;
+      }).join('');
+
+      return `<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Печать гидробаланса</title>
+  <style>
+    body{
+      font-family:Arial,sans-serif;
+      padding:18px 24px;
+      color:#222;
+    }
+    h2{margin:0 0 8px;}
+    .meta{margin-bottom:10px;font-size:12px;color:#555;}
+    h3{
+      font-weight:700;
+      border-bottom:1px solid #bdb8af;
+      padding-bottom:2px;
+      margin-top:14px;
+    }
+    table{margin-top:4px;}
+    th,td{
+      border:1px solid #bdb8af;
+      padding:4px 6px;
+      text-align:center;
+      vertical-align:top;
+    }
+    th:nth-child(1),td:nth-child(1),
+    th:nth-child(2),td:nth-child(2),
+    th:nth-child(3),td:nth-child(3){
+      text-align:left;
+    }
+  </style>
+</head>
+<body>
+  <h2>Сводная таблица гидробаланса</h2>
+  <div class="meta">${todayDate.textContent} · ${activeWard}</div>
+  ${wardBlocks}
+  <div style="margin-top:20px;font-size:11px;display:flex;justify-content:space-between;">
+    <span>Сестра: ____________________</span>
+    <span>Врач: ____________________</span>
+  </div>
+</body>
+</html>`;
+    }
+
+    function printSummary() {
+      const html = buildPrintHtml();
+      const win = window.open('', '_blank', 'width=1280,height=900');
+      if (!win) {
+        alert('Браузер заблокировал окно печати. Разрешите всплывающее окно.');
+        return;
+      }
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+      win.focus();
+      setTimeout(() => { win.print(); }, 300);
+    }
+
+    searchInput.addEventListener('input', applyFiltersToExistingCards);
+    themeToggle.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    });
+    printBtn.addEventListener('click', printSummary);
+    closeModal.addEventListener('click', closeTagModal);
+    saveTags.addEventListener('click', saveTagSelection);
+    tagModal.addEventListener('click', e => {
+      if (e.target === tagModal) closeTagModal();
+    });
+
+    fillDemo.addEventListener('click', () => {
+      const demos = [
+        { glucose: 6.2, iv: 3200, enteral: 900, urine: 1600, drains: 100, stool: 0, ng: 150, extra: [{ label: 'Нефростома', value: 300 }], tags:['dm','infection'] },
+        { glucose: 8.4, iv: 2800, enteral: 1000, urine: 900,  drains: 50,  stool: 0, ng: 0,   extra: [{ label: 'Ультрафильтрация', value: 600 }], tags:['infection','ulcer'] },
+        { glucose: 5.9, iv: 2500, enteral: 400,  urine: 1800, drains: 180, stool: 100,ng: 0,   extra: [], tags:['vision'] },
+        { glucose: 7.1, iv: 3600, enteral: 0,    urine: 900,  drains: 200, stool: 0,  ng: 300, extra: [{ label: 'Промывание', value: 500 }], tags:['delirium'] },
+        { glucose: 4.1, iv: 1800, enteral: 1200, urine: 800,  drains: 0,   stool: 150,ng: 0,   extra: [], tags:['teeth','ulcer'] },
+        { glucose: 9.0, iv: 3000, enteral: 700,  urine: 2400, drains: 60,  stool: 0,  ng: 0,   extra: [{ label: 'Нефростома', value: 200 }], tags:['hearing'] }
+      ];
+      patients.forEach((patient, index) => {
+        const demo = demos[index % demos.length];
+        patientData.set(patient.id, {
+          ...patientData.get(patient.id),
+          ...demo,
+          extra: demo.extra.map(x => ({...x})),
+          tags: [...(demo.tags||[])]
+        });
+      });
+      renderCardsOnce();
+    });
+
+    todayDate.textContent = formatToday();
+    buildFilters();
+    renderCardsOnce();
+  </script>
+</body>
+</html>
