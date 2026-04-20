@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Памятка по ВК и клинфарме</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 20px; }
+    h1 { font-size: 20px; margin-bottom: 10px; }
+    .filters { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 15px; }
+    label { display: block; font-size: 13px; margin-bottom: 4px; }
+    select, input { padding: 4px 6px; font-size: 13px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 13px; }
+    th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; }
+    th { background: #f5f5f5; }
+    .pill { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+    .yes { background: #e0f5e0; color: #205520; }
+    .no  { background: #f5e0e0; color: #802020; }
+    .maybe { background: #fff7da; color: #7a5a00; }
+    .hint { font-size: 11px; color: #666; margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <h1>Памятка: когда нужен ВК и клинфармаколог</h1>
+
+  <div class="filters">
+    <div style="flex: 1 1 260px;">
+      <label for="name">Поиск по лекарственному препарату</label>
+      <input id="name" type="text" placeholder="начните вводить МНН или торговое название...">
+      <div class="hint">Например: \"меропенем\", \"Xarelto\", \"тоцилизумаб\"</div>
+    </div>
+
+    <div>
+      <label for="group">Группа / тип препарата (опционально)</label>
+      <select id="group">
+        <option value="">– все группы –</option>
+        <option value="дорогостоящий">Дорогостоящий препарат</option>
+        <option value="offlabel">Off‑label применение</option>
+        <option value="нестандарт">Вне стандарта / КСГ</option>
+        <option value="стандарт">Рутинное назначение по стандарту</option>
+        <!-- сюда добавите свои группы/классы -->
+      </select>
+    </div>
+
+    <div>
+      <label for="situation">Ситуация назначения (опц.)</label>
+      <select id="situation">
+        <option value="">– любая –</option>
+        <option value="первичное">Первичное назначение</option>
+        <option value="смена">Смена схемы / дозы</option>
+        <option value="продление">Продление дорогостоящей терапии</option>
+      </select>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ЛП / группа / условие</th>
+        <th>Нужен ВК?</th>
+        <th>Нужна консультация клинфармаколога?</th>
+        <th>Что писать в обосновании</th>
+      </tr>
+    </thead>
+    <tbody id="result-body">
+      <tr><td colspan="4">Начните вводить название лекарственного препарата.</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    // Заполните массив rules под свои реальные правила
+    const rules = [
+      // Пример правила для конкретного МНН
+      {
+        id: 1,
+        name: 'тоцилизумаб',           // МНН или часть названия
+        group: 'дорогостоящий',
+        situation: '',
+        vk: 'да',
+        clinpharm: 'обязательно',
+        comment: 'Высокозатратная таргетная терапия. Требуется ВК c экономическим и клиническим обоснованием, заключение клинфармаколога.'
+      },
+      // Пример для торгового названия
+      {
+        id: 2,
+        name: 'xarelto',
+        group: 'дорогостоящий',
+        situation: 'первичное',
+        vk: 'да',
+        clinpharm: 'по запросу',
+        comment: 'Начало дорогостоящей терапии. ВК на старт, с указанием показаний и расчетом длительности курса.'
+      },
+      // Общее правило для off-label, без привязки к конкретному ЛП
+      {
+        id: 3,
+        name: '',
+        group: 'offlabel',
+        situation: '',
+        vk: 'да',
+        clinpharm: 'обязательно',
+        comment: 'Назначение препарата off‑label. ВК с описанием клин. ситуации, альтернатив, ссылками на рекомендации/РКИ.'
+      },
+      // Общее правило для рутинных назначений по стандарту
+      {
+        id: 4,
+        name: '',
+        group: 'стандарт',
+        situation: '',
+        vk: 'нет',
+        clinpharm: 'не требуется',
+        comment: 'Назначение в рамках стандарта/КСГ. Дополнительное ВК не требуется.'
+      },
+      // сюда добавите остальные ЛС и категории (дорогие, квотные и т.п.)
+    ];
+
+    const nameInput = document.getElementById('name');
+    const groupSelect = document.getElementById('group');
+    const situationSelect = document.getElementById('situation');
+    const tbody = document.getElementById('result-body');
+
+    function pill(text, type) {
+      const cls = type === 'yes' ? 'yes' : type === 'no' ? 'no' : 'maybe';
+      return `<span class="pill ${cls}">${text}</span>`;
+    }
+
+    function normalize(str) {
+      return (str || '').toString().trim().toLowerCase();
+    }
+
+    function render() {
+      const name = normalize(nameInput.value);
+      const group = groupSelect.value;
+      const situation = situationSelect.value;
+
+      let filtered = rules;
+
+      // 1) если введено название ЛП — сначала ищем по имени
+      if (name) {
+        filtered = filtered.filter(r => {
+          const rName = normalize(r.name);
+          if (!rName) return true; // общее правило по группе
+          return rName.includes(name) || name.includes(rName);
+        });
+      }
+
+      // 2) фильтр по группе (если указана)
+      if (group) {
+        filtered = filtered.filter(r => r.group === group);
+      }
+
+      // 3) фильтр по ситуации (если указана)
+      if (situation) {
+        filtered = filtered.filter(r => !r.situation || r.situation === situation);
+      }
+
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="4">Отдельного правила для таких условий нет. Ориентируйтесь на общий порядок оформления ВК.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(r => {
+        const title = r.name ? `${r.name} (${r.group || 'без группы'})` : (r.group || 'Общее правило');
+        const vkType = r.vk === 'да' ? 'yes' : r.vk === 'нет' ? 'no' : 'maybe';
+        const cpType = r.clinpharm === 'обязательно' ? 'yes'
+                     : (r.clinpharm === 'не требуется' ? 'no' : 'maybe');
+
+        return `
+          <tr>
+            <td>${title}</td>
+            <td>${pill(r.vk, vkType)}</td>
+            <td>${pill(r.clinpharm, cpType)}</td>
+            <td>${r.comment}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    nameInput.addEventListener('input', render);
+    groupSelect.addEventListener('change', render);
+    situationSelect.addEventListener('change', render);
+  </script>
+</body>
+</html>
