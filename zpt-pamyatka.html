@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Чек лист ЗПТ</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=zodiak@400,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.1rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem; --space-12: 3rem;
+      --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #fbfbf9; --color-border: #d4d1ca;
+      --color-text: #28251d; --color-text-muted: #6d6a63; --color-text-inverse: #f9f8f4;
+      --color-primary: #01696f; --color-primary-highlight: #cedcd8;
+      --color-warning: #964219; --color-warning-highlight: #ead8cd;
+      --color-error: #a12c7b; --color-error-highlight: #ead3df;
+      --color-success: #437a22; --color-success-highlight: #dbe8d1;
+      --radius-md: 0.75rem; --radius-lg: 1rem; --radius-xl: 1.25rem; --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px rgba(40,37,29,.06); --shadow-md: 0 8px 24px rgba(40,37,29,.08);
+      --content: 1180px;
+      --font-display: 'Zodiak', Georgia, serif;
+      --font-body: 'Satoshi', Inter, sans-serif;
+    }
+    [data-theme="dark"] {
+      --color-bg: #171614; --color-surface: #1c1b19; --color-surface-2: #201f1d; --color-border: #393836;
+      --color-text: #e3e0da; --color-text-muted: #b4b0a8; --color-text-inverse: #171614;
+      --color-primary: #4f98a3; --color-primary-highlight: #2a3638;
+      --color-warning: #d4895f; --color-warning-highlight: #49372d;
+      --color-error: #d163a7; --color-error-highlight: #4b3344;
+      --color-success: #79b75a; --color-success-highlight: #2d3a27;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.25); --shadow-md: 0 8px 24px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); line-height: 1.6;
+      color: var(--color-text); background:
+        radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent 32%),
+        linear-gradient(180deg, var(--color-bg), var(--color-surface));
+    }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; border: none; background: none; cursor: pointer; }
+    .skip-link { position: absolute; left: -9999px; top: auto; }
+    .skip-link:focus { left: 1rem; top: 1rem; z-index: 100; background: var(--color-primary); color: var(--color-text-inverse); padding: .75rem 1rem; border-radius: var(--radius-md); }
+    .container { width: min(calc(100% - 2rem), var(--content)); margin: 0 auto; }
+    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); background: color-mix(in srgb, var(--color-bg) 82%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: .9rem 0; }
+    .brand { display: flex; align-items: center; gap: .85rem; text-decoration: none; }
+    .logo { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, var(--color-primary-highlight), var(--color-surface-2)); color: var(--color-primary); box-shadow: var(--shadow-sm); }
+    .brand-title { font-weight: 700; letter-spacing: -.02em; }
+    .toolbar { display: flex; align-items: center; gap: .75rem; }
+    .theme-toggle, .nav-link { min-width: 44px; min-height: 44px; border-radius: var(--radius-full); border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); background: color-mix(in srgb, var(--color-surface) 88%, transparent); display: inline-flex; align-items: center; justify-content: center; padding: 0 .95rem; }
+    .hero { padding: clamp(2.5rem, 6vw, 5rem) 0 1.5rem; }
+    h1, h2, h3 { line-height: 1.12; letter-spacing: -.03em; }
+    h1 { font-family: var(--font-display); font-size: var(--text-2xl); margin: 0 0 1rem; }
+    .lead { max-width: 56ch; color: var(--color-text-muted); }
+    .hero-grid { display: grid; gap: var(--space-8); grid-template-columns: 1.2fr .9fr; align-items: start; }
+    .hero-card, .card { background: color-mix(in srgb, var(--color-surface) 92%, transparent); border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); }
+    .hero-card, .card { padding: 1.1rem; }
+    .hero-card h3 { font-size: var(--text-lg); margin-bottom: .6rem; }
+    .hero-card ul, .checklist { list-style: none; display: grid; gap: .7rem; }
+    .hero-card li, .checklist li { position: relative; padding-left: 1.4rem; }
+    .hero-card li::before, .checklist li::before { content: '•'; position: absolute; left: 0; top: 0; color: var(--color-primary); font-weight: 700; }
+    .quick-nav { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+    .pill { text-decoration: none; padding: .65rem .95rem; border-radius: var(--radius-full); background: var(--color-surface-2); border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); font-size: var(--text-sm); }
+    main { padding-bottom: 4rem; }
+    section { padding: 1rem 0 2rem; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); margin-bottom: 1rem; }
+    .section-head h2 { font-size: var(--text-xl); font-family: var(--font-display); }
+    .section-head p, .card p, .mini { color: var(--color-text-muted); }
+    .grid { display: grid; gap: 1rem; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .tag { display: inline-flex; align-items: center; gap: .4rem; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; padding: .38rem .62rem; border-radius: var(--radius-full); margin-bottom: .75rem; font-weight: 700; }
+    .tag.ok { background: var(--color-success-highlight); color: var(--color-success); }
+    .tag.warn { background: var(--color-warning-highlight); color: var(--color-warning); }
+    .tag.stop { background: var(--color-error-highlight); color: var(--color-error); }
+    .rules-table { overflow: auto; border-radius: var(--radius-xl); border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); background: var(--color-surface); box-shadow: var(--shadow-sm); }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; }
+    th, td { text-align: left; vertical-align: top; padding: .9rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); }
+    th { font-size: var(--text-sm); color: var(--color-text-muted); background: color-mix(in srgb, var(--color-surface-2) 90%, transparent); }
+    tr:last-child td { border-bottom: none; }
+    .note { padding: 1rem 1.1rem; border-radius: var(--radius-lg); background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary-highlight) 78%, var(--color-surface)), var(--color-surface-2)); border: 1px solid color-mix(in srgb, var(--color-primary) 18%, transparent); }
+    .steps { counter-reset: step; display: grid; gap: 1rem; }
+    .step { position: relative; padding: 1rem 1rem 1rem 4rem; background: var(--color-surface); border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent); border-radius: var(--radius-xl); }
+    .step::before { counter-increment: step; content: counter(step); position: absolute; left: 1rem; top: 1rem; width: 2.1rem; height: 2.1rem; border-radius: 50%; background: var(--color-primary); color: var(--color-text-inverse); display: grid; place-items: center; font-weight: 700; }
+    .footer { padding: 2rem 0 3rem; font-size: var(--text-sm); }
+    .link { color: var(--color-primary); font-weight: 700; }
+    @media (max-width: 960px) {
+      .hero-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">Перейти к содержанию</a>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top" aria-label="Чек лист ЗПТ">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 6h5v12H5zM14 6h5v12h-5z"/>
+            <path d="M10 12h4"/>
+          </svg>
+        </div>
+        <div class="brand-title">Чек лист ЗПТ</div>
+      </a>
+      <div class="toolbar">
+        <a class="nav-link" href="#algoritm">Алгоритм</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Переключить тему">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero container" id="top">
+      <div class="hero-grid">
+        <div>
+          <h1>Чек лист ЗПТ</h1>
+          <div class="quick-nav" aria-label="Разделы памятки">
+            <a class="pill" href="#naznachenie">Назначения</a>
+            <a class="pill" href="#vremya">Длительность</a>
+            <a class="pill" href="#format">Показания</a>
+            <a class="pill" href="#gdf">ГДФ и ГД</a>
+            <a class="pill" href="#algoritm">Алгоритм</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-labelledby="risk-title">
+          <h3 id="risk-title">Частые ошибки</h3>
+          <ul>
+            <li>Путаем <strong>ГДФ продленную</strong> и <strong>ГДФ продолжительную</strong>.</li>
+            <li>Путаем <strong>гемосорбцию</strong> и <strong>селективную гемосорбцию ЛПС</strong>.</li>
+            <li>Пытаемся исправить название процедуры уже в протоколе, хотя это невозможно.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container" id="naznachenie">
+      <div class="section-head">
+        <div>
+          <h2>Допустимые назначения</h2>
+          <p>Перед открытием протокола убедитесь, что процедура назначена именно из вкладки «Назначения» и что назначенная процедура совпадает с фактически проведённой.</p>
+        </div>
+      </div>
+      <div class="grid grid-3">
+        <article class="card">
+          <span class="tag ok">Можно назначать</span>
+          <ul class="checklist">
+            <li>ГДФ продленная</li>
+            <li>ГДФ продолжительная</li>
+            <li>ГД продолжительный</li>
+            <li>Гемосорбция</li>
+            <li>Селективная гемосорбция ЛПС</li>
+            <li>Плазмообмен</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag stop">Не назначаем так</span>
+          <ul class="checklist">
+            <li>Плазмаферез — используется только плазмообмен</li>
+            <li>На фильтрах «Эфферон ЛПС» и «Токсипак» не ставим обычную гемосорбцию</li>
+            <li>Название процедуры в протоколе не исправляется</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag warn">Проверка перед стартом</span>
+          <ul class="checklist">
+            <li>Откройте вкладку «Назначения»</li>
+            <li>Сверьте вид процедуры с реально выполненной</li>
+            <li>Если не совпадает — сначала исправьте назначение</li>
+            <li>Только после этого открывайте протокол</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="vremya">
+      <div class="section-head">
+        <div>
+          <h2>Длительность процедуры</h2>
+          <p>Тип процедуры зависит от продолжительности, поэтому время надо оценивать до оформления протокола.</p>
+        </div>
+      </div>
+      <div class="rules-table" role="region" aria-label="Правила по длительности процедуры">
+        <table>
+          <thead>
+            <tr>
+              <th>Длительность</th>
+              <th>Как оформляем</th>
+              <th>Особое правило</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>До 15 часов</td>
+              <td>ГДФ продленная</td>
+              <td>Если длилась менее 8 часов, в дневнике обязательно пояснить причину досрочного завершения: смерть пациента, перевод в операционную, тромбоз фильтра, крайняя нестабильность состояния.</td>
+            </tr>
+            <tr>
+              <td>После 15 часов</td>
+              <td>ГДФ продолжительная; для ГД — продолжительный вариант</td>
+              <td>Следите, чтобы фактическое время было отражено корректно.</td>
+            </tr>
+            <tr>
+              <td>Более 30 часов</td>
+              <td>Разбить на две процедуры</td>
+              <td>Не оформляйте как одну непрерывную процедуру.</td>
+            </tr>
+            <tr>
+              <td>ЛПС-протокол (Эфферон или Токсипак)</td>
+              <td>Базово 6 часов</td>
+              <td>Допустима работа до 24 часов. Видеоинструкция: <a class="link" href="https://efferon.ru/video-instructions/" target="_blank" rel="noopener noreferrer">efferon.ru/video-instructions</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="container" id="format">
+      <div class="section-head">
+        <div>
+          <h2>Где и как заполнять</h2>
+        </div>
+      </div>
+      <div class="note">
+        <strong>Показания при назначении процедуры, остальное полностью в протоколе ЕМИАС.</strong>
+      </div>
+    </section>
+
+    <section class="container" id="gdf">
+      <div class="section-head">
+        <div>
+          <h2>Заполнение ГДФ или ГД</h2>
+        </div>
+      </div>
+      <div class="grid grid-2">
+        <article class="card">
+          <span class="tag ok">Заполняем</span>
+          <ul class="checklist">
+            <li>Время процедуры</li>
+            <li>Аппарат, на котором работали</li>
+            <li>Сосудистый доступ и его состояние</li>
+            <li>Использованные расходные материалы</li>
+            <li>Если был набор магистралей без фильтра — отдельно указать, каким фильтром дополнили</li>
+            <li>Если использовали дополнительные магистрали — указать их в пункте «набор магистралей»</li>
+            <li>Название рабочего раствора</li>
+            <li>Скорость кровотока, выбрать наиболее точно отражающую ход процедуры</li>
+            <li>Объём удалённой жидкости</li>
+            <li>Скорость и общий объём замещающего и диализного растворов</li>
+            <li>Скорость ультрафильтрации — обязательно внести в ЦР</li>
+            <li>Антикоагуляцию — обязательно назначить в ЦР с комментарием «для ЗПТ»</li>
+            <li>Осложнения, включая тромбоз фильтра</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag warn">Пропускаем или оставляем пустым</span>
+          <ul class="checklist">
+            <li>Пункты про ацидный концентрат</li>
+            <li>Пункты про бикарбонатный картридж</li>
+            <li>Два следующих пункта после выбора раствора</li>
+            <li>Остальные поля, если они не относятся к реально проведённой процедуре</li>
+          </ul>
+          <div class="note" style="margin-top:1rem">
+            В конце протокол подписывается двумя подписями: за себя и за заведующую трансфузиологическим кабинетом.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="algoritm">
+      <div class="section-head">
+        <div>
+          <h2>Пошаговый алгоритм</h2>
+          <p>Этим блоком удобно пользоваться прямо во время оформления документации после завершения процедуры.</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><strong>Проверьте назначение.</strong> Откройте вкладку «Назначения» и подтвердите, что процедура вообще назначена.</div>
+        <div class="step"><strong>Сверьте название.</strong> Назначенная и фактически проведённая процедуры должны совпадать один в один; если нет — сначала исправьте назначение.</div>
+        <div class="step"><strong>Оцените длительность.</strong> До 15 часов — продленная, после 15 часов — продолжительная; если процедура шла более 30 часов, разбейте её на две.</div>
+        <div class="step"><strong>Учитывайте спецслучаи.</strong> Если процедура закончилась раньше 8 часов — объясните причину в дневнике.</div>
+        <div class="step"><strong>Заполните только нужные поля.</strong> Не перегружайте протокол лишними пунктами, которые в отделении принято пропускать.</div>
+        <div class="step"><strong>Подпишите протокол.</strong></div>
+      </div>
+    </section>
+
+    <section class="container" id="filters">
+      <div class="section-head">
+        <div>
+          <h2>Отдельные напоминания</h2>
+          <p>Эти формулировки лучше держать на виду, потому что именно они чаще всего становятся источником ошибок в документации.</p>
+        </div>
+      </div>
+      <div class="grid grid-2">
+        <article class="card">
+          <span class="tag stop">Фильтры и сорбция</span>
+          <p>На фильтрах <strong>«Эфферон ЛПС»</strong> и <strong>«Токсипак»</strong> проводится только <strong>селективная гемосорбция ЛПС</strong>, а не обычная гемосорбция.</p>
+        </article>
+        <article class="card">
+          <span class="tag stop">Плазмаферез</span>
+          <p>В отделении оформляем и проводим только <strong>плазмообмен</strong>; термин «плазмаферез» в назначениях и протоколах не используем.</p>
+        </article>
+        <article class="card">
+          <span class="tag warn">Миоглобин</span>
+          <p>При высоком уровне миоглобина использовать колонку <strong>BK-F</strong>; инструкция находится в разделе <strong>«обучалки»</strong>.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container mini">Внутренняя рабочая страница для быстрого контроля назначения, длительности процедуры и заполнения протоколов.</div>
+  </footer>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const btn = document.querySelector('[data-theme-toggle]');
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      const render = () => {
+        btn.setAttribute('aria-label', theme === 'dark' ? 'Переключить на светлую тему' : 'Переключить на тёмную тему');
+        btn.innerHTML = theme === 'dark'
+          ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      };
+      render();
+      btn.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+        render();
+      });
+    })();
+  </script>
+</body>
+</html>
