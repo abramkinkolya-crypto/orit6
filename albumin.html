@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Альбумин: клиническая памятка</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-elevated: #020617;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --danger: #f97373;
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border: #1f2937;
+      --badge-bg: #111827;
+      --good: #4ade80;
+      --warn: #fbbf24;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at 10% 20%, #1d283a 0, #020617 40%, #020617 100%);
+      color: var(--text);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px 48px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
+      border-radius: 24px;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow:
+        0 24px 60px rgba(15,23,42,0.9),
+        0 0 0 1px rgba(15,23,42,0.9);
+      padding: 24px 20px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(56,189,248,0.11) 0, transparent 45%),
+        radial-gradient(circle at 100% 0, rgba(52,211,153,0.08) 0, transparent 40%),
+        radial-gradient(circle at 50% 100%, rgba(244,114,182,0.08) 0, transparent 40%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .title-block {
+      max-width: 560px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.25);
+      color: var(--text-soft);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--good);
+      box-shadow: 0 0 0 4px rgba(74,222,128,0.18);
+    }
+
+    h1 {
+      margin: 10px 0 4px;
+      font-size: 26px;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-soft);
+      font-size: 14px;
+      max-width: 520px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,184,0.3);
+      color: var(--text-soft);
+    }
+
+    .right-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      min-width: 210px;
+    }
+
+    .tagline {
+      font-size: 12px;
+      color: var(--text-soft);
+      text-align: right;
+    }
+
+    .legend {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 11px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,184,0.3);
+      color: var(--text-soft);
+    }
+
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+    }
+
+    .swatch-main { background: var(--accent); }
+    .swatch-cirrhosis { background: #a855f7; }
+    .swatch-avoid { background: var(--danger); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1.7fr) minmax(0, 1.3fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+      .right-info {
+        align-items: flex-start;
+      }
+      .tagline {
+        text-align: left;
+      }
+      .legend {
+        justify-content: flex-start;
+      }
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.35);
+      padding: 12px 12px 11px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.18) 0, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.25s ease-out;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      border-radius: 999px;
+      padding: 2px 7px;
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--text-soft);
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .pill-row-small {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .badge-chip {
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 11px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-soft);
+    }
+
+    .badge-chip.good {
+      border-color: rgba(74,222,128,0.8);
+      color: #bbf7d0;
+    }
+
+    .badge-chip.warn {
+      border-color: rgba(250,204,21,0.9);
+      color: #facc15;
+    }
+
+    .badge-chip.danger {
+      border-color: rgba(248,113,113,0.95);
+      color: #fecaca;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+    }
+
+    .list-dot li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 3px;
+    }
+
+    .list-dot li::before {
+      content: "•";
+      position: absolute;
+      left: 3px;
+      top: 0;
+      color: var(--accent);
+      font-size: 15px;
+    }
+
+    .pill-button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 6px 0 4px;
+    }
+
+    .pill-button {
+      cursor: pointer;
+      user-select: none;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.16s ease-out;
+    }
+
+    .pill-button span.icon {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .pill-button.active {
+      border-color: rgba(56,189,248,0.9);
+      color: #e0f2fe;
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.18) 0, rgba(15,23,42,0.98) 40%);
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.9);
+    }
+
+    .pill-button:hover {
+      border-color: rgba(56,189,248,0.9);
+      color: #e0f2fe;
+    }
+
+    .section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      margin-bottom: 5px;
+    }
+
+    .highlight {
+      color: #e5e7eb;
+    }
+
+    .dose-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+      font-size: 12px;
+      margin: 4px 0;
+    }
+
+    .dose-label {
+      color: var(--text-soft);
+    }
+
+    .dose-value {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(148,163,184,0.4), transparent);
+      margin: 8px 0 4px;
+    }
+
+    .footnote {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+      line-height: 1.45;
+    }
+
+    .footnote strong {
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <div class="content">
+        <header>
+          <div class="title-block">
+            <div class="badge">
+              <span class="badge-dot"></span>
+              <span>Альбумин • Памятка по современным гайдам</span>
+            </div>
+            <h1>Внутривенный альбумин: когда и как капать</h1>
+            <div class="subtitle">
+              Алгоритм для практики: только клинически обоснованные показания, ориентирован на
+              Surviving Sepsis 2021 и международные рекомендации по альбумину и асциту.
+            </div>
+            <div class="pill-row">
+              <div class="pill">Сепсис / септический шок</div>
+              <div class="pill">Гипоальбуминемия</div>
+              <div class="pill">Цирроз + асцит</div>
+              <div class="pill">20% раствор • инфузомат</div>
+            </div>
+          </div>
+          <div class="right-info">
+            <div class="tagline">
+              Сначала кристаллоиды и оценка объёмного статуса.<br />
+              Альбумин — только когда добавлять действительно есть смысл.
+            </div>
+            <div class="legend">
+              <div class="legend-item">
+                <span class="legend-swatch swatch-main"></span>
+                <span>Критические состояния</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch swatch-cirrhosis"></span>
+                <span>Цирроз / асцит</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch swatch-avoid"></span>
+                <span>Избегать / с осторожностью</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="grid">
+          <!-- Левая колонка: выбор сценария -->
+          <div class="column">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  СЦЕНАРИЙ
+                </div>
+                <div class="card-tag">Шаг 1</div>
+              </div>
+              <div class="card-body">
+                <div class="section-title">Выберите клиническую ситуацию</div>
+                <div class="pill-button-row">
+                  <button class="pill-button active" data-scenario="sepsis">
+                    <span class="icon">🩺</span>
+                    Сепсис / септический шок
+                  </button>
+                  <button class="pill-button" data-scenario="hypo">
+                    <span class="icon">💧</span>
+                    Гипоальбуминемия без шока
+                  </button>
+                  <button class="pill-button" data-scenario="ascites">
+                    <span class="icon">⚪</span>
+                    Цирроз + парацентез
+                  </button>
+                </div>
+                <ul class="list-dot">
+                  <li><span class="highlight">Не</span> начинать волемическую терапию с альбумина — сначала кристаллоиды.</li>
+                  <li>Рассматривать альбумин только при конкретных показаниях и с планом мониторинга.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  КОГДА НЕ НАДО
+                </div>
+                <div class="card-tag">Фильтр</div>
+              </div>
+              <div class="card-body">
+                <div class="pill-row-small">
+                  <span class="badge-chip danger">Не стартовый волемический раствор</span>
+                  <span class="badge-chip warn">Не «косметика» цифр</span>
+                </div>
+                <ul class="list-dot">
+                  <li>Стабильный пациент только с «низкой цифрой» альбумина.</li>
+                  <li>Рутинно при циррозе без осложнений ради альбумина &gt;30 г/л.</li>
+                  <li>Тяжёлая сердечная недостаточность, выраженная гипергидратация — крайне осторожно.</li>
+                  <li>Сепсис + тяжелая ЧМТ — избегать альбумина.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Средняя колонка: что показано -->
+          <div class="column">
+            <div class="card" id="card-sepsis">
+              <div class="card-header">
+                <div class="card-title">
+                  СЕПСИС / СЕПТИЧЕСКИЙ ШОК
+                </div>
+                <div class="card-tag">Surviving Sepsis 2021</div>
+              </div>
+              <div class="card-body">
+                <div class="section-title">Когда рассматривать альбумин</div>
+                <ul class="list-dot">
+                  <li>Уже введён значительный объём кристаллоидов (порядка 30–40 мл/кг и более).</li>
+                  <li>Гемодинамика всё ещё требует волемической поддержки.</li>
+                  <li>Есть/нарастают отёки, риск перегрузки объёмом.</li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <div class="section-title">Как капать (взрослый, 20% раствор)</div>
+                <div class="dose-row">
+                  <span class="dose-label">Ресусцитация:</span>
+                  <span class="dose-value">100–200 мл 20% альбумина за 1–3 часа</span>
+                </div>
+                <div class="dose-row">
+                  <span class="dose-label">Скорость через инфузомат:</span>
+                  <span class="dose-value">60–120 мл/ч (1–2 мл/мин)</span>
+                </div>
+                <div class="dose-row">
+                  <span class="dose-label">На фоне:</span>
+                  <span class="dose-value">вазопрессоры, контроль MAP ≥65 мм рт. ст., лактат, диурез</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section-title">Мониторинг и «стоп»</div>
+                <ul class="list-dot">
+                  <li>Клиника перегрузки: одышка, влажные хрипы, набухшие яремные вены.</li>
+                  <li>АД, ЧСС, SpO₂, диурез, УЗИ лёгких/сердца, динамика лактата.</li>
+                  <li>При признаках перегрузки — замедлить или остановить инфузию.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card" id="card-hypo" style="display:none;">
+              <div class="card-header">
+                <div class="card-title">
+                  ГИПОАЛЬБУМИНЕМИЯ БЕЗ ШОКА
+                </div>
+                <div class="card-tag">ICTMG 2024</div>
+              </div>
+              <div class="card-body">
+                <div class="section-title">Когда есть смысл</div>
+                <ul class="list-dot">
+                  <li>Альбумин ≤20–25 г/л + выраженные отёки, асцит, гипотензия, гипоперфузия.</li>
+                  <li>«Безбелковые» отёки при инфузионной терапии, трудный контроль ОЦК.</li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <div class="section-title">Дозы (взрослый, 20% раствор)</div>
+                <div class="dose-row">
+                  <span class="dose-label">Ориентир:</span>
+                  <span class="dose-value">0,5–1 г/кг/сут (с коррекцией по клинике)</span>
+                </div>
+                <div class="dose-row">
+                  <span class="dose-label">Пересчёт:</span>
+                  <span class="dose-value">20 г = 100 мл; 40 г = 200 мл; 60 г = 300 мл 20% раствора</span>
+                </div>
+                <div class="dose-row">
+                  <span class="dose-label">Скорость:</span>
+                  <span class="dose-value">60–120 мл/ч; у кардиальных/пожилых — ближе к 60 мл/ч</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section-title">Цель</div>
+                <ul class="list-dot">
+                  <li>Стабилизировать онкотическое давление, уменьшить отёки/асцит.</li>
+                  <li>Не гнаться за «нормальной» цифрой альбумина при стабильной клинике.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card" id="card-ascites" style="display:none;">
+              <div class="card-header">
+                <div class="card-title">
+                  ЦИРРОЗ + ПАРАЦЕНТЕЗ
+                </div>
+                <div class="card-tag">Guidelines on Ascites</div>
+              </div>
+              <div class="card-body">
+                <div class="section-title">Правило расчёта при крупнообъёмном парацентезе</div>
+                <ul class="list-dot">
+                  <li>8 г альбумина на 1 литр удалённого асцита (&gt;5 л).</li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <div class="section-title">Быстрый калькулятор (20% раствор, 20 г/100 мл)</div>
+                <div class="dose-row">
+                  <span class="dose-label">5 л:</span>
+                  <span class="dose-value">5 × 8 = 40 г → 200 мл (2 × 100 мл)</span>
+                </div>
+                <div class="dose-row">
+                  <span class="dose-label">7 л:</span>
+                  <span class="dose-value">7 × 8 = 56 г → ≈280 мл (≈3 × 100 мл, по клинике)</span>
+                </div>
+                <div class="dose-row">
+                  <span class="dose-label">10 л:</span>
+                  <span class="dose-value">10 × 8 = 80 г → 400 мл (4 × 100 мл)</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section-title">Как капать</div>
+                <div class="dose-row">
+                  <span class="dose-label">Время введения:</span>
+                  <span class="dose-value">1–3 часа после парацентеза</span>
+                </div>
+                <div class="dose-row">
+                  <span class="dose-label">Скорость:</span>
+                  <span class="dose-value">20–25% раствор 60–120 мл/ч (1–2 мл/мин)</span>
+                </div>
+
+                <ul class="list-dot">
+                  <li>Обязательно контролировать АД, ЧСС, симптомы перегрузки объёмом.</li>
+                  <li>При ОПП/ACLF можно рассматривать альбумин и при меньших объёмах, исходя из риска.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Правая колонка: краткий итог и риски -->
+          <div class="column">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  ИТОГОВЫЙ АЛГОРИТМ
+                </div>
+                <div class="card-tag">Одним взглядом</div>
+              </div>
+              <div class="card-body">
+                <div class="section-title">Сводно по шагам</div>
+                <ul class="list-dot">
+                  <li>1. Оценить: есть ли шок, сепсис, цирроз с асцитом или выраженная гипоальбуминемия + клиника.</li>
+                  <li>2. Провести стартовую терапию кристаллоидами и базовую коррекцию (вазопрессоры и т. д.).</li>
+                  <li>3. Если показания есть — выбрать ветку (сепсис, гипоальбуминемия, асцит) и следовать дозам/скорости.</li>
+                  <li>4. Всё время контролировать признаки перегрузки объёмом и пересматривать необходимость дальнейшего введения.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  РИСКИ И КОНТРОЛЬ
+                </div>
+                <div class="card-tag">Безопасность</div>
+              </div>
+              <div class="card-body">
+                <div class="pill-row-small">
+                  <span class="badge-chip good">Мониторинг гемодинамики</span>
+                  <span class="badge-chip warn">Риск гиперволемии</span>
+                  <span class="badge-chip danger">Отёк лёгких</span>
+                </div>
+                <ul class="list-dot">
+                  <li>Наблюдать за АД, ЧСС, SpO₂, дыханием, диурезом.</li>
+                  <li>Оценивать клинический объёмный статус (эхо, УЗИ лёгких, VCI — по возможности).</li>
+                  <li>При ухудшении дыхания или признаках перегрузки — остановить или замедлить альбумин.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  ИСТОЧНИКИ
+                </div>
+                <div class="card-tag">Гайдлайны</div>
+              </div>
+              <div class="card-body">
+                <div class="footnote">
+                  Основано на:<br />
+                  – Surviving Sepsis Campaign 2021 (взрослые).[web:34][web:37][web:40]<br />
+                  – Международные рекомендации ICTMG по внутривенному альбумину (CHEST 2024).[web:41][web:59][web:70][web:72][web:73]<br />
+                  – Гайдлайны по ведению асцита при циррозе (BSG/AASLD).[web:50][web:56][web:64]<br />
+                  Конкретные дозы и схемы всегда соотносить с локальными протоколами и инструкцией к препарату.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Переключение сценариев
+    const buttons = document.querySelectorAll('.pill-button');
+    const cardSepsis = document.getElementById('card-sepsis');
+    const cardHypo = document.getElementById('card-hypo');
+    const cardAscites = document.getElementById('card-ascites');
+
+    function setScenario(scenario) {
+      cardSepsis.style.display = scenario === 'sepsis' ? '' : 'none';
+      cardHypo.style.display = scenario === 'hypo' ? '' : 'none';
+      cardAscites.style.display = scenario === 'ascites' ? '' : 'none';
+
+      buttons.forEach(btn => {
+        if (btn.dataset.scenario === scenario) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setScenario(btn.dataset.scenario);
+      });
+    });
+  </script>
+</body>
+</html>
