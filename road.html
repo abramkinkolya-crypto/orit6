@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>baikal-roadtrip-plan</title>
+  <meta name="description" content="Интерактивный путеводитель по Иркутску и Байкалу с легендами, опциями, ресторанами, таймингом и аудио-текстами." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root,[data-theme="light"]{--bg:#f7f6f2;--surface:#fbfbf9;--surface-2:#f1eee8;--text:#28251d;--muted:#6f6a63;--border:#d4d1ca;--primary:#01696f;--primary-soft:#dceceb;--accent:#8e5e2c;--ok:#2f6b48;--shadow:0 16px 38px rgba(0,0,0,.08);--r:20px;--font-display:'Instrument Serif',serif;--font-body:'Inter',sans-serif}
+    [data-theme="dark"]{--bg:#171614;--surface:#1c1b19;--surface-2:#252320;--text:#f1ede7;--muted:#b0aa9f;--border:#3a3835;--primary:#63aab2;--primary-soft:#1e383c;--accent:#c89764;--ok:#6bb184;--shadow:0 16px 38px rgba(0,0,0,.35)}
+    *{box-sizing:border-box} body{margin:0;font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6} a{text-decoration:none;color:inherit} img{display:block;max-width:100%} .wrap{max-width:1380px;margin:0 auto;padding:18px} .top{position:sticky;top:0;z-index:40;background:rgba(247,246,242,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)} [data-theme="dark"] .top{background:rgba(23,22,20,.88)} .top-inner{max-width:1380px;margin:0 auto;padding:14px 18px;display:flex;justify-content:space-between;gap:14px;align-items:center} .brand{display:flex;gap:12px;align-items:center;font-weight:700}.mark{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--primary);color:#fff}.btns{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid var(--border);background:var(--surface);padding:10px 14px;border-radius:999px;font-weight:600;min-height:44px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer} .hero{padding:28px 0 18px}.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);font-weight:700}.hero h1{font-family:var(--font-display);font-size:clamp(38px,5vw,68px);line-height:.97;margin:10px 0 14px;max-width:11ch}.hero p{max-width:86ch;color:var(--muted)} .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:22px}.card,.box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)} .card{padding:20px}.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:170px;gap:10px}.ph{position:relative;overflow:hidden;border-radius:16px}.ph img{width:100%;height:100%;object-fit:cover}.ph:first-child{grid-row:span 2}.cap{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.46);color:#fff;padding:5px 9px;border-radius:999px;font-size:12px} .summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.sum{background:var(--surface-2);padding:14px;border-radius:16px}.sum b{display:block;font-size:20px}.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 18px}.tab{padding:10px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-weight:600}.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)} .panel{display:none}.panel.active{display:block}.day-layout{display:grid;grid-template-columns:1.2fr .85fr;gap:18px}.box{padding:18px}.sub{color:var(--muted);font-size:14px}.title-row{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}.title-row h2{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);margin:0}.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}.chip{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-size:12px;font-weight:700} .timeline,.links,.facts,.restaurants,.extras,.modes{display:grid;gap:10px}.item{padding:14px;border-radius:16px;background:var(--surface-2)} .item b{display:block;margin-bottom:4px}.section-title{margin:18px 0 10px;font-size:18px;font-weight:700}.place-link{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:14px;background:var(--surface-2);align-items:center}.place-link span{color:var(--primary);font-weight:700}.fact{padding:12px 14px;border-left:4px solid var(--accent);background:var(--surface-2);border-radius:0 14px 14px 0}.rest{padding:12px 14px;border-radius:14px;background:var(--surface-2)} .rest b{display:block}.toggle{display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:16px;background:var(--surface-2)} .toggle input{margin-top:5px;transform:scale(1.18)} .toggle .mini{font-size:13px;color:var(--muted)} .note{padding:12px 14px;border-radius:14px;background:rgba(1,105,111,.08)} .audio{padding:16px;border-radius:16px;background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px dashed var(--border)} .audio textarea{width:100%;min-height:180px;border:1px solid var(--border);border-radius:14px;padding:12px;font:inherit;background:var(--bg);color:var(--text)} .audio-tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.foot{padding:26px 18px 48px;color:var(--muted);max-width:1380px;margin:0 auto}.green{color:var(--ok);font-weight:700}.small{font-size:14px;color:var(--muted)} @media (max-width:1050px){.hero-grid,.day-layout{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr}.ph:first-child{grid-row:span 1}} @media (max-width:720px){.wrap{padding:14px}.top-inner{flex-direction:column;align-items:flex-start}.summary,.meta{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}.card,.box{padding:16px}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand"><div class="mark">⟡</div><div>Baikal Guide+</div></div>
+      <div class="btns">
+        <a class="btn" href="#days">Дни</a>
+        <button class="btn" id="themeBtn">☾ Тема</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Интерактивный путеводитель по вашей поездке</div>
+      <h1>Маршрут с легендами, опциями и готовыми вставками в каждый день</h1>
+      <p>Теперь в каждом дне есть не только базовый план, но и: легенды про места, ресторанные варианты, дополнительные идеи вроде Серебряного озера, Пика Любви, Улябора, тропы ББТ и катера обратно, а ещё текст экскурсии, который можно читать вслух в машине или озвучивать через телефон.</p>
+      <div class="hero-grid">
+        <div class="card">
+          <div class="gallery">
+            <div class="ph"><img src="https://picsum.photos/seed/olkhon-plus/1200/900" alt="Байкал и скалы" width="1200" height="900" loading="lazy"><div class="cap">Ольхон</div></div>
+            <div class="ph"><img src="https://picsum.photos/seed/listv-plus/700/700" alt="Листвянка" width="700" height="700" loading="lazy"><div class="cap">Листвянка</div></div>
+            <div class="ph"><img src="https://picsum.photos/seed/arshan-plus/700/700" alt="Аршан" width="700" height="700" loading="lazy"><div class="cap">Аршан</div></div>
+            <div class="ph"><img src="https://picsum.photos/seed/tropa-plus/700/700" alt="Большая Байкальская тропа" width="700" height="700" loading="lazy"><div class="cap">ББТ</div></div>
+            <div class="ph"><img src="https://picsum.photos/seed/hoboy-plus/700/700" alt="Мыс Хобой" width="700" height="700" loading="lazy"><div class="cap">Хобой</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="summary">
+            <div class="sum"><span class="small">Что нового</span><b>Легенды</b><span class="small">в каждом дне</span></div>
+            <div class="sum"><span class="small">Что нового</span><b>Доп. опции</b><span class="small">с пересборкой тайминга</span></div>
+            <div class="sum"><span class="small">Что нового</span><b>Рестораны</b><span class="small">отдельным блоком</span></div>
+            <div class="sum"><span class="small">Что нового</span><b>Текст экскурсии</b><span class="small">для озвучки в дороге</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="days">
+      <div class="tabs" id="tabs"></div>
+      <div id="panels"></div>
+    </section>
+  </main>
+
+  <footer class="foot">Логика такая: открываешь день → смотришь основной план → ниже включаешь опцию, которую хотите добавить → рядом уже видно, как она меняет день по времени.</footer>
+
+  <script>
+    const days = [
+      {
+        title:'Ночь прилёта', sub:'11/12 июня · Иркутск', hotel:'Отель в Иркутске у центра или аэропорта · 4 500–5 000 ₽', distance:'Аэропорт → отель: 6–8 км · 15–25 мин',
+        schedule:['23:20 прилёт.','00:00–00:10 багаж и выход.','00:10–00:30 такси в отель.','00:30+ заселение и сон.'],
+        links:[['Аэропорт Иркутска','https://yandex.ru/maps/org/mezhdunarodny_aeroport_irkutsk/1054205688/'],['Маршрут аэропорт → центр','https://yandex.ru/maps/?rtext=52.268028,104.388806~52.286974,104.305018&rtt=auto']],
+        legends:['Иркутск исторически был главным перевалочным городом на пути вглубь Сибири и к Байкалу, поэтому здесь всегда смешивались путешественники, купцы и исследователи.'],
+        restaurants:['Поздний заезд: лучше заранее выбрать отель с круглосуточной стойкой и возможностью ночного заселения.'],
+        extras:[],
+        audio:'Сейчас вы прилетели в Иркутск — город, который для большинства путешественников становится первым касанием с Байкалом. Сегодня задача простая: не геройствовать, а спокойно доехать до отеля, выспаться и завтра начать маршрут уже с силами.'
+      },
+      {
+        title:'День 1', sub:'12 июня · Иркутск', hotel:'Городской отель в Иркутске · около 5 000 ₽', distance:'Внутри города: 2–10 км · 10–25 мин',
+        schedule:['09:00 подъём и завтрак.','10:00 получение машины.','11:00–12:30 130-й квартал.','12:30–14:00 обед.','14:00–16:00 набережная и центр.','16:00–18:00 отдых.','18:00–21:00 ужин.'],
+        links:[['130-й квартал','https://yandex.ru/maps/org/130_kvartal/1047073992/'],['Набережная Ангары','https://yandex.ru/maps/?text=%D0%9D%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%90%D0%BD%D0%B3%D0%B0%D1%80%D1%8B%20%D0%98%D1%80%D0%BA%D1%83%D1%82%D1%81%D0%BA']],
+        legends:['Иркутск часто называли “Парижем Сибири” — не из-за роскоши, а из-за насыщенной городской жизни, купеческой культуры и архитектуры.'],
+        restaurants:['Обед — в центре Иркутска, лучше выбирать район 130-го квартала.','Ужин — ресторан на набережной или спокойное место в центре, без длинных переездов.'],
+        extras:[],
+        audio:'Сегодня вы знакомитесь с Иркутском без спешки. Это не день больших подвигов, а день мягкого входа в путешествие: старый центр, Ангара и ощущение, что впереди Байкал уже совсем близко.'
+      },
+      {
+        title:'День 2', sub:'13 июня · Тальцы и Листвянка', hotel:'Домик в Листвянке · 8 500–12 000 ₽', distance:'Иркутск → Тальцы: 45–50 км · 45–60 мин; Тальцы → Листвянка: ~20 км · 20–30 мин',
+        schedule:['08:00 завтрак и выезд.','09:45–12:00 музей Тальцы.','12:30 заселение в Листвянке.','13:30–16:00 Камень Черского.','16:00–18:00 берег Байкала.','18:00–21:00 ужин и прогулка.'],
+        links:[['Тальцы','https://yandex.ru/maps/org/taltsy/1023527417/'],['Листвянка','https://yandex.ru/maps/?text=%D0%9B%D0%B8%D1%81%D1%82%D0%B2%D1%8F%D0%BD%D0%BA%D0%B0'],['Камень Черского','https://yandex.ru/maps/?text=%D0%9A%D0%B0%D0%BC%D0%B5%D0%BD%D1%8C%20%D0%A7%D0%B5%D1%80%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%9B%D0%B8%D1%81%D1%82%D0%B2%D1%8F%D0%BD%D0%BA%D0%B0'],['Маршрут Иркутск → Тальцы → Листвянка','https://yandex.ru/maps/?rtext=52.286974,104.305018~51.992933,104.664078~51.846347,104.871585&rtt=auto']],
+        legends:['По легенде, Шаман-камень связан с историей Ангары, которая убежала к Енисею, а разгневанный отец Байкал бросил ей вслед камень.'],
+        restaurants:['Обед — после Тальцов или уже в Листвянке.','Ужин — рыбный ресторан или кафе на берегу.','Ищите места с видом на воду, чтобы не тратить вечерний свет зря.'],
+        extras:[
+          {title:'Большая Байкальская тропа: Листвянка → Большие Коты + катер обратно', note:'Очень сильная идея на красивый день. Маршрут ББТ к Большим Котам существует, но ББТ предупреждает, что с 2023 года регулярное обслуживание тропы прекращено, так что идти нужно осознанно. Регулярные катера Листвянка — Большие Коты у DauriaTour ходят примерно по 25–30 минут, заявлены рейсы в 10:00 и 18:00 из Листвянки и в 10:30 и 18:30 обратно, стоимость взрослого билета — 1000 ₽. [web:182][web:185]', added:'Если вставить в программу: старт пешком утром около 09:00, трек почти на весь день, обратный катер — вечером; тогда Камень Черского лучше перенести на день 3. [web:182][web:185]'},
+          {title:'Короткий катер вдоль КБЖД', note:'Есть трёхчасовые водные прогулки вдоль КБЖД со стартом из Листвянки и возвращением обратно в Листвянку. [web:188]', added:'Если вставить: оставить Тальцы утром, после обеда — катер, вечером — спокойный ужин.'}
+        ],
+        audio:'Вы едете к самой понятной и самой первой встрече с Байкалом. Сначала Тальцы — это возможность увидеть старую Сибирь не по книжке, а в дереве, башнях и домах. Потом Листвянка, где Байкал открывается сразу, без прелюдии: вода, ветер и ощущение огромного пространства.'
+      },
+      {
+        title:'День 3', sub:'14 июня · Листвянка, вода и КБЖД', hotel:'Тот же домик в Листвянке · 8 500–12 000 ₽', distance:'Внутри Листвянки: 1–5 км · 5–15 мин',
+        schedule:['08:00 завтрак.','10:00–13:00 катер или экскурсия вдоль КБЖД.','13:30–15:00 обед и отдых.','15:00–18:00 свободное окно: Шаман-камень, рынок, берег.','18:30–21:00 ужин.'],
+        links:[['КБЖД','https://yandex.ru/maps/?text=%D0%9A%D1%80%D1%83%D0%B3%D0%BE%D0%B1%D0%B0%D0%B9%D0%BA%D0%B0%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B6%D0%B5%D0%BB%D0%B5%D0%B7%D0%BD%D0%B0%D1%8F%20%D0%B4%D0%BE%D1%80%D0%BE%D0%B3%D0%B0'],['Причалы Листвянки','https://yandex.ru/maps/?text=%D0%9B%D0%B8%D1%81%D1%82%D0%B2%D1%8F%D0%BD%D0%BA%D0%B0%20%D0%BF%D1%80%D0%B8%D1%87%D0%B0%D0%BB'],['Шаман-камень','https://yandex.ru/maps/?text=%D0%A8%D0%B0%D0%BC%D0%B0%D0%BD-%D0%BA%D0%B0%D0%BC%D0%B5%D0%BD%D1%8C%20%D0%9B%D0%B8%D1%81%D1%82%D0%B2%D1%8F%D0%BD%D0%BA%D0%B0']],
+        legends:['КБЖД когда-то была частью великого пути вокруг Байкала, и до сих пор её тоннели и мосты воспринимаются как инженерное чудо на фоне дикого берега.'],
+        restaurants:['Обед — после водной прогулки.','Ужин — лучше бронировать заранее, если хотите сидеть у окна с видом на Байкал.'],
+        extras:[],
+        audio:'Сегодня Байкал лучше всего смотреть с воды. Именно на катере становится понятно, насколько огромны скалы, насколько прозрачна береговая линия и почему Кругобайкальскую железную дорогу до сих пор считают одним из самых красивых мест на всём маршруте.'
+      },
+      {
+        title:'День 4', sub:'15 июня · Аршан', hotel:'Горы зовут / Место силы · 5 300–6 000 ₽', distance:'Листвянка → Аршан: около 280 км суммарно · 5.5–6 ч с остановками',
+        schedule:['08:00 завтрак.','09:00 выезд.','14:00 прибытие в Аршан.','15:00–18:00 прогулка к водопадам Кынгарги.','18:30–21:00 ужин и отдых.'],
+        links:[['Аршан','https://yandex.ru/maps/?text=%D0%90%D1%80%D1%88%D0%B0%D0%BD'],['Ущелье Кынгарги','https://yandex.ru/maps/?text=%D1%83%D1%89%D0%B5%D0%BB%D1%8C%D0%B5%20%D0%9A%D1%8B%D0%BD%D0%B3%D0%B0%D1%80%D0%B3%D0%B8'],['Пик Любви','https://yandex.ru/maps/?text=%D0%9F%D0%B8%D0%BA%20%D0%9B%D1%8E%D0%B1%D0%B2%D0%B8%20%D0%90%D1%80%D1%88%D0%B0%D0%BD']],
+        legends:['С Пиком Любви связана местная романтическая легенда: считается, что если подняться туда вдвоём, чувства станут крепче. [web:186][web:189]'],
+        restaurants:['После дороги лучше не делать тяжёлый ужин: выбрать кафе в центре Аршана и рано лечь спать.'],
+        extras:[
+          {title:'Пик Любви', note:'Экологическая тропа “Пик Любви” начинается от Аршана; Тункинский нацпарк пишет, что прогулка с коротким отдыхом в среднем занимает около 1,5 часа по экотропе, а RuTrail указывает весь маршрут Аршан — Пик Любви — Аршан как 8,1 км и 4–6 часов с набором 1208 м. [web:180][web:186]', added:'Если вставить: сделать его утром вместо водопадов или вынести на следующий день; тогда день превращается в главный романтический трек поездки. [web:180][web:186]'},
+          {title:'Статуя Синего Будды и дацан', note:'Это хорошая спокойная опция для “духовного” и фотогеничного вечера в Аршане.', added:'Если вставить: после обеда вместо длинной пешки; подходит на день после тяжёлой дороги.'},
+          {title:'Мараловая ферма', note:'В туристических описаниях этого района её часто включают как дополнительную точку в связке с Улябором и Серебряным озером. [web:183]', added:'Если вставить: добавить как короткий выезд на машине во второй половине дня.'}
+        ],
+        audio:'Аршан — это уже не просто Байкал, а совсем другой мир: Восточные Саяны, минеральная вода, буддийская культура и горные тропы. Здесь Байкал временно уходит на второй план, а главным становится ощущение долины и гор.'
+      },
+      {
+        title:'День 5', sub:'16 июня · Аршан и вариативный горный день', hotel:'Тот же домик в Аршане · 5 500–6 000 ₽', distance:'Аршан → Жемчуг: 40–50 км · 40–60 мин',
+        schedule:['08:00 завтрак.','09:00–13:00 базовый вариант: трек по Кынгарге.','13:00–14:00 обед.','14:00–18:00 Жемчуг или спокойные опции.','Вечером ужин.'],
+        links:[['Жемчуг — горячие источники','https://yandex.ru/maps/?text=%D0%96%D0%B5%D0%BC%D1%87%D1%83%D0%B3%20%D0%B3%D0%BE%D1%80%D1%8F%D1%87%D0%B8%D0%B5%20%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA%D0%B8'],['Пик Улябор','https://yandex.ru/maps/?text=%D0%9F%D0%B8%D0%BA%20%D0%A3%D0%BB%D1%8F%D0%B1%D0%BE%D1%80'],['Озеро Серебряное','https://yandex.ru/maps/?text=%D0%9E%D0%B7%D0%B5%D1%80%D0%BE%20%D0%A1%D0%B5%D1%80%D0%B5%D0%B1%D1%80%D1%8F%D0%BD%D0%BE%D0%B5%20%D0%90%D1%80%D1%88%D0%B0%D0%BD'],['Пик Галина','https://yandex.ru/maps/?text=%D0%9F%D0%B8%D0%BA%20%D0%93%D0%B0%D0%BB%D0%B8%D0%BD%D0%B0%20%D0%90%D1%80%D1%88%D0%B0%D0%BD']],
+        legends:['Улябор у многих туристов воспринимается как одна из самых красивых доступных вершин Восточного Саяна, а Серебряное озеро — как её главная природная жемчужина. [web:181]'],
+        restaurants:['Обед — плотный, если идёте в горы.','После источников — лёгкий ужин.'],
+        extras:[
+          {title:'Озеро Серебряное + пик Улябор', note:'Это уже не лёгкая прогулка. Есть туры на 2 дня, а описания маршрута говорят, что пик Улябор — 2415 м, маршрут идёт через Хурай-Хобок и Серебряное озеро; последний подъём на 2,5 км и 550 м набора занимает около 3 часов. [web:177][web:181][web:187]', added:'Если вставить: это нужно выносить в отдельный полноценный день и почти наверняка переделывать блок Аршана; как вставка “на полдня” не подходит. [web:177][web:181][web:187]'},
+          {title:'Пик Галина', note:'В подборках лёгких и красивых маршрутов рядом с Байкалом этот пик отмечают как живописную вершину с видом на Трёхглавую и Пик Любви. [web:184]', added:'Если вставить: можно заменить стандартный день Аршан + Жемчуг на более спортивный трек.'},
+          {title:'Пик Любви вместо Кынгарги', note:'Это самый логичный апгрейд, если хочется именно красивый трек вдвоём. [web:186][web:189]', added:'Если вставить: старт очень рано, возвращение после обеда, Жемчуг уже по самочувствию.'}
+        ],
+        audio:'Сегодня Аршан раскрывается как место выбора. Можно сделать расслабленный день с ущельем и источниками, а можно превратить его в почти альпийскую историю и пойти к вершинам. Именно здесь маршрут становится не просто туристическим, а личным — под ваш вкус и вашу выносливость.'
+      },
+      {
+        title:'День 6', sub:'17 июня · Байкальск', hotel:'Берёза / Chilla Villa Black · 4 200–7 500 ₽', distance:'Аршан → Байкальск: 190–210 км · 3–4 ч',
+        schedule:['08:00 завтрак.','09:00 выезд.','12:00–13:00 заселение.','13:00–16:00 берег / Утулик / район Снежной.','16:00–18:00 отдых.','18:00–21:00 ужин.'],
+        links:[['Байкальск','https://yandex.ru/maps/?text=%D0%91%D0%B0%D0%B9%D0%BA%D0%B0%D0%BB%D1%8C%D1%81%D0%BA'],['Утулик','https://yandex.ru/maps/?text=%D0%A3%D1%82%D1%83%D0%BB%D0%B8%D0%BA'],['Маршрут Аршан → Байкальск','https://yandex.ru/maps/?rtext=51.746113,102.426640~51.523149,104.148819&rtt=auto']],
+        legends:['Южный Байкал часто меньше ожидают увидеть таким красивым, но именно здесь возникает ощущение тёмной тайги, горных рек и более дикого Байкала.'],
+        restaurants:['Ужин — дом/шале-стиль или ресторан в отеле. В этот день лучше не делать гастрономических квестов.'],
+        extras:[],
+        audio:'Южный Байкал отличается от привычной картинки Ольхона. Здесь меньше степи и больше тайги, реки и горной влаги. Это Байкал более лесной, более глубокий по настроению и чуть менее туристический по ощущениям.'
+      },
+      {
+        title:'День 7', sub:'18 июня · Малое Море', hotel:'Берег Надежды / домики на базе · 6 000–9 000 ₽', distance:'Байкальск → Малое Море: 400–450 км · 6–7 ч',
+        schedule:['08:00 завтрак.','09:00 выезд.','13:00–14:00 обед по дороге.','14:00–16:00 заселение.','16:00–19:00 берег и закат.'],
+        links:[['Малое Море','https://yandex.ru/maps/?text=%D0%9C%D0%B0%D0%BB%D0%BE%D0%B5%20%D0%9C%D0%BE%D1%80%D0%B5%20%D0%91%D0%B0%D0%B9%D0%BA%D0%B0%D0%BB'],['Сахюрта / МРС','https://yandex.ru/maps/?text=%D0%A1%D0%B0%D1%85%D1%8E%D1%80%D1%82%D0%B0%20%D0%9C%D0%A0%D0%A1'],['Маршрут Байкальск → Малое Море','https://yandex.ru/maps/?rtext=51.523149,104.148819~53.011375,106.894646&rtt=auto']],
+        legends:['Малое Море получило своё название не случайно: это узкий пролив между материком и Ольхоном, который выглядит как отдельный маленький внутренний мир Байкала.'],
+        restaurants:['Лучший ужин — на базе с видом на воду. Здесь не так важна кухня, как терраса и закат.'],
+        extras:[],
+        audio:'Малое Море — это день про пространство и свет. После длинной дороги задача простая: не перегрузить себя, а выйти к воде, поймать ветер, увидеть острова и почувствовать, что впереди уже начинается ольхонская часть путешествия.'
+      },
+      {
+        title:'День 8', sub:'19 июня · Ольхон, Хужир, Хобой', hotel:'Baikal View Hotel / домик в Хужире · 8 255–8 500 ₽', distance:'МРС → Хужир: 40–50 км · 1.5–2.5 ч с паромом',
+        schedule:['07:00 завтрак.','08:00 паром.','10:00–17:00 север Ольхона и Хобой.','17:30–19:00 отдых.','19:00 закат у Шаманки.'],
+        links:[['Хужир','https://yandex.ru/maps/?text=%D0%A5%D1%83%D0%B6%D0%B8%D1%80%20%D0%9E%D0%BB%D1%8C%D1%85%D0%BE%D0%BD'],['Мыс Хобой','https://yandex.ru/maps/?text=%D0%BC%D1%8B%D1%81%20%D0%A5%D0%BE%D0%B1%D0%BE%D0%B9'],['Скала Шаманка','https://yandex.ru/maps/?text=%D1%81%D0%BA%D0%B0%D0%BB%D0%B0%20%D0%A8%D0%B0%D0%BC%D0%B0%D0%BD%D0%BA%D0%B0']],
+        legends:['Шаманка — одно из главных сакральных мест Байкала, а Хобой по форме напоминает клык и из-за этого получил своё название. [web:167][web:173]'],
+        restaurants:['Обед — чаще всего на экскурсии.','Ужин — в Хужире, лучше выбрать место у воды или с хорошим видом на закат.'],
+        extras:[],
+        audio:'Ольхон — это уже не просто точка на карте Байкала, а почти самостоятельный миф. Здесь всё воспринимается сильнее: степь кажется шире, ветер — жёстче, а скалы — древнее. Хобой обычно становится тем местом, где люди впервые по-настоящему чувствуют масштаб всего озера.'
+      },
+      {
+        title:'День 9', sub:'20 июня · Ольхон, вода или юг острова', hotel:'Тот же отель в Хужире · 8 255–8 500 ₽', distance:'По острову и воде — зависит от экскурсии',
+        schedule:['08:00 завтрак.','10:00–16:00 катер по Малому Морю или южный Ольхон.','16:00–18:00 отдых.','18:00–21:00 ужин и прогулка.'],
+        links:[['Сарайский пляж','https://yandex.ru/maps/?text=%D0%A1%D0%B0%D1%80%D0%B0%D0%B9%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BF%D0%BB%D1%8F%D0%B6%20%D0%A5%D1%83%D0%B6%D0%B8%D1%80'],['Южный Ольхон','https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D1%8B%D0%B9%20%D0%9E%D0%BB%D1%8C%D1%85%D0%BE%D0%BD'],['Малое Море','https://yandex.ru/maps/?text=%D0%9C%D0%B0%D0%BB%D0%BE%D0%B5%20%D0%9C%D0%BE%D1%80%D0%B5%20%D0%91%D0%B0%D0%B9%D0%BA%D0%B0%D0%BB']],
+        legends:['Сарайский пляж — редкая для сурового Байкала длинная песчаная полоса, которая рядом со скалами и степью выглядит почти нереально.'],
+        restaurants:['Обед — на воде или в кафе Хужира после экскурсии.','Ужин — самый красивый вечер поездки, можно сделать акцент на месте с лучшим видом.'],
+        extras:[],
+        audio:'Это день свободы на Ольхоне. Можно выбрать воду, чтобы увидеть береговую линию с другого ракурса, а можно поехать на юг острова и почувствовать более тихую, менее растиражированную часть Ольхона. Это день не галочек, а настроения.'
+      },
+      {
+        title:'День 10', sub:'21 июня · возвращение в Иркутск', hotel:'Если нужен отдых до вылета — городской отель в Иркутске · 4 500–5 000 ₽', distance:'Хужир / МРС → Иркутск: 300–320 км · 5–6 ч',
+        schedule:['07:00 ранний выезд.','08:00–14:00 дорога в Иркутск.','14:00–17:00 сувениры, кофе, короткая прогулка.','Дальше — аэропорт.'],
+        links:[['Маршрут Хужир → Иркутск','https://yandex.ru/maps/?rtext=53.193621,107.339543~52.286974,104.305018&rtt=auto'],['Иркутск → аэропорт','https://yandex.ru/maps/?rtext=52.286974,104.305018~52.268028,104.388806&rtt=auto']],
+        legends:['Финальный день на Байкале почти всегда воспринимается особенным: озеро уже не просто красивое место, а что-то прожитое, к чему мысленно ещё долго возвращаются.'],
+        restaurants:['По пути — не искать идеал, а выбрать удобный обед.','В Иркутске — лёгкий ранний ужин или кофе перед аэропортом.'],
+        extras:[],
+        audio:'Возвращение с Ольхона обычно ощущается как мягкое завершение истории. Важнее не пытаться уместить сюда ещё одну “галочку”, а оставить место для спокойного прощания с поездкой.'
+      }
+    ];
+
+    const tabs=document.getElementById('tabs');
+    const panels=document.getElementById('panels');
+
+    function renderExtras(extras, dayIndex){
+      if(!extras.length) return '<div class="note">На этот день дополнительных вставок не нужно — он и так хорошо собран.</div>';
+      return extras.map((ex, idx)=>`
+        <label class="toggle">
+          <input type="checkbox" data-extra-day="${dayIndex}" data-extra-idx="${idx}">
+          <div>
+            <b>${ex.title}</b>
+            <div>${ex.note}</div>
+            <div class="mini green">Что меняется, если включить: ${ex.added}</div>
+          </div>
+        </label>
+      `).join('');
+    }
+
+    days.forEach((d,i)=>{
+      const tab=document.createElement('button');
+      tab.className='tab'+(i===0?' active':'');
+      tab.textContent=d.title;
+      tab.dataset.i=i;
+      tabs.appendChild(tab);
+
+      const panel=document.createElement('div');
+      panel.className='panel'+(i===0?' active':'');
+      panel.innerHTML=`
+        <div class="day-layout">
+          <div class="box">
+            <div class="title-row"><div><div class="sub">${d.sub}</div><h2>${d.title}</h2></div><span class="chip">Базовый день</span></div>
+            <div class="meta">
+              <div class="sum"><span class="small">Ночёвка</span><b>${d.hotel}</b></div>
+              <div class="sum"><span class="small">Переезд</span><b>${d.distance}</b></div>
+              <div class="sum"><span class="small">Формат</span><b>${d.schedule[1] || d.schedule[0]}</b></div>
+            </div>
+            <div class="section-title">Подробное расписание</div>
+            <div class="timeline">${d.schedule.map(x=>`<div class="item">${x}</div>`).join('')}</div>
+            <div class="section-title">Легенды и истории места</div>
+            <div class="facts">${d.legends.map(x=>`<div class="fact">${x}</div>`).join('')}</div>
+            <div class="section-title">Где поесть</div>
+            <div class="restaurants">${d.restaurants.map(x=>`<div class="rest">${x}</div>`).join('')}</div>
+            <div class="section-title">Что можно добавить в этот день</div>
+            <div class="extras">${renderExtras(d.extras, i)}</div>
+            <div class="note" id="extraResult-${i}">Если включить опцию выше, здесь появится краткая корректировка тайминга.</div>
+          </div>
+          <div class="box">
+            <div class="section-title">Ссылки на места</div>
+            <div class="links">${d.links.map(([t,u])=>`<a class="place-link" href="${u}" target="_blank" rel="noopener noreferrer">${t}<span>Открыть ↗</span></a>`).join('')}</div>
+            <div class="section-title">Текст экскурсии для чтения или озвучки</div>
+            <div class="audio">
+              <div class="small">Можно нажать «копировать» и вставить в любой TTS/озвучку на телефоне.</div>
+              <textarea readonly id="audio-${i}">${d.audio}</textarea>
+              <div class="audio-tools">
+                <button class="btn copy-btn" data-copy="audio-${i}">Скопировать текст</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      panels.appendChild(panel);
+    });
+
+    tabs.addEventListener('click',e=>{
+      const b=e.target.closest('.tab');
+      if(!b) return;
+      [...tabs.children].forEach((x,idx)=>x.classList.toggle('active', idx==b.dataset.i));
+      [...panels.children].forEach((x,idx)=>x.classList.toggle('active', idx==b.dataset.i));
+      window.scrollTo({top:tabs.offsetTop-80,behavior:'smooth'});
+    });
+
+    document.addEventListener('change',e=>{
+      const input=e.target.closest('[data-extra-day]');
+      if(!input) return;
+      const day=days[+input.dataset.extraDay];
+      const ex=day.extras[+input.dataset.extraIdx];
+      const box=document.getElementById(`extraResult-${input.dataset.extraDay}`);
+      if(input.checked){ box.textContent=`Добавлено в план: ${ex.title}. ${ex.added.replace(/\s*\[[^\]]+\]/g,'')}`; }
+      else { box.textContent='Если включить опцию выше, здесь появится краткая корректировка тайминга.'; }
+    });
+
+    document.addEventListener('click', async e=>{
+      const btn=e.target.closest('.copy-btn');
+      if(btn){
+        const id=btn.dataset.copy;
+        const text=document.getElementById(id).value;
+        await navigator.clipboard.writeText(text);
+        btn.textContent='Скопировано';
+        setTimeout(()=>btn.textContent='Скопировать текст',1400);
+      }
+    });
+
+    const themeBtn=document.getElementById('themeBtn');
+    let theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    document.documentElement.setAttribute('data-theme',theme);
+    themeBtn.addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',theme);});
+  </script>
+</body>
+</html>
