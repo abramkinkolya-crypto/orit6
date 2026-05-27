@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Отчёт за проделанный период</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0"></script>
+
+  <style>
+    :root{
+      --bg:#f6f5f1;--surface:#fff;--soft:#efede6;--text:#20211e;--muted:#6f736d;
+      --teal:#0b6f78;--green:#2e7d46;--orange:#b86a1f;--red:#b33a3a;
+      --border:rgba(32,33,30,.09);--shadow:0 12px 30px rgba(26,34,33,.08);--radius:20px
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Manrope,sans-serif;
+      background:linear-gradient(180deg,#f6f5f1,#efede6);color:var(--text)
+    }
+    .app{max-width:1460px;margin:0 auto;padding:22px}
+    .topbar{
+      margin-bottom:16px;padding:16px 20px;border-radius:18px;
+      background:rgba(255,255,255,.8);border:1px solid var(--border);
+      box-shadow:var(--shadow);font-size:15px;color:var(--muted)
+    }
+
+    .layout{display:grid;grid-template-columns:250px 1fr;gap:18px;align-items:start}
+    .sidebar{
+      position:sticky;top:16px;padding:16px;border-radius:20px;
+      background:rgba(255,255,255,.82);border:1px solid var(--border);box-shadow:var(--shadow)
+    }
+    .nav-title{
+      font-size:13px;text-transform:uppercase;letter-spacing:.08em;
+      color:var(--muted);margin:2px 0 12px
+    }
+    .tabbtn{
+      width:100%;text-align:left;padding:13px 14px;border:none;background:transparent;
+      border-radius:14px;font-weight:800;cursor:pointer;margin-bottom:6px;
+      transition:.2s;
+    }
+    .tabbtn:hover{background:#ece9e2}
+    .tabbtn.active{
+      background:linear-gradient(135deg, rgba(11,111,120,.14), rgba(11,111,120,.06));
+      color:var(--teal)
+    }
+
+    .panel{
+      display:none;padding:18px 20px;border-radius:22px;
+      background:rgba(255,255,255,.84);border:1px solid var(--border);box-shadow:var(--shadow)
+    }
+    .panel.active{display:block}
+    .panel h2{margin:0 0 6px;font-size:28px}
+    .sub{color:var(--muted);margin:6px 0 14px;font-size:14px}
+
+    .kpis{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:12px;margin-bottom:14px
+    }
+    .kpi{
+      padding:14px 16px;border-radius:16px;background:var(--soft);
+      border:1px solid var(--border)
+    }
+    .kpi .t{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .kpi .v{font-size:24px;font-weight:800}
+    .kpi .s{font-size:13px;font-weight:700;margin-top:4px}
+    .good{color:var(--green)}.bad{color:var(--red)}.mid{color:var(--orange)}
+
+    .chart-wrap{
+      padding:14px;border-radius:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(246,245,241,.92));
+      border:1px solid var(--border)
+    }
+    canvas{width:100%!important;height:390px!important}
+
+    .note{
+      margin-top:12px;padding:14px 16px;border-radius:16px;
+      background:#f4f8f8;border-left:4px solid var(--teal);
+      font-size:15px;line-height:1.6
+    }
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .table{
+      width:100%;border-collapse:collapse;font-size:14px;margin-top:14px
+    }
+    .table th,.table td{
+      padding:10px 12px;border-bottom:1px solid var(--border);text-align:left
+    }
+    .table th{
+      color:var(--muted);font-size:12px;
+      text-transform:uppercase;letter-spacing:.06em
+    }
+
+    @media(max-width:980px){
+      .layout,.kpis,.grid2{grid-template-columns:1fr}
+      .sidebar{position:static}
+      canvas{height:320px!important}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    Отчёт за проделанный период: сравнение построено по всему пути наблюдения,
+    а не только между первой и последней неделей.
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="nav-title">Графики</div>
+      <button class="tabbtn active" data-tab="mortality">1. Летальность</button>
+      <button class="tabbtn" data-tab="flow">2. Поток поступлений</button>
+      <button class="tabbtn" data-tab="translated">3. Переведено</button>
+      <button class="tabbtn" data-tab="li">4. ЛИ</button>
+      <button class="tabbtn" data-tab="periods">5. Летальность по периодам</button>
+      <button class="tabbtn" data-tab="department">6. Вывод по отделению</button>
+      <button class="tabbtn" data-tab="annual">7. Годовая летальность</button>
+    </aside>
+
+    <main>
+      <!-- 1. Летальность по неделям -->
+      <section class="panel active" id="mortality">
+        <h2>Летальность по неделям</h2>
+        <div class="sub">
+          Вектор направлен вниз, то есть итоговый показатель стал лучше.
+          Верхняя линия «Вектор» соединяет начало и конец периода,
+          вертикальные пунктирные линии показывают границы условных месяцев
+          (1–4, 5–8, 9–12, 13–16, 17–20 недели).
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="t">Старт</div>
+            <div class="v">44,4%</div>
+            <div class="s bad">1‑я неделя</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Финиш</div>
+            <div class="v">28,0%</div>
+            <div class="s good">21‑я неделя</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Изменение</div>
+            <div class="v">‑16,4 п.п.</div>
+            <div class="s good">‑36,9%</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Среднее</div>
+            <div class="v">36,8%</div>
+            <div class="s mid">среднее за период</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="mortalityChart"></canvas>
+        </div>
+
+        <div class="note">
+          <b>Вывод.</b>
+          Если оценивать весь путь, средняя летальность снизилась с 43,45% в неделях 1–10
+          до 31,08% в неделях 11–21, то есть на 12,37 п.п. (‑28,5%).
+          Это не точечное сравнение, а характеристика реального движения показателя по ходу периода.
+        </div>
+      </section>
+
+      <!-- 2. Поток поступлений -->
+      <section class="panel" id="flow">
+        <h2>Поток поступлений</h2>
+        <div class="sub">
+          Вверху отображён общий вектор по неделям, а вертикальные пунктирные линии делят период
+          на условные месяцы (по 4 недели), чтобы динамика читалась блоками.
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="t">Старт</div>
+            <div class="v">18</div>
+            <div class="s">1‑я неделя</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Финиш</div>
+            <div class="v">25</div>
+            <div class="s">21‑я неделя</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Изменение</div>
+            <div class="v">+7</div>
+            <div class="s good">+38,9%</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Среднее</div>
+            <div class="v">26,2</div>
+            <div class="s mid">среднее за период</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="flowChart"></canvas>
+        </div>
+
+        <div class="note">
+          <b>Вывод.</b>
+          Если сравнивать весь путь наблюдения, среднее число поступлений выросло
+          с 23,2 в неделях 1–10 до 29,6 в неделях 11–21, то есть на 6,35 пациента в неделю
+          (+27,4%). Улучшение результатов происходило не при снижении нагрузки,
+          а на фоне более высокого потока.
+        </div>
+      </section>
+
+      <!-- 3. Переведено -->
+      <section class="panel" id="translated">
+        <h2>Переведено</h2>
+        <div class="sub">
+          Вертикальные линии делят график на месяцы, чтобы изменения по переводу пациентов
+          обсуждать блоками, а не по отдельным неделям.
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="t">Старт</div>
+            <div class="v">10</div>
+            <div class="s">1‑я неделя</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Финиш</div>
+            <div class="v">16</div>
+            <div class="s">21‑я неделя</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Изменение</div>
+            <div class="v">+6</div>
+            <div class="s good">+60,0%</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Среднее</div>
+            <div class="v">16,3</div>
+            <div class="s mid">среднее за период</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="translatedChart"></canvas>
+        </div>
+
+        <div class="note">
+          <b>Вывод.</b>
+          Если оценивать весь путь, среднее число переводов выросло с 13,1 в неделях 1–10
+          до 19,3 в неделях 11–21, то есть на 6,17 в неделю (+47,1%).
+          Вектор графика направлен вверх, что говорит об усилении позитивного выхода пациентов.
+        </div>
+      </section>
+
+      <!-- 4. ЛИ -->
+      <section class="panel" id="li">
+        <h2>ЛИ</h2>
+        <div class="sub">
+          Границы месяцев на графике помогают увидеть, как показатель ведёт себя
+          по укрупнённым периодам, сохраняя недельную детализацию.
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="t">Старт</div>
+            <div class="v">8</div>
+            <div class="s">1‑я неделя</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Финиш</div>
+            <div class="v">7</div>
+            <div class="s">21‑я неделя</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Изменение</div>
+            <div class="v">‑1</div>
+            <div class="s good">‑12,5%</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Среднее</div>
+            <div class="v">9,0</div>
+            <div class="s mid">среднее за период</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="liChart"></canvas>
+        </div>
+
+        <div class="note">
+          <b>Вывод.</b>
+          Если оценивать весь путь, среднее значение ЛИ снизилось с 9,9 в неделях 1–10
+          до 8,8 в неделях 11–21 (‑1,08; ‑10,9%).
+          Это усиливает общий тезис о положительной динамике результатов.
+        </div>
+      </section>
+
+      <!-- 5. Летальность по периодам + месяцы (из недель) -->
+      <section class="panel" id="periods">
+        <h2>Летальность по периодам</h2>
+        <div class="sub">
+          Слева — летальность относительно числа поступивших по крупным периодам,
+          ниже — усреднённая по месяцам летальность ОРИТ 6
+          (5 блоков по 4 недели) поверх недельного шума.
+        </div>
+
+        <div class="grid2">
+          <div class="chart-wrap">
+            <canvas id="monthlyChart"></canvas>
+          </div>
+
+          <div>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Период</th><th>Поступило</th><th>ЛИ</th><th>Летальность</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr><td>1–4 недели</td><td>97</td><td>40</td><td>41,2%</td></tr>
+              <tr><td>5–8 недель</td><td>101</td><td>44</td><td>43,6%</td></tr>
+              <tr><td>9–12 недель</td><td>93</td><td>35</td><td>37,6%</td></tr>
+              <tr><td>13–16 недель</td><td>134</td><td>35</td><td>26,1%</td></tr>
+              <tr><td>17–21 недель</td><td>132</td><td>42</td><td>31,8%</td></tr>
+              </tbody>
+            </table>
+
+            <div class="note">
+              <b>Вывод.</b>
+              Наиболее сильное улучшение видно в периоде 13–16 недель:
+              при 134 поступивших летальность составила 26,1%,
+              тогда как в начале (1–4 недели) она была 41,2% при 97 поступивших.
+              То есть объём работы вырос, а результат стал лучше.
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px" class="chart-wrap">
+          <canvas id="orit6MonthsChart"></canvas>
+        </div>
+      </section>
+
+      <!-- 6. Вывод по отделению -->
+      <section class="panel" id="department">
+        <h2>Суммарный вывод по отделению</h2>
+        <div class="sub">
+          Сводная вкладка с накопленным итогом по основным показателям за весь анализируемый период,
+          с акцентом на средние значения.
+        </div>
+
+        <div class="grid2">
+          <div class="note">
+            <b>Общий результат.</b>
+            По совокупности показателей работа отделения за анализируемый период выглядит
+            более устойчивой и эффективной: средняя летальность снизилась,
+            среднее число ЛИ уменьшилось, а средние поступления и переводы выросли.
+          </div>
+          <div class="note">
+            <b>Управленческий смысл.</b>
+            Наиболее сильный аргумент в том, что улучшение результатов произошло
+            не при облегчении работы, а на фоне сохраняющегося и местами
+            более высокого потока пациентов. Отделение не только удержало нагрузку,
+            но и улучшило качество работы в динамике.
+          </div>
+        </div>
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Показатель</th><th>Старт</th><th>Финиш</th>
+            <th>Изменение</th><th>Изменение, %</th><th>Среднее</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr><td>Летальность</td><td>44,4%</td><td>28,0%</td><td>‑16,4 п.п.</td><td>‑36,9%</td><td>36,8%</td></tr>
+          <tr><td>Поступило</td><td>18</td><td>25</td><td>+7</td><td>+38,9%</td><td>26,2</td></tr>
+          <tr><td>Переведено</td><td>10</td><td>16</td><td>+6</td><td>+60,0%</td><td>16,3</td></tr>
+          <tr><td>ЛИ</td><td>8</td><td>7</td><td>‑1</td><td>‑12,5%</td><td>9,0</td></tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <b>Короткий вывод.</b>
+          В целом по ходу периода отделение показало улучшение:
+          во второй части наблюдения летальность и ЛИ стали ниже,
+          а поступления и переводы — выше.
+        </div>
+      </section>
+
+      <!-- 7. Годовая летальность -->
+      <section class="panel" id="annual">
+        <h2>Годовая и помесячная летальность</h2>
+        <div class="sub">
+          Сравнение годовой летальности 2025 и 2026 годов по отделениям
+          и помесячная динамика ОРИТ 6 относительно всех ОРИТ.
+        </div>
+
+        <div class="grid2">
+          <div>
+            <h3 style="margin:0 0 6px;font-size:18px;">
+              Годовая летальность по отделениям (2025 → 2026)
+            </h3>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Отделение</th><th>2025</th><th>2026</th>
+                <th>Изменение, п.п.</th><th>Изменение, %</th><th>Вектор</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr style="background:rgba(190,57,57,.08);font-weight:700;">
+                <td>ОРИТ 6 (ГНХ)</td><td>38,79%</td><td>36,65%</td>
+                <td>‑2,14</td><td>‑5,5%</td><td>Наиболее выраженное снижение</td>
+              </tr>
+              <tr>
+                <td>ОРИТ 8 (ОКС)</td><td>8,10%</td><td>6,61%</td>
+                <td>‑1,49</td><td>‑18,4%</td><td>Снижение</td>
+              </tr>
+              <tr>
+                <td>ВСЕ ОРИТ</td><td>20,04%</td><td>19,89%</td>
+                <td>‑0,15</td><td>‑0,7%</td><td>Небольшое снижение</td>
+              </tr>
+              <tr>
+                <td>ОРИТ 5 (ХИР)</td><td>24,32%</td><td>24,38%</td>
+                <td>+0,06</td><td>+0,2%</td><td>Практически без изменений</td>
+              </tr>
+              <tr>
+                <td>ОРИТ 3 (ОНМК)</td><td>10,64%</td><td>11,10%</td>
+                <td>+0,46</td><td>+4,3%</td><td>Рост</td>
+              </tr>
+              <tr>
+                <td>ОРИТ 4 (ТРАВМ)</td><td>11,01%</td><td>11,68%</td>
+                <td>+0,67</td><td>+6,1%</td><td>Рост</td>
+              </tr>
+              <tr>
+                <td>ОРИТ 7 (ОБЩ)</td><td>27,40%</td><td>28,94%</td>
+                <td>+1,54</td><td>+5,6%</td><td>Рост</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <div class="note" style="margin-top:14px">
+              <b>Анализ.</b>
+              По абсолютному снижению годовой летальности в процентных пунктах
+              сильнее всего улучшился ОРИТ 6 (ГНХ): с 38,79% до 36,65%
+              (‑2,14 п.п., ‑5,5%). Это максимальное снижение среди всех отделений.
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin:0 0 6px;font-size:18px;">
+              Помесячная динамика ОРИТ 6 и всех ОРИТ
+            </h3>
+            <div class="chart-wrap">
+              <canvas id="monthlyOrit6Chart"></canvas>
+            </div>
+            <div class="note">
+              <b>Комментарий.</b>
+              Линия ОРИТ 6 (ГНХ) остаётся исходно выше средней по всем ОРИТ,
+              но показывает движение вниз, что подчёркивает усилия отделения
+              на фоне изначально более тяжёлого контингента.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+/* Данные недельного ряда ОРИТ 6 */
+const weeks = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+
+const data = {
+  'Состоит':   [15,16,16,15,15,17,16,16,17,15,16,15,14,14,15,15,16,16,16,13,15],
+  'Поступило':[18,20,31,28,26,27,24,24,21,13,28,31,30,39,31,34,34,26,19,28,25],
+  'Переведено':[10,8,23,17,12,15,15,10,17,4,20,20,20,22,25,23,28,11,12,15,16],
+  'ЛИ':        [8,8,12,12,11,13,8,12,7,8,16,4,11,10,8,6,8,11,9,7,7],
+  'Летальность':[44.4,40.0,38.7,42.9,42.3,48.1,33.3,50.0,33.3,61.5,57.1,12.9,36.7,25.6,25.8,17.6,23.5,42.3,47.4,25.0,28.0]
+};
+
+/* Периоды (1–4, 5–8, 9–12, 13–16, 17–21) для графика летальности от поступивших */
+const periods = ['1–4','5–8','9–12','13–16','17–21'];
+const periodAdmissions = [97,101,93,134,132];
+const periodDeaths = [40,44,35,35,42];
+const periodMortality = [41.2,43.6,37.6,26.1,31.8];
+
+/* «Месяцы» из недель (по 4 недели) для ОРИТ 6 */
+const orit6MonthsLabels = ['1‑й месяц','2‑й месяц','3‑й месяц','4‑й месяц','5‑й месяц'];
+const orit6MonthsMortality = [41.50,43.42,41.20,26.43,34.55];
+
+/* Помесячная годовая динамика ОРИТ 6 и всех ОРИТ (из годовой таблицы) */
+const monthsNames = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+const orit6_2025 = [38.1,41.84,42.16,38.53,45.54,34.21,34.71,37.3,44.14,31.65,39.09,38.18];
+const all_2025   = [19.10,20.45,22.81,20.94,19.76,17.63,19.42,20.76,20.96,17.47,19.40,21.83];
+const orit6_2026 = [42.73,42.39,38.83,27.13,32.18,null,null,null,null,null,null,null];
+const all_2026   = [23.18,21.28,19.37,17.72,17.92,null,null,null,null,null,null,null];
+
+/* Общая конфигурация Chart.js с вертикальными линиями‑месяцами */
+const common = {
+  responsive: true,
+  maintainAspectRatio: false,
+  interaction: { mode: 'index', intersect: false },
+  plugins: {
+    legend: {
+      labels: {
+        usePointStyle: true,
+        boxWidth: 10,
+        color: '#36403b',
+        font: { family: 'Manrope', size: 13, weight: '700' }
+      }
+    },
+    annotation: {
+      annotations: {
+        month1: { type:'line', scaleID:'x', value:4,
+          borderColor:'rgba(0,0,0,0.18)', borderWidth:1, borderDash:[4,4] },
+        month2: { type:'line', scaleID:'x', value:8,
+          borderColor:'rgba(0,0,0,0.18)', borderWidth:1, borderDash:[4,4] },
+        month3: { type:'line', scaleID:'x', value:12,
+          borderColor:'rgba(0,0,0,0.18)', borderWidth:1, borderDash:[4,4] },
+        month4: { type:'line', scaleID:'x', value:16,
+          borderColor:'rgba(0,0,0,0.18)', borderWidth:1, borderDash:[4,4] },
+        month5: { type:'line', scaleID:'x', value:20,
+          borderColor:'rgba(0,0,0,0.18)', borderWidth:1, borderDash:[4,4] }
+      }
+    }
+  },
+  scales: {
+    x: {
+      grid: { display:false },
+      ticks: { color:'#6f736d', font:{ family:'Manrope' } }
+    },
+    y: {
+      grid: { color:'rgba(30,31,28,.08)' },
+      ticks: { color:'#6f736d', font:{ family:'Manrope' } },
+      beginAtZero:true
+    }
+  },
+  elements: {
+    line: { tension:.38, borderWidth:4 },
+    point:{ radius:2, hoverRadius:6, hitRadius:16 }
+  }
+};
+
+/* вспомогательная функция для вектора */
+function trendLine(arr){
+  const first = arr[0];
+  const last = arr[arr.length-1];
+  return Array(arr.length).fill(null).map((_,i)=>{
+    if(i===0) return first;
+    if(i===arr.length-1) return last;
+    return null;
+  });
+}
+
+/* конструктор линейных графиков */
+function lineChart(id,label,vals,color,maxY){
+  new Chart(document.getElementById(id),{
+    type:'line',
+    data:{
+      labels:weeks,
+      datasets:[
+        {
+          label:label,
+          data:vals,
+          borderColor:color,
+          backgroundColor:color+'20',
+          fill:true
+        },
+        {
+          label:'Вектор',
+          data:trendLine(vals),
+          borderColor:'#111',
+          borderDash:[8,6],
+          pointRadius:0,
+          tension:0,
+          fill:false
+        }
+      ]
+    },
+    options:{
+      ...common,
+      scales:{
+        x: common.scales.x,
+        y: { ...common.scales.y, suggestedMax:maxY }
+      }
+    }
+  });
+}
+
+/* построение недельных графиков */
+lineChart('mortalityChart','Летальность, %',data['Летальность'],'#b33a3a',70);
+lineChart('flowChart','Поступило',data['Поступило'],'#0b6f78',45);
+lineChart('translatedChart','Переведено',data['Переведено'],'#2e7d46',30);
+lineChart('liChart','ЛИ',data['ЛИ'],'#b86a1f',20);
+
+/* график «летальность относительно числа поступивших по периодам» */
+new Chart(document.getElementById('monthlyChart'),{
+  type:'bar',
+  data:{
+    labels:periods,
+    datasets:[
+      {
+        type:'bar',
+        label:'Поступило',
+        data:periodAdmissions,
+        backgroundColor:'rgba(11,111,120,.25)',
+        borderColor:'#0b6f78',
+        borderWidth:1,
+        yAxisID:'y'
+      },
+      {
+        type:'line',
+        label:'Летальность, %',
+        data:periodMortality,
+        borderColor:'#b33a3a',
+        backgroundColor:'#b33a3a',
+        yAxisID:'y1',
+        tension:.35
+      },
+      {
+        type:'line',
+        label:'Вектор летальности',
+        data:[periodMortality[0],periodMortality[periodMortality.length-1]],
+        borderColor:'#111',
+        borderDash:[8,6],
+        pointRadius:0,
+        yAxisID:'y1',
+        tension:0
+      }
+    ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ usePointStyle:true } } },
+    scales:{
+      x:{ grid:{ display:false } },
+      y:{
+        beginAtZero:true,
+        position:'left',
+        title:{ display:true, text:'Поступило' }
+      },
+      y1:{
+        beginAtZero:true,
+        position:'right',
+        grid:{ drawOnChartArea:false },
+        title:{ display:true, text:'Летальность, %' }
+      }
+    }
+  }
+});
+
+/* месячный график ОРИТ 6 (из недельных данных) */
+new Chart(document.getElementById('orit6MonthsChart'),{
+  type:'line',
+  data:{
+    labels:orit6MonthsLabels,
+    datasets:[
+      {
+        label:'Летальность по месяцам (из недельных данных)',
+        data:orit6MonthsMortality,
+        borderColor:'#b33a3a',
+        backgroundColor:'#b33a3a20',
+        fill:true
+      }
+    ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ usePointStyle:true } } },
+    scales:{
+      x:{ grid:{ display:false } },
+      y:{
+        beginAtZero:true,
+        suggestedMax:60,
+        grid:{ color:'rgba(30,31,28,.08)' }
+      }
+    }
+  }
+});
+
+/* годовая помесячная динамика ОРИТ 6 и всех ОРИТ */
+new Chart(document.getElementById('monthlyOrit6Chart'),{
+  type:'line',
+  data:{
+    labels:monthsNames,
+    datasets:[
+      {
+        label:'ОРИТ 6, 2025',
+        data:orit6_2025,
+        borderColor:'#b33a3a',
+        backgroundColor:'#b33a3a20',
+        fill:false
+      },
+      {
+        label:'Все ОРИТ, 2025',
+        data:all_2025,
+        borderColor:'#0b6f78',
+        backgroundColor:'#0b6f7820',
+        fill:false
+      },
+      {
+        label:'ОРИТ 6, 2026',
+        data:orit6_2026,
+        borderColor:'#b86a1f',
+        borderDash:[6,4],
+        fill:false
+      },
+      {
+        label:'Все ОРИТ, 2026',
+        data:all_2026,
+        borderColor:'#2e7d46',
+        borderDash:[6,4],
+        fill:false
+      }
+    ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ usePointStyle:true } } },
+    scales:{
+      x:{ grid:{ display:false } },
+      y:{
+        beginAtZero:true,
+        suggestedMax:50,
+        grid:{ color:'rgba(30,31,28,.08)' }
+      }
+    }
+  }
+});
+
+/* Переключение вкладок */
+const tabs = [...document.querySelectorAll('.tabbtn')];
+const panels = [...document.querySelectorAll('.panel')];
+
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabs.forEach(b => b.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
