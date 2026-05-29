@@ -23,14 +23,14 @@
       --shadow:0 12px 36px rgba(20,16,10,.09);
       --shadow-sm:0 4px 14px rgba(20,16,10,.06);
       --safe-top:max(20px,env(safe-area-inset-top));
-      --safe-bottom:max(16px,env(safe-area-inset-bottom));
+      --safe-bottom:max(0px,env(safe-area-inset-bottom));
     }
     [data-theme="dark"]{
       --bg:#141210;
       --surface:#1b1916;
       --surface-2:#232018;
       --text:#f2ede5;
-      --muted:#b0a89c;
+      --muted:#b0aa9c;
       --border:rgba(255,255,255,.09);
       --primary:#6db5b9;
       --primary-soft:#1e3638;
@@ -65,7 +65,7 @@
       max-width:440px;
       min-height:100dvh;
       margin:0 auto;
-      padding:var(--safe-top) 0 calc(88px + var(--safe-bottom));
+      padding:var(--safe-top) 0 calc(70px + var(--safe-bottom));
     }
     .container{
       padding:0 16px 12px;
@@ -256,22 +256,23 @@
     .toolbar{
       position:fixed;
       left:50%;
-      bottom:calc(12px + var(--safe-bottom));
+      bottom:0;
       transform:translateX(-50%);
-      width:min(420px,calc(100vw - 24px));
-      padding:6px 8px;
-      border-radius:26px;
-      background:color-mix(in srgb,var(--surface) 90%,transparent);
-      backdrop-filter:blur(20px);
+      width:min(420px,calc(100vw - 16px));
+      padding:4px 6px calc(4px + env(safe-area-inset-bottom));
+      border-radius:24px 24px 0 0;
+      background:color-mix(in srgb,var(--surface) 92%,transparent);
+      backdrop-filter:blur(18px);
       border:1px solid var(--border);
+      border-bottom:none;
       box-shadow:var(--shadow-sm);
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:8px;
+      gap:6px;
       z-index:50;
     }
     .tool{
-      min-height:56px;
+      min-height:52px;
       border:0;
       border-radius:18px;
       background:transparent;
@@ -408,7 +409,7 @@
       </svg>
       <span>Аршан</span>
     </button>
-    <button class="tool" data-jump="5">
+    <button class="tool" data-jump="6">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 2l4 7-4 13-4-13 4-7Z"/>
       </svg>
@@ -418,7 +419,6 @@
 
   <script>
     const days = [
-      // День 1 — Листвянка
       {
         title:'Иркутск → Тальцы → Листвянка',
         locationName:'Листвянка',
@@ -437,7 +437,6 @@
           '19:00–21:00 ужин.'
         ]
       },
-      // День 2 — ББТ
       {
         title:'ББТ: Листвянка → Большие Коты',
         locationName:'Листвянка',
@@ -455,7 +454,6 @@
           '20:00–21:30 ужин у воды.'
         ]
       },
-      // День 3 — переезд в Аршан
       {
         title:'Переезд в Аршан',
         locationName:'Аршан',
@@ -475,7 +473,6 @@
           '19:00–21:00 ужин.'
         ]
       },
-      // День 4 — Пик Любви и Жемчуг
       {
         title:'Пик Любви и Жемчуг',
         locationName:'Аршан',
@@ -494,7 +491,6 @@
           '20:00–21:30 ужин.'
         ]
       },
-      // День 5 — Серебряное озеро
       {
         title:'Трек к Серебряному озеру',
         locationName:'Аршан',
@@ -511,7 +507,6 @@
           '19:00–21:00 ужин и ночёвка в Аршане.'
         ]
       },
-      // День 6 — Аршан → Ольхон
       {
         title:'Аршан → Ольхон / Хужир',
         locationName:'Ольхон',
@@ -528,7 +523,6 @@
           '20:30–21:30 спокойный ужин.'
         ]
       },
-      // День 7 — УАЗ-тур
       {
         title:'Север Ольхона и мыс Хобой',
         locationName:'Ольхон',
@@ -544,7 +538,6 @@
           '20:00–21:30 ужин.'
         ]
       },
-      // День 8 — Ольхон → Иркутск
       {
         title:'Ольхон → Иркутск',
         locationName:'Иркутск',
@@ -560,7 +553,6 @@
           '19:00–21:00 спокойный ужин рядом с отелем.'
         ]
       },
-      // День 9 — вылет
       {
         title:'Финиш маршрута и вылет',
         locationName:'Иркутск',
@@ -692,7 +684,7 @@
 
     const themeBtn = document.querySelector('[data-theme-toggle]');
     const root = document.documentElement;
-    let theme = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+    let theme = matchMedia('(prefers-color-scheme:dark')).matches ? 'dark' : 'light';
     root.setAttribute('data-theme', theme);
     themeBtn.addEventListener('click', ()=>{
       theme = theme === 'dark' ? 'light' : 'dark';
