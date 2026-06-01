@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#f7f6f2" />
+  <title>Байкал · 13–21 июня</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root,[data-theme="light"]{
+      --bg:#f9f8f5;
+      --surface:#ffffff;
+      --surface-2:#f4f2ed;
+      --text:#1d1c19;
+      --muted:#6b6760;
+      --border:rgba(29,28,25,.08);
+      --primary:#0d6367;
+      --primary-soft:#dceae9;
+      --accent:#8b5d32;
+      --shadow:0 12px 36px rgba(20,16,10,.09);
+      --shadow-sm:0 4px 14px rgba(20,16,10,.06);
+      --safe-top:max(20px,env(safe-area-inset-top));
+      --safe-bottom:max(0px,env(safe-area-inset-bottom));
+    }
+    [data-theme="dark"]{
+      --bg:#141210;
+      --surface:#1b1916;
+      --surface-2:#232018;
+      --text:#f2ede5;
+      --muted:#b0aa9c;
+      --border:rgba(255,255,255,.09);
+      --primary:#6db5b9;
+      --primary-soft:#1e3638;
+      --accent:#d0a06e;
+      --shadow:0 16px 46px rgba(0,0,0,.42);
+      --shadow-sm:0 6px 20px rgba(0,0,0,.30);
+    }
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+      margin:0;
+      padding:0;
+    }
+    html,body{
+      min-height:100%;
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Satoshi',-apple-system,BlinkMacSystemFont,sans-serif;
+    }
+    body{
+      font-size:15px;
+      line-height:1.5;
+    }
+    button,a{
+      color:inherit;
+      font:inherit;
+      cursor:pointer;
+    }
+    a{text-decoration:none;}
+
+    .app{
+      max-width:440px;
+      min-height:100dvh;
+      margin:0 auto;
+      padding:var(--safe-top) 0 calc(76px + var(--safe-bottom));
+    }
+    .container{
+      padding:0 16px 12px;
+      display:grid;
+      gap:12px;
+    }
+
+    .hero{
+      padding:20px 16px 18px;
+      margin:0 16px 12px;
+      border-radius:28px;
+      background:linear-gradient(165deg,color-mix(in srgb,var(--primary-soft) 70%,var(--surface)),var(--surface));
+      box-shadow:var(--shadow);
+    }
+    .hero-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .subtitle{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .subtitle.center{
+      text-align:center;
+      width:100%;
+    }
+    h1{
+      font-size:32px;
+      line-height:1.05;
+      letter-spacing:-.03em;
+      text-align:center;
+      margin-bottom:4px;
+    }
+    .toggle-theme{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--surface);
+      display:grid;
+      place-items:center;
+      box-shadow:var(--shadow-sm);
+    }
+    .icon{width:22px;height:22px;}
+
+    .tabs{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:6px;
+      padding:5px;
+      border-radius:16px;
+      background:var(--surface-2);
+      margin:0 16px 12px;
+    }
+    .tab{
+      min-height:40px;
+      border:0;
+      border-radius:12px;
+      background:transparent;
+      color:var(--muted);
+      font-weight:700;
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all .2s;
+    }
+    .tab.active{
+      background:var(--surface);
+      color:var(--text);
+      box-shadow:var(--shadow-sm);
+    }
+
+    .panel{display:none;}
+    .panel.active{display:grid;gap:12px;}
+
+    .card{
+      background:var(--surface);
+      border-radius:20px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-sm);
+      overflow:hidden;
+    }
+    .section{
+      padding:16px;
+      display:grid;
+      gap:10px;
+    }
+    .section-title{
+      font-size:17px;
+      font-weight:700;
+      letter-spacing:-.01em;
+    }
+    .mini{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.45;
+    }
+
+    .days{display:grid;gap:12px;}
+    .day{
+      padding:18px;
+      border-radius:20px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-sm);
+    }
+    .day-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .day-num{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:500;
+    }
+    .day-title{
+      font-size:20px;
+      font-weight:700;
+      letter-spacing:-.02em;
+      margin-top:4px;
+    }
+    .badge{
+      padding:7px 11px;
+      border-radius:999px;
+      background:var(--primary-soft);
+      color:var(--primary);
+      font-size:11px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .timeline,.legends,.extras,.links{display:grid;gap:8px;}
+    .item{
+      background:var(--surface-2);
+      border-radius:14px;
+      padding:10px 12px;
+    }
+    .item b{
+      display:block;
+      font-size:13px;
+      margin-bottom:2px;
+    }
+    .leg{
+      background:var(--surface-2);
+      border-radius:14px;
+      padding:12px;
+      border-left:3px solid var(--accent);
+      padding-left:14px;
+    }
+    .leg b{
+      display:block;
+      margin-bottom:4px;
+      font-weight:600;
+    }
+    .extras .extra{
+      background:var(--surface-2);
+      border-radius:14px;
+      padding:12px;
+    }
+    .extras .extra b{
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .links a.link-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      background:var(--surface-2);
+      transition:background .2s;
+      font-size:13px;
+    }
+    .link-item:hover{
+      background:color-mix(in srgb,var(--surface-2) 70%,var(--primary-soft));
+    }
+    .link-arrow{opacity:.5;}
+
+    .toolbar{
+      position:fixed;
+      left:50%;
+      bottom:calc(4px + env(safe-area-inset-bottom));
+      transform:translateX(-50%);
+      width:min(420px,calc(100vw - 16px));
+      padding:4px 6px;
+      border-radius:24px;
+      background:color-mix(in srgb,var(--surface) 92%,transparent);
+      backdrop-filter:blur(18px);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-sm);
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:6px;
+      z-index:50;
+    }
+    .tool{
+      min-height:52px;
+      border:0;
+      border-radius:18px;
+      background:transparent;
+      color:var(--muted);
+      font-weight:700;
+      font-size:11px;
+      display:grid;
+      place-items:center;
+      gap:4px;
+      transition:all .2s;
+    }
+    .tool.active{
+      background:var(--text);
+      color:var(--bg);
+    }
+
+    @media (min-width:430px){
+      h1{font-size:34px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="subtitle">суббота 13 июня — 21 июня · 9 дней</div>
+        <button class="toggle-theme" data-theme-toggle aria-label="Переключить тему">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+      <h1>Байкал</h1>
+      <div class="subtitle center">Маршрут, локации, помощь, рестораны и рейс.</div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-panel="days">Дни</button>
+      <button class="tab" data-panel="locations">Карты</button>
+      <button class="tab" data-panel="eat">Еда</button>
+      <button class="tab" data-panel="flight">Рейс</button>
+      <button class="tab" data-panel="car">Авто</button>
+    </nav>
+
+    <main class="container">
+      <section class="panel active" id="panel-days">
+        <div class="days" id="daysContainer"></div>
+      </section>
+
+      <section class="panel" id="panel-locations">
+        <article class="card section">
+          <h2 class="section-title">Основные локации</h2>
+          <div class="links">
+            <a class="link-item" href="https://yandex.ru/maps?text=Иркутск" target="_blank" rel="noopener noreferrer"><span>Иркутск</span><span class="link-arrow">→</span></a>
+            <a class="link-item" href="https://yandex.ru/maps/geo/listvyanka/53057236/?ll=104.869128%2C51.853374&z=13" target="_blank" rel="noopener noreferrer"><span>Листвянка</span><span class="link-arrow">→</span></a>
+            <a class="link-item" href="https://yandex.ru/maps?text=Аршан" target="_blank" rel="noopener noreferrer"><span>Аршан</span><span class="link-arrow">→</span></a>
+            <a class="link-item" href="https://yandex.ru/maps?text=Ольхон%20Хужир" target="_blank" rel="noopener noreferrer"><span>Ольхон / Хужир</span><span class="link-arrow">→</span></a>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" id="panel-eat">
+        <article class="card section">
+          <h2 class="section-title">Рестораны по дням</h2>
+          <div id="restaurantsContainer"></div>
+        </article>
+      </section>
+
+      <section class="panel" id="panel-car">
+        <article class="card section">
+          <h2 class="section-title">Авто</h2>
+          <div class="links">
+            <a class="link-item"
+               href="https://max.ru/u/f9LHodD0cOJW3DbY6U27weov1mFo5fyuqLTjhHxKlkV_CYTyMyShT8GomyQ"
+               target="_blank" rel="noopener noreferrer">
+              <span>Подбор авто от Max</span><span class="link-arrow">→</span>
+            </a>
+            <a class="link-item"
+               href="https://yandex.ru/maps/?text=Иркутск%2C%20Култукская%2013"
+               target="_blank" rel="noopener noreferrer">
+              <span>Avenue Rent · Култукская 13, оф. 211</span><span class="link-arrow">→</span>
+            </a>
+          </div>
+          <div class="item">
+            <b>Контакты Avenue Rent</b>
+            <div class="mini">Телефон: +7 (395) 248‑12‑54 · E‑mail: info@avenuerent.ru</div>
+            <div class="mini" style="margin-top:6px;">
+              График: пн–пт 09:00–19:00 · сб–вс 10:00–19:00.
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" id="panel-flight">
+        <article class="card section">
+          <h2 class="section-title">Информация о рейсе</h2>
+          <div class="item">
+            <b>Москва → Иркутск</b>
+            <div class="mini">
+              Вылет из Домодедово 12.06.2026 в 12:45 · прилёт в Иркутск в 23:30 · места 3A и 3B · горячее питание · ручная кладь 10 кг.
+            </div>
+          </div>
+          <div class="item">
+            <b>Иркутск → Москва</b>
+            <div class="mini">
+              Вылет из Иркутска 21.06.2026 в 11:20 · прилёт в Москву в 12:35 · места 3A и 3B · горячее питание · ручная кладь 10 кг.
+            </div>
+          </div>
+          <a class="link-item" style="margin-top:6px;"
+             href="https://yandex.ru/maps/org/mezhdunarodnyy_aeroport_irkutsk/1054205688"
+             target="_blank" rel="noopener noreferrer">
+            <span>Международный аэропорт Иркутск</span><span class="link-arrow">→</span>
+          </a>
+          <a class="link-item"
+             href="https://yandex.ru/maps/org/aeroport_domodedovo/1116765391"
+             target="_blank" rel="noopener noreferrer">
+            <span>Аэропорт Домодедово</span><span class="link-arrow">→</span>
+          </a>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <nav class="toolbar glass" aria-label="Bottom navigation">
+    <button class="tool active" data-jump="1">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12l9-8 9 8"/><path d="M5 10v10h14V10"/>
+      </svg>
+      <span>Листвянка</span>
+    </button>
+    <button class="tool" data-jump="3">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 19V5"/><path d="M18 19V9"/><path d="M6 8h12"/><path d="M9 5h6"/>
+      </svg>
+      <span>Аршан</span>
+    </button>
+    <button class="tool" data-jump="5">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2l4 7-4 13-4-13 4-7Z"/>
+      </svg>
+      <span>Ольхон</span>
+    </button>
+  </nav>
+
+  <script>
+    const days = [
+      {
+        title:'Иркутск → Тальцы → Листвянка',
+        locationName:'Листвянка',
+        dateLabel:'13 июня, суббота',
+        legends:[
+          'Листвянку называют «байкальским перекрёстком» — отсюда начинаются многие маршруты по озеру.',
+          'Здесь работает Байкальский музей и смотровая площадка на истоке Ангары.'
+        ],
+        schedule:[
+          '09:00–10:00 завтрак и выезд из Иркутска.',
+          '10:00–12:30 Тальцы.',
+          '12:30–13:00 дорога Тальцы → Листвянка.',
+          '13:00–14:00 заселение и обед в Листвянке.',
+          '14:00–16:00 берег Байкала и прогулка по Листвянке.',
+          '16:00–18:30 исток Ангары / Камень Черского.',
+          '19:00–21:00 ужин.'
+        ]
+      },
+      {
+        title:'ББТ: Листвянка → Большие Коты',
+        locationName:'Листвянка',
+        dateLabel:'14 июня, воскресенье',
+        legends:[
+          'Большие Коты — маленькое байкальское село, до которого ведёт один из самых живописных участков Большой Байкальской тропы.'
+        ],
+        schedule:[
+          '07:00–07:45 ранний завтрак.',
+          '08:00–08:30 подход к старту тропы.',
+          '08:30–14:30 ББТ Листвянка → Большие Коты.',
+          '14:30–15:30 отдых и обед в Больших Котах.',
+          '16:30–17:00 катер обратно.',
+          '18:00–19:30 баня / SPA.',
+          '20:00–21:30 ужин у воды.'
+        ]
+      },
+      {
+        title:'Переезд в Аршан',
+        locationName:'Аршан',
+        dateLabel:'15 июня, понедельник',
+        legends:[
+          'Аршан — горно‑климатический курорт в Саянах, в долине реки Кынгарга.',
+          'Название «Аршан» часто переводят как «целебный источник».'
+        ],
+        schedule:[
+          '08:00–09:00 завтрак и выезд.',
+          '09:00–12:30 дорога Листвянка → Иркутск → Култук.',
+          '12:30–13:00 видовая остановка в Култуке.',
+          '13:00–14:00 дорога по Тункинской долине с короткими фото‑стопами.',
+          '14:00–15:00 обед по пути или в Аршане.',
+          '15:00–16:00 заселение.',
+          '16:30–18:30 лёгкая прогулка по Аршану и Кынгарге.',
+          '19:00–21:00 ужин.'
+        ]
+      },
+      {
+        title:'Пик Любви и Жемчуг',
+        locationName:'Аршан',
+        dateLabel:'16 июня, вторник',
+        legends:[
+          'Пик Любви — популярная обзорная вершина над Аршаном с видом на Тункинскую долину.'
+        ],
+        schedule:[
+          '06:30–07:00 ранний подъём.',
+          '07:00–07:45 лёгкий завтрак.',
+          '08:00–13:00 Пик Любви: подъём, вершина, спуск.',
+          '13:30–14:30 поздний обед и отдых.',
+          '16:30–17:10 дорога в Жемчуг.',
+          '17:10–19:00 тёплые источники Жемчуга.',
+          '19:00–19:40 дорога обратно.',
+          '20:00–21:30 ужин.'
+        ]
+      },
+      {
+        title:'Трек к Серебряному озеру',
+        locationName:'Аршан',
+        dateLabel:'17 июня, среда',
+        legends:[
+          'Серебряное озеро — высокогорный маршрут в окрестностях Аршана, требующий целого дня и хорошей погоды.'
+        ],
+        schedule:[
+          '05:30–06:00 ранний подъём.',
+          '06:00–06:30 лёгкий завтрак и сборы.',
+          '06:30–15:30 полный трек на Серебряное озеро.',
+          '15:30–16:30 поздний обед / восстановление.',
+          '16:30–18:00 спокойный отдых в Аршане.',
+          '19:00–21:00 ужин и ночёвка в Аршане.'
+        ]
+      },
+      {
+        title:'Аршан → Ольхон / Хужир',
+        locationName:'Ольхон',
+        dateLabel:'18 июня, четверг',
+        legends:[
+          'Путь на Ольхон проходит через Иркутск и МРС: день в дороге, но финальная точка — «столица» острова, посёлок Хужир.'
+        ],
+        schedule:[
+          '08:00–09:00 завтрак в Аршане и выезд.',
+          '09:00–12:00 дорога Аршан → Иркутск.',
+          '12:00–13:30 обед в Иркутске и лёгкая прогулка по центру.',
+          '13:30–19:30 дорога Иркутск → МРС / паром / Хужир.',
+          '19:30–20:30 заселение на Ольхоне.',
+          '20:30–21:30 спокойный ужин.'
+        ]
+      },
+      {
+        title:'Север Ольхона и мыс Хобой',
+        locationName:'Ольхон',
+        dateLabel:'19 июня, пятница',
+        legends:[
+          'Север Ольхона с мысом Хобой — один из самых известных и фотогеничных маршрутов по Байкалу.'
+        ],
+        schedule:[
+          '07:00–07:45 завтрак.',
+          '10:00–17:00 УАЗ‑тур: Хобой, бухты, север острова.',
+          '17:30–18:30 отдых в Хужире.',
+          '19:00–20:00 закат у Шаманки.',
+          '20:00–21:30 ужин.'
+        ]
+      },
+      {
+        title:'Ольхон → Иркутск',
+        locationName:'Иркутск',
+        dateLabel:'20 июня, суббота',
+        legends:[
+          'Дорога обратно с Ольхона даёт последний взгляд на Малое море и степные пейзажи Прибайкалья.'
+        ],
+        schedule:[
+          '08:00–08:45 завтрак и выезд из Хужира.',
+          '09:00–11:00 дорога до парома и переправа.',
+          '11:00–16:00 дорога в Иркутск с техническими остановками.',
+          '16:00–17:00 заселение в Иркутске.',
+          '19:00–21:00 спокойный ужин рядом с отелем.'
+        ]
+      },
+      {
+        title:'Финиш маршрута и вылет',
+        locationName:'Иркутск',
+        dateLabel:'21 июня, воскресенье',
+        legends:[
+          'Вылет домой из Иркутска — финальная точка маршрута вокруг Байкала.'
+        ],
+        schedule:[
+          'Спокойный завтрак в отеле.',
+          'Сборы и выезд в аэропорт с запасом.',
+          'Сдача машины / регистрация / вылет.'
+        ]
+      }
+    ];
+
+    const curatedRestaurants = [
+      { day:1, name:'Кафе в Тальцах', note:'Обед между прогулкой по музею и дорогой в Листвянку.' },
+      { day:1, name:'Ресторан у воды в Листвянке', note:'Ужин с видом на Байкал.' },
+      { day:2, name:'Кафе в Больших Котах', note:'Обед после тропы ББТ.' },
+      { day:3, name:'Кафе в Тункинской долине', note:'Обед по пути в Аршан.' },
+      { day:4, name:'Кафе в Аршане', note:'Поздний обед после Пика Любви.' },
+      { day:5, name:'Кафе в Аршане', note:'Вечерний ужин после Серебряного озера.' },
+      { day:6, name:'Кафе в Иркутске', note:'Обед и прогулка по центру.' },
+      { day:7, name:'Кафе в Хужире', note:'Ужин после тура на Хобой.' },
+      { day:8, name:'Ресторан рядом с отелем', note:'Финальный ужин в Иркутске.' }
+    ];
+
+    const daysContainer = document.getElementById('daysContainer');
+    const restaurantsContainer = document.getElementById('restaurantsContainer');
+
+    function renderDays(){
+      daysContainer.innerHTML = days.map((d,i)=>{
+        let html = `<article class="day" id="day-${i+1}">
+          <div class="day-header">
+            <div>
+              <div class="day-num">${d.dateLabel || ''}</div>
+              <div class="day-title">${d.title}</div>
+            </div>
+            <div class="badge">${d.locationName || 'маршрут'}</div>
+          </div>`;
+
+        if (d.legends && d.legends.length) {
+          const text = d.legends.join(' ');
+          html += `<div class="legends" style="margin-bottom:8px;">
+            <div class="leg">
+              <b>Легенда</b>
+              <div class="mini">${text}</div>
+            </div>
+          </div>`;
+        }
+
+        if (d.schedule && d.schedule.length) {
+          html += '<div class="timeline">' +
+            d.schedule.map(x => {
+              const m = x.match(/^([0-9]{2}:[0-9]{2}(?:–[0-9]{2}:[0-9]{2})?)(.+)$/);
+              if(m){
+                const time = m[1].trim();
+                const text = m[2].trim();
+                return `<div class="item">
+                  <b>${time}</b>
+                  <div class="mini">${text}</div>
+                </div>`;
+              } else {
+                return `<div class="item">
+                  <div class="mini">${x}</div>
+                </div>`;
+              }
+            }).join('') +
+            '</div>';
+        }
+
+        if (d.extras && d.extras.length){
+          html += '<div class="extras">' + d.extras.map(ex=>{
+            let exHtml = `<div class="extra"><b>${ex.title}</b><div class="mini">${ex.note}</div>`;
+            if(ex.time && ex.time.length){
+              exHtml += '<div class="mini" style="margin-top:8px;">' +
+                ex.time.map(t=>`• ${t}`).join('<br>') + '</div>';
+            }
+            exHtml += '</div>';
+            return exHtml;
+          }).join('') + '</div>';
+        }
+
+        html += '</article>';
+        return html;
+      }).join('');
+    }
+
+    function renderRestaurants(){
+      if(!curatedRestaurants.length){
+        restaurantsContainer.innerHTML =
+          '<div class="mini">Рестораны пока не добавлены.</div>';
+        return;
+      }
+      restaurantsContainer.innerHTML = curatedRestaurants.map(r =>
+        `<div class="extra">
+           <b>${r.name}</b>
+           <div class="mini">День ${r.day}: ${r.note}</div>
+         </div>`
+      ).join('');
+    }
+
+    renderDays();
+    renderRestaurants();
+
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        tabs.forEach(t=>t.classList.toggle('active', t===tab));
+        panels.forEach(p=>{
+          p.classList.toggle('active', p.id === 'panel-' + tab.dataset.panel);
+        });
+      });
+    });
+
+    const tools = document.querySelectorAll('.tool');
+    tools.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        tools.forEach(t=>t.classList.toggle('active', t===btn));
+        document.querySelector('.tab[data-panel="days"]').click();
+        setTimeout(()=>{
+          const el = document.getElementById('day-' + btn.dataset.jump);
+          if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+        },100);
+      });
+    });
+
+    const themeBtn = document.querySelector('[data-theme-toggle]');
+    const root = document.documentElement;
+    let theme = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+    root.setAttribute('data-theme', theme);
+    themeBtn.addEventListener('click', ()=>{
+      theme = theme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', theme);
+    });
+  </script>
+</body>
+</html>
