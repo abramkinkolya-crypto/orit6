@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Калькулятор нагрузки дома</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=zodiak@400,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(.75rem,.7rem + .25vw,.875rem);
+      --text-sm: clamp(.875rem,.8rem + .35vw,1rem);
+      --text-base: clamp(1rem,.95rem + .25vw,1.125rem);
+      --text-lg: clamp(1.125rem,1rem + .75vw,1.5rem);
+      --text-xl: clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+      --text-2xl: clamp(2rem,1.2rem + 2.5vw,3.5rem);
+      --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.25rem; --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem; --space-12:3rem;
+      --color-bg:#f7f6f2; --color-surface:#f9f8f5; --color-surface-2:#fbfbf9; --color-surface-offset:#f3f0ec; --color-border:#d4d1ca; --color-divider:#dcd9d5;
+      --color-text:#28251d; --color-text-muted:#66645e; --color-text-faint:#96948e; --color-text-inverse:#f9f8f4;
+      --color-primary:#01696f; --color-primary-hover:#0c4e54; --color-primary-highlight:#cedcd8; --color-success:#437a22; --color-warning:#964219; --color-error:#a12c7b;
+      --radius-sm:.375rem; --radius-md:.5rem; --radius-lg:.75rem; --radius-xl:1rem; --radius-full:9999px;
+      --shadow-sm:0 1px 2px rgba(40,37,29,.06); --shadow-md:0 8px 24px rgba(40,37,29,.08);
+      --font-display:'Zodiak', Georgia, serif; --font-body:'Satoshi', Inter, sans-serif;
+    }
+    [data-theme="dark"] {
+      --color-bg:#171614; --color-surface:#1c1b19; --color-surface-2:#201f1d; --color-surface-offset:#22211f; --color-border:#393836; --color-divider:#262523;
+      --color-text:#e4e1da; --color-text-muted:#a39f96; --color-text-faint:#726f69; --color-text-inverse:#171614;
+      --color-primary:#4f98a3; --color-primary-hover:#227f8b; --color-primary-highlight:#313b3b; --color-success:#7fb45e; --color-warning:#d08a5d; --color-error:#d163a7;
+      --shadow-sm:0 1px 2px rgba(0,0,0,.2); --shadow-md:0 12px 32px rgba(0,0,0,.35);
+    }
+    *,:before,:after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:none;text-size-adjust:none;scroll-behavior:smooth}
+    body{margin:0;min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);line-height:1.55;background:var(--color-bg);color:var(--color-text)}
+    button,input,select{font:inherit;color:inherit}
+    button{cursor:pointer}
+    h1,h2,h3{margin:0;line-height:1.08}
+    p{margin:0;max-width:72ch}
+    .shell{max-width:1180px;margin:0 auto;padding:var(--space-4)}
+    .skip{position:absolute;left:-9999px;top:auto}.skip:focus{left:var(--space-4);top:var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-4) 0 var(--space-6)}
+    .brand{display:flex;align-items:center;gap:var(--space-3)}
+    .logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--color-primary-highlight),var(--color-surface-offset));display:grid;place-items:center;border:1px solid color-mix(in oklab,var(--color-text) 12%, transparent);box-shadow:var(--shadow-sm)}
+    .logo svg{width:24px;height:24px}
+    .brand-title{font-family:var(--font-display);font-size:var(--text-lg)}
+    .theme{min-width:44px;min-height:44px;border:1px solid color-mix(in oklab,var(--color-text) 12%, transparent);border-radius:var(--radius-full);background:var(--color-surface);display:grid;place-items:center}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--space-6);align-items:stretch}
+    .panel{background:var(--color-surface);border:1px solid color-mix(in oklab,var(--color-text) 10%, transparent);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm)}
+    .hero-copy{padding:clamp(var(--space-6),4vw,var(--space-12));display:grid;gap:var(--space-4)}
+    .eyebrow{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.12em;color:var(--color-text-muted)}
+    .hero h1{font-family:var(--font-display);font-size:var(--text-2xl)}
+    .hero p{color:var(--color-text-muted)}
+    .hero-stats{padding:var(--space-6);display:grid;gap:var(--space-4);background:linear-gradient(180deg,color-mix(in oklab,var(--color-primary) 5%, var(--color-surface)),var(--color-surface))}
+    .stat{padding:var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-2);border:1px solid color-mix(in oklab,var(--color-text) 8%, transparent)}
+    .stat-label{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:var(--space-2)}
+    .stat-value{font-size:var(--text-xl);font-weight:700}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--space-6);margin-top:var(--space-6)}
+    .section{padding:var(--space-6);display:grid;gap:var(--space-5)}
+    .section h2{font-size:var(--text-xl);font-family:var(--font-display)}
+    .muted{color:var(--color-text-muted)}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4)}
+    .field{display:grid;gap:var(--space-2)}
+    label{font-size:var(--text-sm);font-weight:500}
+    input,select{width:100%;min-height:48px;padding:0 var(--space-4);background:var(--color-surface-2);border:1px solid color-mix(in oklab,var(--color-text) 12%, transparent);border-radius:var(--radius-md)}
+    input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+    .appliances{display:grid;gap:var(--space-3)}
+    .row{display:grid;grid-template-columns:1.5fr .8fr .7fr auto;gap:var(--space-3);align-items:end}
+    .btns{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+    .btn{min-height:48px;padding:0 var(--space-5);border-radius:var(--radius-full);border:1px solid transparent}
+    .btn-primary{background:var(--color-primary);color:var(--color-text-inverse)}
+    .btn-primary:hover{background:var(--color-primary-hover)}
+    .btn-secondary{background:var(--color-surface-offset);border-color:color-mix(in oklab,var(--color-text) 10%, transparent)}
+    .result-card{padding:var(--space-5);border-radius:var(--radius-lg);background:var(--color-surface-2);border:1px solid color-mix(in oklab,var(--color-text) 10%, transparent);display:grid;gap:var(--space-2)}
+    .kpi{font-size:clamp(2rem,1.5rem + 2vw,3.2rem);font-weight:700;line-height:1}
+    .ok{color:var(--color-success)} .warn{color:var(--color-warning)} .bad{color:var(--color-error)}
+    .list{display:grid;gap:var(--space-3)}
+    .list-item{display:flex;justify-content:space-between;gap:var(--space-4);padding-bottom:var(--space-3);border-bottom:1px solid var(--color-divider)}
+    .tips{display:grid;gap:var(--space-3)}
+    .tip{padding:var(--space-4);border-left:0;background:var(--color-surface-2);border-radius:var(--radius-lg);border:1px solid color-mix(in oklab,var(--color-text) 8%, transparent)}
+    .footer-note{margin:var(--space-6) 0 var(--space-4);color:var(--color-text-muted);font-size:var(--text-sm)}
+    @media (max-width:900px){.hero,.grid,.form-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr 1fr}.row .delete-btn{grid-column:1/-1}}
+    @media (max-width:560px){.shell{padding:var(--space-3)}.section,.hero-copy,.hero-stats{padding:var(--space-4)}.row{grid-template-columns:1fr}.btns{flex-direction:column}.btn{width:100%}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Перейти к содержимому</a>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand" aria-label="Калькулятор нагрузки дома">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 13.5 12 4l8 9.5"></path>
+            <path d="M7.5 12.5V20h9v-7.5"></path>
+            <path d="M11 20v-4h2v4"></path>
+            <path d="M16.2 8.4h1.8l-2.1 3.1h2l-3 4.1.8-2.8h-1.8z"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">Калькулятор нагрузки дома</div>
+          <div class="muted">Для расчёта мощности, тока и запаса по вводу</div>
+        </div>
+      </div>
+      <button class="theme" type="button" data-theme-toggle aria-label="Переключить тему"></button>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="panel hero-copy">
+          <div class="eyebrow">Практический расчёт</div>
+          <h1>Оценка нагрузки на домашнюю электросеть без сложных таблиц.</h1>
+          <p>Введите выделенную мощность, тип сети и список приборов. Калькулятор покажет суммарную мощность, расчётную нагрузку с учётом одновременности, ток по вводной линии и ориентир — хватит ли 15 кВт или другого лимита.</p>
+        </div>
+        <aside class="panel hero-stats" aria-label="Подсказки по формулам">
+          <div class="stat">
+            <div class="stat-label">Однофазная сеть</div>
+            <div class="stat-value">I = P / U</div>
+            <div class="muted">При 230 В ток считается по суммарной мощности в ваттах.</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Трёхфазная сеть</div>
+            <div class="stat-value">I = P / (√3 × U)</div>
+            <div class="muted">Для 400 В расчёт даёт ток по каждой фазе при ровной нагрузке.</div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid">
+        <div class="panel section">
+          <div>
+            <h2>Исходные данные</h2>
+            <p class="muted">Сначала задайте параметры ввода, затем добавьте приборы или группы нагрузки.</p>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="phase">Тип сети</label>
+              <select id="phase">
+                <option value="single">Однофазная 230 В</option>
+                <option value="three">Трёхфазная 400 В</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="allocated">Выделенная мощность, кВт</label>
+              <input id="allocated" type="number" step="0.1" value="15" min="1" />
+            </div>
+            <div class="field">
+              <label for="simultaneity">Коэффициент одновременности</label>
+              <input id="simultaneity" type="number" step="0.05" value="0.65" min="0.1" max="1" />
+            </div>
+            <div class="field">
+              <label for="voltage">Напряжение, В</label>
+              <input id="voltage" type="number" step="1" value="230" min="100" />
+            </div>
+          </div>
+
+          <div>
+            <h3>Приборы</h3>
+            <div class="appliances" id="appliances"></div>
+          </div>
+
+          <div class="btns">
+            <button class="btn btn-secondary" type="button" id="addRow">Добавить прибор</button>
+            <button class="btn btn-secondary" type="button" id="presetHouse">Типовой дом</button>
+            <button class="btn btn-primary" type="button" id="calculate">Рассчитать</button>
+          </div>
+        </div>
+
+        <aside class="panel section">
+          <div>
+            <h2>Результаты</h2>
+            <p class="muted">Ниже выводится инженерная оценка по вашему набору приборов.</p>
+          </div>
+
+          <div class="result-card">
+            <div class="muted">Суммарная паспортная мощность</div>
+            <div class="kpi" id="totalPower">0 кВт</div>
+          </div>
+          <div class="result-card">
+            <div class="muted">Расчётная нагрузка</div>
+            <div class="kpi" id="calcPower">0 кВт</div>
+            <div class="muted">С учётом коэффициента одновременности.</div>
+          </div>
+          <div class="result-card">
+            <div class="muted">Расчётный ток</div>
+            <div class="kpi" id="current">0 А</div>
+          </div>
+          <div class="result-card">
+            <div class="muted">Оценка по выделенной мощности</div>
+            <div class="kpi" id="statusText">—</div>
+            <div class="muted" id="statusHint">Добавьте приборы и выполните расчёт.</div>
+          </div>
+
+          <div>
+            <h3>Структура нагрузки</h3>
+            <div class="list" id="breakdown"></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel section">
+        <div>
+          <h2>Как читать результат</h2>
+          <p class="muted">Калькулятор помогает понять, какой ток будет на вводе и насколько вы близки к лимиту по кВт.</p>
+        </div>
+        <div class="tips">
+          <div class="tip">Если расчётная нагрузка меньше выделенной мощности на 15–20%, у вас остаётся рабочий запас под пусковые токи и редкие одновременные включения.</div>
+          <div class="tip">Если однофазная нагрузка выходит к 60–65 А, нужен внимательный подбор вводного автомата, кабеля и оценка падения напряжения на линии.</div>
+          <div class="tip">Для трёх фаз важно равномерно разносить крупные нагрузки по фазам. Иначе реальный ток на одной фазе будет выше расчётного среднего.</div>
+        </div>
+      </section>
+
+      <p class="footer-note">Это ориентировочный бытовой калькулятор. Для окончательного подбора автомата, УЗО, сечения кабеля и схемы щита нужен проект или проверка электриком по фактической длине линий и способу прокладки.</p>
+    </main>
+  </div>
+
+  <script>
+    const appliancesEl = document.getElementById('appliances');
+    const breakdownEl = document.getElementById('breakdown');
+    const phaseEl = document.getElementById('phase');
+    const voltageEl = document.getElementById('voltage');
+
+    const defaultRows = [
+      ['Освещение', 0.8, 1],
+      ['Розетки комнат', 2.0, 1],
+      ['Электроплита', 7.0, 1],
+      ['Духовка', 3.0, 1],
+      ['Чайник', 2.0, 1],
+      ['Стиральная машина', 2.0, 1],
+      ['Кондиционер', 1.5, 1]
+    ];
+
+    function icon(theme) {
+      return theme === 'dark'
+        ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+    }
+
+    function setTheme(next) {
+      document.documentElement.setAttribute('data-theme', next);
+      document.querySelector('[data-theme-toggle]').innerHTML = icon(next);
+    }
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(prefersDark ? 'dark' : 'light');
+    document.querySelector('[data-theme-toggle]').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    phaseEl.addEventListener('change', () => {
+      voltageEl.value = phaseEl.value === 'three' ? 400 : 230;
+      calculate();
+    });
+
+    function createRow(name = '', power = '', qty = 1) {
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML = `
+        <div class="field">
+          <label>Прибор</label>
+          <input type="text" class="name" value="${name}" placeholder="Например, бойлер" />
+        </div>
+        <div class="field">
+          <label>Мощность, кВт</label>
+          <input type="number" class="power" step="0.1" min="0" value="${power}" />
+        </div>
+        <div class="field">
+          <label>Количество</label>
+          <input type="number" class="qty" step="1" min="1" value="${qty}" />
+        </div>
+        <button type="button" class="btn btn-secondary delete-btn" aria-label="Удалить строку">Удалить</button>
+      `;
+      row.querySelector('.delete-btn').addEventListener('click', () => {
+        row.remove();
+        calculate();
+      });
+      row.querySelectorAll('input').forEach(input => input.addEventListener('input', calculate));
+      appliancesEl.appendChild(row);
+    }
+
+    function loadDefaultRows() {
+      appliancesEl.innerHTML = '';
+      defaultRows.forEach(([n,p,q]) => createRow(n,p,q));
+      calculate();
+    }
+
+    function calculate() {
+      const allocated = Number(document.getElementById('allocated').value) || 0;
+      const simultaneity = Math.min(1, Math.max(0, Number(document.getElementById('simultaneity').value) || 0));
+      const voltage = Number(voltageEl.value) || (phaseEl.value === 'three' ? 400 : 230);
+      const rows = [...appliancesEl.querySelectorAll('.row')].map(row => {
+        const name = row.querySelector('.name').value.trim() || 'Без названия';
+        const power = Number(row.querySelector('.power').value) || 0;
+        const qty = Number(row.querySelector('.qty').value) || 1;
+        return { name, power, qty, total: power * qty };
+      }).filter(item => item.total > 0);
+
+      const total = rows.reduce((sum, item) => sum + item.total, 0);
+      const calc = total * simultaneity;
+      const current = phaseEl.value === 'three'
+        ? (calc * 1000) / (Math.sqrt(3) * voltage)
+        : (calc * 1000) / voltage;
+      const reserve = allocated - calc;
+
+      document.getElementById('totalPower').textContent = `${total.toFixed(1)} кВт`;
+      document.getElementById('calcPower').textContent = `${calc.toFixed(1)} кВт`;
+      document.getElementById('current').textContent = `${current.toFixed(1)} А`;
+
+      const statusText = document.getElementById('statusText');
+      const statusHint = document.getElementById('statusHint');
+      statusText.className = 'kpi';
+
+      if (!rows.length) {
+        statusText.textContent = '—';
+        statusHint.textContent = 'Добавьте хотя бы один прибор.';
+      } else if (reserve >= allocated * 0.2) {
+        statusText.textContent = 'Запас есть';
+        statusText.classList.add('ok');
+        statusHint.textContent = `Остаётся примерно ${reserve.toFixed(1)} кВт свободной мощности.`;
+      } else if (reserve >= 0) {
+        statusText.textContent = 'На пределе';
+        statusText.classList.add('warn');
+        statusHint.textContent = `Запас небольшой: около ${reserve.toFixed(1)} кВт. Нужен контроль одновременности.`;
+      } else {
+        statusText.textContent = 'Перегрузка';
+        statusText.classList.add('bad');
+        statusHint.textContent = `Превышение лимита примерно на ${Math.abs(reserve).toFixed(1)} кВт.`;
+      }
+
+      breakdownEl.innerHTML = rows.length
+        ? rows.map(item => `<div class="list-item"><span>${item.name}</span><strong>${item.total.toFixed(1)} кВт</strong></div>`).join('')
+        : '<div class="muted">Список пока пуст.</div>';
+    }
+
+    document.getElementById('addRow').addEventListener('click', () => createRow('', '', 1));
+    document.getElementById('presetHouse').addEventListener('click', loadDefaultRows);
+    document.getElementById('calculate').addEventListener('click', calculate);
+    document.getElementById('allocated').addEventListener('input', calculate);
+    document.getElementById('simultaneity').addEventListener('input', calculate);
+    document.getElementById('voltage').addEventListener('input', calculate);
+
+    loadDefaultRows();
+  </script>
+</body>
+</html>
