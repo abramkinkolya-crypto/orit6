@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Дозирование АБП при ХБП</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Базовые стили -->
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --text-soft: #94a3b8;
+      --danger: #f97373;
+      --radius-lg: 16px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%, #000 100%);
+      color: var(--text);
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 380px;
+      line-height: 1.4;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* Панель поиска */
+
+    .search-panel {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 14px 14px 10px;
+      margin-bottom: 18px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(18px);
+    }
+
+    .search-label {
+      font-size: 12px;
+      margin-bottom: 6px;
+      color: var(--text-soft);
+    }
+
+    .search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      flex: 1 1 260px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 9px 12px 9px 32px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 14px;
+      background: #020617;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55);
+      background: #020617;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: var(--text-soft);
+      pointer-events: none;
+    }
+
+    .keyboard-help {
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .keycap {
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    /* Автодополнение */
+
+    .suggestions {
+      position: absolute;
+      z-index: 10;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin-top: 4px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: #020617;
+      max-height: 210px;
+      overflow-y: auto;
+      box-shadow: 0 20px 36px rgba(0, 0, 0, 0.8);
+    }
+
+    .suggestion-item {
+      padding: 6px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .suggestion-item:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .suggestion-item:nth-child(even) {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .suggestion-item:hover {
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    .suggestion-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .suggestion-group {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* Карточка препарата */
+
+    .card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 14px;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.85);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .drug-name {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .drug-group {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .pill-renal {
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.5);
+      background: var(--accent-soft);
+    }
+
+    .pill-hepatic-yes {
+      color: #fbbf24;
+      border-color: #facc15;
+      background: rgba(250, 204, 21, 0.12);
+    }
+
+    .pill-hepatic-no {
+      color: var(--text-soft);
+      border-color: var(--border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* Таблица дозирования */
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+
+    th, td {
+      border: 1px solid #1e293b;
+      padding: 6px 7px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-soft);
+      font-weight: 500;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    td {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .note-legal {
+      margin-top: 4px;
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    .no-result {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--danger);
+    }
+
+    /* Адаптивность */
+
+    @media (max-width: 640px) {
+      body {
+        padding: 14px;
+      }
+      .search-panel {
+        padding: 10px;
+      }
+      .card {
+        padding: 10px;
+      }
+      .drug-name {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div class="title-row">
+      <div>
+        <h1>Дозирование антибактериальных препаратов при ХБП</h1>
+        <div class="subtitle">
+          Быстрая справка по коррекции дозы АБП при снижении клиренса креатинина
+          и оценке необходимости изменения дозы при печёночной недостаточности.
+        </div>
+      </div>
+      <div class="badge">ICU dosing assistant · beta</div>
+    </div>
+  </header>
+
+  <section class="search-panel">
+    <div class="search-label">
+      Введите название препарата (МНН), например: «Цефтриаксон», «Ванкомицин», «Меропенем».
+    </div>
+    <div class="search-row">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔎</span>
+        <input
+          type="text"
+          id="drugInput"
+          autocomplete="off"
+          placeholder="Начните вводить название..."
+        >
+        <div id="suggestions" class="suggestions" style="display:none;"></div>
+      </div>
+      <div class="keyboard-help">
+        <span class="keycap">Enter</span> — выбрать препарат ·
+        <span class="keycap">Esc</span> — скрыть список
+      </div>
+    </div>
+  </section>
+
+  <section id="result"></section>
+  <div id="noResult" class="no-result" style="display:none;">
+    Препарат не найден в локальном справочнике. Проверьте написание или обновите список.
+  </div>
+</div>
+
+<!-- Логика на Vanilla JS -->
+<script>
+// Массив препаратов (сокращён до ключевых; можно расширить тем JSON, который я дал ранее)
+const drugs = [
+  { group: "Пенициллины", name: "Амоксициллин",
+    clcr_gt_50: "100% каждые 8 ч",
+    clcr_10_50: "100% каждые 8–12 ч",
+    clcr_lt_10: "100% каждые 24 ч",
+    hepatic_adjustment: "нет"
+  },
+  { group: "Пенициллины", name: "Амоксициллин/клавуланат",
+    clcr_gt_50: "100% каждые 8 ч",
+    clcr_10_50: "100% каждые 8–12 ч",
+    clcr_lt_10: "100% каждые 24 ч",
+    hepatic_adjustment: "нет"
+  },
+  { group: "Пенициллины", name: "Ампициллин",
+    clcr_gt_50: "100% каждые 6 ч",
+    clcr_10_50: "100% каждые 6–12 ч",
+    clcr_lt_10: "100% каждые 12–24 ч",
+    hepatic_adjustment: "нет"
+  },
+  { group: "Цефалоспорины", name: "Цефтриаксон",
+    clcr_gt_50: "100% каждые 24 ч",
+    clcr_10_50: "100% каждые 24 ч",
+    clcr_lt_10: "100% каждые 24 ч",
+    hepatic_adjustment: "нет"
+  },
+  { group: "Цефалоспорины", name: "Цефоперазон/сульбактам",
+    clcr_gt_50: "100% каждые 12 ч",
+    clcr_10_50: "50% каждые 12 ч",
+    clcr_lt_10: "25–50% каждые 12 ч",
+    hepatic_adjustment: "да"
+  },
+  { group: "Карбапенемы", name: "Меропенем",
+    clcr_gt_50: "100% каждые 6 ч",
+    clcr_10_50: "50% каждые 12 ч",
+    clcr_lt_10: "50% каждые 24 ч",
+    hepatic_adjustment: "нет"
+  },
+  { group: "Карбапенемы", name: "Имипенем",
+    clcr_gt_50: "100% каждые 6 ч",
+    clcr_10_50: "50% каждые 8–12 ч",
+    clcr_lt_10: "25–50% каждые 12 ч",
+    hepatic_adjustment: "нет"
+  },
+  { group: "Гликопептиды", name: "Ванкомицин",
+    clcr_gt_50: ">80 мл/мин – 100% каждые 6–12 ч; 50–80 мл/мин – 100% 1 раз каждые 24–72 ч",
+    clcr_10_50: "100% 1 раз каждые 3–7 дней",
+    clcr_lt_10: "100% 1 раз каждые 7–14 дней",
+    hepatic_adjustment: "-"
+  },
+  { group: "Оксазолидиноны", name: "Линезолид",
+    clcr_gt_50: "100% каждые 12 ч",
+    clcr_10_50: "100% каждые 12 ч",
+    clcr_lt_10: "100% каждые 12 ч",
+    hepatic_adjustment: "+"
+  },
+  { group: "Нитроимидазолы", name: "Метронидазол",
+    clcr_gt_50: "100% каждые 6–8 ч",
+    clcr_10_50: "100% каждые 8 ч",
+    clcr_lt_10: "50% каждые 8–12 ч",
+    hepatic_adjustment: "+"
+  }
+  // сюда можно вставить весь остальной JSON из предыдущего ответа
+];
+
+const input = document.getElementById("drugInput");
+const suggestionsEl = document.getElementById("suggestions");
+const resultEl = document.getElementById("result");
+const noResultEl = document.getElementById("noResult");
+
+function hepaticBadge(value) {
+  const v = (value || "").toLowerCase();
+  if (v === "да" || v === "+" || v.indexOf("не применяется") !== -1) {
+    return { text: "Коррекция при печёночной недостаточности требуется/ограничения есть", class: "pill pill-hepatic-yes" };
+  }
+  if (v === "нет" || v === "-" ) {
+    return { text: "Коррекция при печёночной недостаточности, как правило, не требуется", class: "pill pill-hepatic-no" };
+  }
+  return { text: value, class: "pill pill-hepatic-no" };
+}
+
+function renderDrug(drug) {
+  noResultEl.style.display = "none";
+
+  const hep = hepaticBadge(drug.hepatic_adjustment);
+
+  const html = `
+    <article class="card">
+      <div class="card-header">
+        <div>
+          <div class="drug-name">${drug.name}</div>
+          <div class="drug-group">${drug.group}</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+          <span class="pill pill-renal">Коррекция дозы при ХБП</span>
+          <span class="${hep.class}">${hep.text}</span>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Клиренс креатинина &gt; 50 мл/мин</th>
+            <th>Клиренс креатинина 10–50 мл/мин</th>
+            <th>Клиренс креатинина &lt; 10 мл/мин</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>${drug.clcr_gt_50}</td>
+            <td>${drug.clcr_10_50}</td>
+            <td>${drug.clcr_lt_10}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        Интерпретируйте дозы с учётом клинической ситуации, режима диализа, сопутствующей терапии и инструкции к торговой форме препарата.
+      </div>
+      <div class="note-legal">
+        Основано на согласованных рекомендациях по дозированию антибактериальных препаратов при ХБП. Не заменяет официальную инструкцию и клиническое решение врача.
+      </div>
+    </article>
+  `;
+  resultEl.innerHTML = html;
+}
+
+function updateSuggestions(value) {
+  const v = value.trim().toLowerCase();
+  suggestionsEl.innerHTML = "";
+  if (!v) {
+    suggestionsEl.style.display = "none";
+    return;
+  }
+
+  const matches = drugs
+    .filter(d => d.name.toLowerCase().includes(v))
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 12);
+
+  if (!matches.length) {
+    suggestionsEl.style.display = "none";
+    return;
+  }
+
+  suggestionsEl.style.display = "block";
+
+  matches.forEach(d => {
+    const div = document.createElement("div");
+    div.className = "suggestion-item";
+    div.innerHTML = `
+      <span class="suggestion-name">${d.name}</span>
+      <span class="suggestion-group">${d.group}</span>
+    `;
+    div.onclick = () => {
+      input.value = d.name;
+      suggestionsEl.style.display = "none";
+      renderDrug(d);
+    };
+    suggestionsEl.appendChild(div);
+  });
+}
+
+input.addEventListener("input", (e) => {
+  const value = e.target.value;
+  updateSuggestions(value);
+
+  const exact = drugs.find(
+    d => d.name.toLowerCase() === value.trim().toLowerCase()
+  );
+  if (exact) {
+    renderDrug(exact);
+  } else {
+    resultEl.innerHTML = "";
+    if (value.trim()) {
+      noResultEl.style.display = "block";
+    } else {
+      noResultEl.style.display = "none";
+    }
+  }
+});
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    suggestionsEl.style.display = "none";
+  }
+  if (e.key === "Enter") {
+    const value = input.value.trim().toLowerCase();
+    const exact = drugs.find(d => d.name.toLowerCase() === value);
+    if (exact) {
+      renderDrug(exact);
+      suggestionsEl.style.display = "none";
+    }
+  }
+});
+</script>
+
+</body>
+</html>
